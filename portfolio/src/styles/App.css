@@ -1,0 +1,111 @@
+
+/* ── Disable image dragging globally ── */
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+  pointer-events: auto;
+  draggable: false;
+}
+
+/* ── Custom cursor — native cursor hidden, DOM shape takes over ── */
+/* Only hide on wide screens with a fine pointer (mouse/trackpad) */
+@media (pointer: fine) and (min-width: 769px) {
+  *, *::before, *::after {
+    /* cursor: none !important; */
+  }
+}
+
+/* ── Cursor shape (CursorShape.js) — morph driven by rAF in JS ── */
+.cs-root {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 10001;
+}
+
+/* ── Cursor tooltip ── */
+.cursor-tooltip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  background: var(--color-primary);
+  opacity: 0.9;
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: var(--color-text-on-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--tooltip-size);
+  font-weight: var(--tooltip-weight);
+  line-height: var(--tooltip-leading);
+  white-space: pre-line;
+  /* Fade in on first appearance */
+  animation: tooltip-in 0.12s ease forwards;
+}
+
+@keyframes tooltip-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 0.85; transform: translateY(0); }
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; }
+
+/* ── Body / background ── */
+body {
+  min-height: 100vh;
+  background: var(--color-bg-body);
+  font-family: var(--font-family-primary);
+  color: var(--color-text-primary);
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* ── Global semibold → gradient ── */
+strong, b {
+  font-weight: var(--weight-semibold);
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Back to top ── */
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 500;
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  border: none;
+  background: var(--color-surface-action-icon);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 40px var(--color-shadow-action-icon);
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.5s ease;
+  filter: var(--filter-action-icon);
+}
+
+.back-to-top--visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  transform: scale(1.08);
+}
+
+.back-to-top:active {
+  transform: scale(0.95);
+}
