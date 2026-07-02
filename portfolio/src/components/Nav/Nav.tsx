@@ -230,7 +230,7 @@ export default function Nav() {
                     <svg className="lazy-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d={pathD} />
                         </svg>
-                        <span className={`lazy-toggle__label ${labelFading ? 'lazy-toggle__label--fading' : ''}`}>
+                        <span data-tooltip="Toggle smooth scrolling effects" aria-label="Toggle smooth scrolling effects" className={`lazy-toggle__label ${labelFading ? 'lazy-toggle__label--fading' : ''}`}>
                             {isInstant ? 'Instant scroll' : 'Smooth scroll'}
                         </span>
                 </>
