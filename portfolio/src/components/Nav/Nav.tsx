@@ -10,9 +10,91 @@ export default function Nav() {
     const [indicatorReady, setIndicatorReady] = useState(false)
     const [isAnimating, setIsAnimating] = useState(false)
     const [stretchTransform, setStretchTransform] = useState('')
+    const [isInstant, setIsInstant] = useState(false)
+    const [pathD, setPathD] = useState<string>('')
+    const [labelFading, setLabelFading] = useState(false)
     
     const pillsRef = useRef<HTMLDivElement>(null)
     const pillEls = useRef<HTMLAnchorElement[]>([])
+
+    // Morphing icon setup (inspired by provided Vue code)
+    const WAVE = {
+        start: [3, 12],
+        segs: [
+            [4, 10.5, 5, 9.75, 6, 9.75],
+            [7, 9.75, 8, 10.5, 9, 12],
+            [10, 13.5, 11, 14.25, 12, 14.25],
+            [13, 14.25, 14, 13.5, 15, 12],
+            [16, 10.5, 17, 9.75, 18, 9.75],
+            [19, 9.75, 20, 10.5, 21, 12],
+        ],
+    }
+
+    const BOLT = {
+        start: [13, 2],
+        segs: [
+            [10.17, 5.5, 7.33, 9, 4.5, 12.5],
+            [6.67, 12.5, 8.83, 12.5, 11, 12.5],
+            [10.67, 15.67, 10.33, 18.83, 10, 22],
+            [12.83, 18.5, 15.67, 15, 18.5, 11.5],
+            [16.33, 11.5, 14.17, 11.5, 12, 11.5],
+            [12.33, 8.33, 12.67, 5.17, 13, 2],
+        ],
+    }
+
+    function lerp(a: number, b: number, t: number) { return a + (b - a) * t }
+    function easeInOut(t: number) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t }
+
+    function buildPath(a: any, b: any, t: number) {
+        const sx = lerp(a.start[0], b.start[0], t)
+        const sy = lerp(a.start[1], b.start[1], t)
+        let d = `M${sx.toFixed(2)},${sy.toFixed(2)}`
+        for (let i = 0; i < a.segs.length; i++) {
+            const sa = a.segs[i], sb = b.segs[i]
+            const v = sa.map((val: number, j: number) => lerp(val, sb[j], t).toFixed(2))
+            d += `C${v[0]},${v[1]} ${v[2]},${v[3]} ${v[4]},${v[5]}`
+        }
+        return d
+    }
+
+    const MORPH_MS = 300
+
+    const morphT = useRef<number>(isInstant ? 1 : 0)
+    const morphFrom = useRef<number>(morphT.current)
+    const morphTo = useRef<number>(morphT.current)
+    const morphStart = useRef<number | null>(null)
+    const rafId = useRef<number | null>(null)
+
+    useEffect(() => {
+        // initialize path
+        setPathD(buildPath(WAVE, BOLT, morphT.current))
+
+        function tick(now: number) {
+            if (morphStart.current !== null) {
+                const raw = Math.min((now - morphStart.current) / MORPH_MS, 1)
+                const eased = easeInOut(raw)
+                morphT.current = morphFrom.current + (morphTo.current - morphFrom.current) * eased
+                setPathD(buildPath(WAVE, BOLT, morphT.current))
+                if (raw >= 1) { morphT.current = morphTo.current; morphStart.current = null }
+            }
+            rafId.current = requestAnimationFrame(tick)
+        }
+        rafId.current = requestAnimationFrame(tick)
+        return () => { if (rafId.current) cancelAnimationFrame(rafId.current) }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const onToggle = useCallback(() => {
+        setLabelFading(true)
+        const newIsInstant = !isInstant
+        setIsInstant(newIsInstant)
+
+        morphFrom.current = morphT.current
+        morphTo.current = newIsInstant ? 1 : 0
+        morphStart.current = performance.now()
+
+        setTimeout(() => { setLabelFading(false) }, 100)
+    }, [isInstant])
 
     const getElMetrics = useCallback((item: string) => {
         const container = pillsRef.current
@@ -130,12 +212,31 @@ export default function Nav() {
                     </a>
                 ))}
             </div>
-        <button className="lazy-toggle lazy-toggle--on" data-tooltip="Toggle snappy scrolling effects" aria-label="Toggle snappy scrolling effects">
-            <svg className="lazy-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3.00,12.00C4.00,10.50 5.00,9.75 6.00,9.75C7.00,9.75 8.00,10.50 9.00,12.00C10.00,13.50 11.00,14.25 12.00,14.25C13.00,14.25 14.00,13.50 15.00,12.00C16.00,10.50 17.00,9.75 18.00,9.75C19.00,9.75 2₀.₀₀,1₀.5₀ 2₁.₀₀,12.₀₀"></path>
-            </svg>
-            <span className="lazy-toggle__label">Smooth scroll</span>
-        </button>
+        <button
+            className={`lazy-toggle ${isInstant ? 'lazy-toggle--off' : 'lazy-toggle--on'}`}
+            data-tooltip={isInstant ? 'Toggle smooth scrolling effects' : 'Toggle snappy scrolling effects'}
+            aria-label={isInstant ? 'Toggle smooth scrolling effects' : 'Toggle snappy scrolling effects'}
+            onClick={() => setIsInstant(prev => !prev)}
+        >
+            {isInstant ? (
+                <>
+                    <svg className="lazy-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13.00,2.00C10.17,5.50 7.33,9.00 4.50,12.50C6.67,12.50 8.83,12.50 11.00,12.50C10.67,15.67 10.33,18.83 10.00,22.00C12.83,18.50 15.67,15.00 18.50,11.50C16.33,11.50 14.17,11.50 12.00,11.50C12.33,8.33 12.67,5.17 13.00,2.00"></path>
+                    </svg>
+                    <span className="lazy-toggle__label">Instant scroll</span>
+                </>
+            ) : (
+                <>
+                    <svg className="lazy-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d={pathD} />
+                        </svg>
+                        <span className={`lazy-toggle__label ${labelFading ? 'lazy-toggle__label--fading' : ''}`}>
+                            {isInstant ? 'Instant scroll' : 'Smooth scroll'}
+                        </span>
+                </>
+            )}
+                
+            </button>
     </nav>
     )
 }
