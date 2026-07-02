@@ -12,7 +12,7 @@ export default function Nav() {
     const [stretchTransform, setStretchTransform] = useState('')
     const [isInstant, setIsInstant] = useState(false)
     const [pathD, setPathD] = useState<string>('')
-    const [labelFading, setLabelFading] = useState(false)
+    const [labelFading] = useState(false)
     
     const pillsRef = useRef<HTMLDivElement>(null)
     const pillEls = useRef<HTMLAnchorElement[]>([])
@@ -83,18 +83,6 @@ export default function Nav() {
         return () => { if (rafId.current) cancelAnimationFrame(rafId.current) }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    const onToggle = useCallback(() => {
-        setLabelFading(true)
-        const newIsInstant = !isInstant
-        setIsInstant(newIsInstant)
-
-        morphFrom.current = morphT.current
-        morphTo.current = newIsInstant ? 1 : 0
-        morphStart.current = performance.now()
-
-        setTimeout(() => { setLabelFading(false) }, 100)
-    }, [isInstant])
 
     const getElMetrics = useCallback((item: string) => {
         const container = pillsRef.current
@@ -220,14 +208,14 @@ export default function Nav() {
         >
             {isInstant ? (
                 <>
-                    <svg className="lazy-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg className="lazy-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M13.00,2.00C10.17,5.50 7.33,9.00 4.50,12.50C6.67,12.50 8.83,12.50 11.00,12.50C10.67,15.67 10.33,18.83 10.00,22.00C12.83,18.50 15.67,15.00 18.50,11.50C16.33,11.50 14.17,11.50 12.00,11.50C12.33,8.33 12.67,5.17 13.00,2.00"></path>
                     </svg>
                     <span className="lazy-toggle__label">Instant scroll</span>
                 </>
             ) : (
                 <>
-                    <svg className="lazy-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg className="lazy-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <path d={pathD} />
                         </svg>
                         <span data-tooltip="Toggle smooth scrolling effects" aria-label="Toggle smooth scrolling effects" className={`lazy-toggle__label ${labelFading ? 'lazy-toggle__label--fading' : ''}`}>

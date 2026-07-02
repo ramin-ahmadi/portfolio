@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './Tooltip.css'
 
 const CHAR_DELAY_MS = 18
