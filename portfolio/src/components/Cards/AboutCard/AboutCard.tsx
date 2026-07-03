@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 const ICON_EXPAND = '/src/assets/icons/expand.svg'
-const ICON_SHRINK = '/src/assets/icons/full-screen.svg'
+const ICON_SHRINK = '/src/assets/icons/shrink.svg'
 const AVATAR = '/src/assets/hero.png'
 const ABOUT_MAX_W = 800
 const ANIM_MS = 700

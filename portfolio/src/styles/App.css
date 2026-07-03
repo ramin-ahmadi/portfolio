@@ -34,7 +34,7 @@ img {
   pointer-events: none;
   z-index: 9999;
   background: var(--color-primary);
-  opacity: 0.9;
+  opacity: 0.8;
   border-radius: 8px;
   padding: 8px 16px;
   color: var(--color-text-on-primary);
@@ -207,10 +207,10 @@ strong, b {
 
 /* Hide cursor inside pill area — the ghost pill IS the cursor */
 .nav-pills:hover {
-  cursor: none;
+  /* cursor: none; */
 }
 .nav-pill {
-  cursor: none;
+  /* cursor: none; */
   user-select: none;
   -webkit-user-select: none;
 }

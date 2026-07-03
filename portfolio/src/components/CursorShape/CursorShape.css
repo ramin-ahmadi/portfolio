@@ -1,11 +1,1 @@
-.cs-root {
-  position: fixed;
-  pointer-events: none;
-  z-index: 1000;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.18s ease;
-}
 
-.cs-root svg { display: block; transform-origin: 0 0; }
-
-.cs-root path { vector-effect: non-scaling-stroke; }
