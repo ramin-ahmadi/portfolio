@@ -3,7 +3,7 @@ import './LinkedinCard.css'
 
 const ICON_EXTERNAL_LINK = '/src/assets/icons/external-link.svg'
 const HREF = 'https://www.linkedin.com/in/raminahmadi/'
-const TOOLTIP = 'Connect with me on LinkedIn 💼'
+const TOOLTIP = 'Connect with me on LinkedIn 🧑‍💻'
 
 export default function LinkedinCard({ classes = '' }: { classes?: string }) {
   const [animKey, setAnimKey] = useState(0)

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useRipple } from '../../useRipple'
 
 const ICON_EXPAND = '/src/assets/icons/expand.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
@@ -7,24 +8,6 @@ const ABOUT_MAX_W = 800
 const ANIM_MS = 700
 const EASE = 'cubic-bezier(0.34, 1.1, 0.64, 1)'
 const FLY_TRANSITION = `left ${ANIM_MS}ms ${EASE}, top ${ANIM_MS}ms ${EASE}, width ${ANIM_MS}ms ${EASE}, height ${ANIM_MS}ms ${EASE}, border-radius 400ms ease`
-
-function useRipple() {
-  function spawnRipple(e: React.MouseEvent<HTMLElement>) {
-    const r = document.createElement('span')
-    r.className = 'ripple'
-    const rect = e.currentTarget.getBoundingClientRect()
-    r.style.left = `${e.clientX - rect.left}px`
-    r.style.top = `${e.clientY - rect.top}px`
-    e.currentTarget.appendChild(r)
-    setTimeout(() => r.remove(), 600)
-  }
-
-  function renderRipples() {
-    return null
-  }
-
-  return { spawnRipple, renderRipples }
-}
 
 export default function AboutCard() {
   const cardEl = useRef<HTMLDivElement | null>(null)

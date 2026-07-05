@@ -1,0 +1,251 @@
+.cv-outer {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 0 0;
+}
+
+.cv-wrap {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 40px rgba(0,0,0,.2);
+}
+
+.cv-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cv-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  flex-wrap: wrap;
+}
+
+.cv-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.cv-tab {
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.7);
+  padding: .45rem .8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.cv-tab--on {
+  background: rgba(255,255,255,.14);
+  color: #fff;
+}
+
+.cv-search {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .6rem .85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.15);
+  color: rgba(255,255,255,.7);
+}
+
+.cv-search input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  min-width: 140px;
+}
+
+.cv-body {
+  display: grid;
+  grid-template-columns: 250px minmax(0,1fr);
+  gap: 1rem;
+  min-height: 420px;
+}
+
+.cv-side {
+  display: grid;
+  align-content: start;
+  gap: .45rem;
+  padding: 1rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,.06);
+}
+
+.cv-side-label {
+  font-size: .75rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: .3rem;
+  color: rgba(255,255,255,.55);
+}
+
+.cv-side-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0;
+  border-radius: 12px;
+  padding: .7rem .85rem;
+  background: transparent;
+  color: rgba(255,255,255,.78);
+  cursor: pointer;
+  text-align: left;
+}
+
+.cv-side-item--on {
+  background: rgba(255,255,255,.14);
+  color: #fff;
+}
+
+.cv-side-item--i1 {
+  padding-left: 1.4rem;
+}
+
+.cv-side-count {
+  font-size: .8rem;
+  color: rgba(255,255,255,.55);
+}
+
+.cv-table {
+  display: grid;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(0,0,0,.16);
+}
+
+.cv-thead,
+.cv-row,
+.cv-gh {
+  display: grid;
+  grid-template-columns: minmax(0,1.1fr) repeat(2, minmax(180px,1fr));
+  gap: .75rem;
+  align-items: center;
+  padding: .9rem 1rem;
+}
+
+.cv-thead {
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.55);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+}
+
+.cv-rows {
+  display: grid;
+}
+
+.cv-gh {
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255,255,255,.03);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.cv-gh-path {
+  color: rgba(255,255,255,.45);
+  font-size: .85rem;
+}
+
+.cv-row {
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.cv-row-name {
+  color: #fff;
+  font-weight: 600;
+}
+
+.cv-col-name,
+.cv-col-val {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.cv-col-val {
+  color: rgba(255,255,255,.8);
+}
+
+.cv-swatch {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.24);
+  display: inline-flex;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.cv-swatch-fill {
+  width: 100%;
+  height: 100%;
+}
+
+.cv-alias {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .3rem .55rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+}
+
+.cv-muted {
+  color: rgba(255,255,255,.55);
+}
+
+.cv-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.cv-empty {
+  padding: 2rem 1rem;
+  color: rgba(255,255,255,.6);
+}
+
+.cv-tag {
+  display: inline-flex;
+  justify-self: start;
+  padding: .45rem .7rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.8);
+  font-size: .8rem;
+}
+
+@media (max-width: 860px) {
+  .cv-body {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cv-thead,
+  .cv-row,
+  .cv-gh {
+    grid-template-columns: 1fr;
+  }
+}
