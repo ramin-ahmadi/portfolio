@@ -22,6 +22,10 @@ export default function DuolingoCard({ classes = '', streak: initialStreak = 0 }
 
   const shouldUseVideo = useMemo(() => !LACKS_VP9_ALPHA, [])
 
+  function openProfile() {
+    window.open(PROFILE, '_blank', 'noopener,noreferrer')
+  }
+
   useEffect(() => {
     let cancelled = false
     let timeoutId: number | undefined
@@ -70,6 +74,15 @@ export default function DuolingoCard({ classes = '', streak: initialStreak = 0 }
   return (
     <div
       className={['bento-card', 'duolingo-card', classes].filter(Boolean).join(' ')}
+      onClick={openProfile}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          openProfile()
+        }
+      }}
+      role="link"
+      tabIndex={0}
       data-tooltip="I am learning French 🥐
 Follow me on Duolingo"
     >

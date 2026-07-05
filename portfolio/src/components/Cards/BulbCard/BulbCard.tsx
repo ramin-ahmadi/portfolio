@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useRipple } from "../../useRipple";
 
 const NUM_RAYS = 12;
 const RAY_DELAYS = [
@@ -217,27 +218,13 @@ declare global {
   }
 }
 
-function useRipple() {
-  function spawnRipple(event: React.MouseEvent<HTMLElement>) {
-    const ripple = document.createElement("span");
-    ripple.className = "card-ripple";
-    const rect = event.currentTarget.getBoundingClientRect();
-    ripple.style.left = `${event.clientX - rect.left}px`;
-    ripple.style.top = `${event.clientY - rect.top}px`;
-    event.currentTarget.appendChild(ripple);
-    window.setTimeout(() => ripple.remove(), 520);
-  }
-
-  return { spawnRipple };
-}
-
 export default function BulbCard() {
   const [isDark, setIsDark] = useState(
     () => document.documentElement.dataset.theme === "dark",
   );
   const lottieEl = useRef<HTMLDivElement | null>(null);
   const lottieAnim = useRef<LottieAnimationHandle | null>(null);
-  const { spawnRipple } = useRipple();
+  const { spawnRipple, renderRipples } = useRipple();
 
   useEffect(() => {
     if (!window.lottie || !lottieEl.current) return;
@@ -253,7 +240,7 @@ export default function BulbCard() {
     lottieAnim.current.goToAndStop(isDark ? 14 : 0, true);
   }, []);
 
-  function toggle(event: React.MouseEvent<HTMLElement>) {
+  function toggleTheme() {
     const next = !isDark;
     setIsDark(next);
     document.documentElement.dataset.theme = next ? "dark" : "";
@@ -262,18 +249,19 @@ export default function BulbCard() {
       lottieAnim.current.setDirection(next ? 1 : -1);
       lottieAnim.current.goToAndPlay(next ? 0 : 14, true);
     }
-
-    spawnRipple(event);
   }
 
   return (
     <div
       className={`bento-card bulb-card ${isDark ? "is-dark" : ""}`}
-      onClick={toggle}
+      onClick={(event) => {
+        toggleTheme();
+        spawnRipple(event);
+      }}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          toggle(event as unknown as React.MouseEvent<HTMLElement>);
+          toggleTheme();
         }
       }}
       role="button"
@@ -358,6 +346,8 @@ export default function BulbCard() {
           <div className="moon-shape" />
         </div>
       </div>
+
+      {renderRipples()}
     </div>
   );
 }
