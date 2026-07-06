@@ -8,6 +8,7 @@ import GmailCard from './components/Cards/GmailCard/GmailCard'
 import LinkedinCard from './components/Cards/LinkedinCard/LinkedinCard'
 import BulbCard from './components/Cards/BulbCard/BulbCard'
 import DuolingoCard from './components/Cards/DuolingoCard/DuolingoCard'
+import ModularSofa from './components/Cards/modular-sofa/ModularSofa'
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
           </div>
           <div className="grid-slot" style={{ gridArea: '2 / 2' }}>
             <DuolingoCard />
+          </div>
+          <div className="grid-slot" style={{ gridArea: '2 / 3 / 4 / 5' }}>
+            <ModularSofa />
           </div>
 
         </div>
