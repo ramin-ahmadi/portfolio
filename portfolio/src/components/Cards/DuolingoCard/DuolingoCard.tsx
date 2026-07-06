@@ -54,10 +54,12 @@ export default function DuolingoCard({ classes = '', streak: initialStreak = 0 }
 
       try {
         const response = await fetch(STREAK_API)
-        const data = await response.json()
-        if (data?.streak != null) current = data.streak
+        const data = await response.json()  
+        if (data != null) {current = data;
+            console.log(data)
+        }
       } catch {
-        // Use fallback streak
+       console.log('Error fetching streak data. Using initial streak value.')
       }
 
       if (!cancelled) animateTo(current)
