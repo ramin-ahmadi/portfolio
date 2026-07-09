@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useRipple } from '../../useRipple'
 
 const ICON_EXPAND = '/src/assets/icons/expand.svg'
@@ -8,12 +8,7 @@ const QUOTE_ICON = '/src/assets/images/general/quote-icon.svg'
 const ABOUT_MAX_W = 800
 const ANIM_MS = 700
 
-const PARAGRAPHS: Array<Array<string | { bold: string }>> = [
-  ['A design system gives teams a common language. It helps people work faster, stay aligned, and build with more confidence, but it should remain a tool, ', { bold: 'not a rulebook' }, '. When a component or pattern blocks a better experience, it deserves to be questioned.'],
-  ['I see design systems as evolving foundations, not fixed restrictions. If stepping outside a pattern solves a genuine user problem more effectively, I will do it, then bring that learning back into the system so it improves. The strongest design systems ', { bold: 'aren\'t the ones that enforce the most rules' }, ', but the ones that make it easier to ', { bold: 'do the right thing for users' }, '.'],
-]
-
-export default function Quote() {
+export default function QuoteUX() {
   const cardEl = useRef<HTMLDivElement | null>(null)
   const innerEl = useRef<HTMLDivElement | null>(null)
   const startRect = useRef<DOMRect | null>(null)
@@ -116,23 +111,13 @@ export default function Quote() {
     }, ANIM_MS + 20)
   }, [])
 
-  function renderParagraph(parts: Array<string | { bold: string }>, index: number) {
-    return (
-      <p key={index}>
-        {parts.map((seg, segIndex): ReactNode => (
-          typeof seg === 'string' ? seg : <strong key={segIndex}>{seg.bold}</strong>
-        ))}
-      </p>
-    )
-  }
-
   return (
-    <div className="ds-quote-card-wrapper">
+    <div className="ux-quote-card-wrapper">
       <div
         ref={cardEl}
-        className={['bento-card', 'ds-quote-card', expanded ? 'ds-quote-card--ghost' : ''].filter(Boolean).join(' ')}
+        className={['bento-card', 'ux-quote-card', expanded ? 'ux-quote-card--ghost' : ''].filter(Boolean).join(' ')}
         onClick={open}
-        data-tooltip="My design system philosophy"
+        data-tooltip="My UX philosophy"
       >
         <a
           className="action-icon"
@@ -148,7 +133,7 @@ export default function Quote() {
 
         <img className="quote-icon" src={QUOTE_ICON} alt="" />
         <p className="quote-text">
-          Design systems create speed and consistency, but <strong>never at the cost of user experience</strong>.
+          Great UX gives users a clear sense of <strong>control</strong>.
         </p>
         <span className="design-principle">My design principle</span>
       </div>
@@ -183,16 +168,21 @@ export default function Quote() {
               <img src={ICON_SHRINK} alt="Close" width={20} height={20} />
             </button>
 
-            <div ref={innerEl} className="about-expanded-inner ds-quote-expanded-inner">
+            <div ref={innerEl} className="about-expanded-inner ux-quote-expanded-inner">
               <div className="about-expanded-content">
-                <img className="ds-quote-expanded-icon" src={QUOTE_ICON} alt="" />
+                <img className="ux-quote-expanded-icon" src={QUOTE_ICON} alt="" />
 
-                <p className="ds-quote-expanded-quote">
-                  Design systems create speed and consistency, but <strong>never at the cost of user experience</strong>.
+                <p className="ux-quote-expanded-quote">
+                  Great UX gives users a clear sense of <strong>control</strong>.
                 </p>
 
-                <div className="ds-quote-expanded-body">
-                  {PARAGRAPHS.map(renderParagraph)}
+                <div className="ux-quote-expanded-body">
+                  <p>
+                    The strongest interfaces do more than function smoothly; they help people <strong>feel confident</strong> as they use them. When someone understands what will happen next, can recover from errors, and moves through a flow without hesitation, that is not luck. It is design.
+                  </p>
+                  <p>
+                    I design experiences where users can always recognise where they are, what actions are available, and what has just changed. That does not mean stripping everything back to nothing; it means making complexity feel understandable. Control is not about reducing choices, it is about providing <strong>clarity at every decision point</strong>.
+                  </p>
                 </div>
 
                 <span className="design-principle">My design principle</span>

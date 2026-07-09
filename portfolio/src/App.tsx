@@ -13,6 +13,7 @@ import DesignSystem from './components/Cards/DesignSystem/DesignSystem'
 import AgenticDesignSystem from './components/Cards/AgenticDesignSystem/AgenticDesignSystem'
 import Libra from './components/Cards/Libra/Libra'
 import Quote from './components/Cards/quote/Quote'
+import QuoteUX from './components/Cards/QuoteUX/QuoteUX'
 
 function App() {
   return (
@@ -51,6 +52,9 @@ function App() {
           </div>
           <div className="grid-slot" style={{ gridArea: '5 / 1 / auto / 3' }}>
             <Quote />
+          </div>
+          <div className="grid-slot" style={{ gridArea: '6 / 3 / auto / 5' }}>
+            <QuoteUX />
           </div>
 
         </div>
