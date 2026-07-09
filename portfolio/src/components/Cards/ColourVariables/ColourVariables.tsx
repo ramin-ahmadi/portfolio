@@ -455,7 +455,7 @@ export default function ColourVariables() {
         </div>
       </div>
 
-      <div className="cv-tag">Explore our colour variables</div>
+      <p className="cs-hint" aria-hidden="true"><span className="cc-interactive-tag">Interactive</span>Explore our colour variables</p>
     </div>
   )
 }

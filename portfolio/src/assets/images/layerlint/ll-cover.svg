@@ -1,0 +1,32 @@
+<svg width="1360" height="850" viewBox="0 0 1360 850" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1360" height="850" rx="36" fill="#111827"/>
+  <rect x="80" y="70" width="1200" height="710" rx="28" fill="#F8FAFC"/>
+  <rect x="80" y="70" width="1200" height="64" rx="28" fill="#E5E7EB"/>
+  <circle cx="122" cy="102" r="9" fill="#EF4444"/>
+  <circle cx="152" cy="102" r="9" fill="#F59E0B"/>
+  <circle cx="182" cy="102" r="9" fill="#10B981"/>
+  <rect x="128" y="174" width="520" height="552" rx="18" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <rect x="712" y="174" width="520" height="552" rx="18" fill="#FFFFFF" stroke="#D1D5DB"/>
+  <text x="166" y="226" fill="#111827" font-family="Arial, sans-serif" font-size="28" font-weight="700">Cleanup</text>
+  <text x="750" y="226" fill="#111827" font-family="Arial, sans-serif" font-size="28" font-weight="700">Rename</text>
+  <g font-family="Arial, sans-serif" font-size="22">
+    <rect x="166" y="270" width="424" height="58" rx="12" fill="#F3F4F6"/>
+    <text x="190" y="306" fill="#374151">Vector 2</text>
+    <text x="484" y="306" fill="#B91C1C">hidden</text>
+    <rect x="166" y="348" width="424" height="58" rx="12" fill="#F3F4F6"/>
+    <text x="190" y="384" fill="#374151">Rectangle 8</text>
+    <text x="494" y="384" fill="#7C3AED">empty</text>
+    <rect x="166" y="426" width="424" height="58" rx="12" fill="#F3F4F6"/>
+    <text x="190" y="462" fill="#374151">Group 5</text>
+    <text x="484" y="462" fill="#B91C1C">hidden</text>
+    <rect x="750" y="270" width="424" height="58" rx="12" fill="#F3F4F6"/>
+    <text x="774" y="306" fill="#6B7280">Frame 114</text>
+    <text x="996" y="306" fill="#0D9488">product-card</text>
+    <rect x="750" y="348" width="424" height="58" rx="12" fill="#F3F4F6"/>
+    <text x="774" y="384" fill="#6B7280">Rectangle 47</text>
+    <text x="996" y="384" fill="#0D9488">card-image</text>
+    <rect x="750" y="426" width="424" height="58" rx="12" fill="#F3F4F6"/>
+    <text x="774" y="462" fill="#6B7280">Group 12</text>
+    <text x="996" y="462" fill="#0D9488">card-content</text>
+  </g>
+</svg>

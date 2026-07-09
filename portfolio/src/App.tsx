@@ -9,6 +9,10 @@ import LinkedinCard from './components/Cards/LinkedinCard/LinkedinCard'
 import BulbCard from './components/Cards/BulbCard/BulbCard'
 import DuolingoCard from './components/Cards/DuolingoCard/DuolingoCard'
 import ModularSofa from './components/Cards/modular-sofa/ModularSofa'
+import DesignSystem from './components/Cards/DesignSystem/DesignSystem'
+import AgenticDesignSystem from './components/Cards/AgenticDesignSystem/AgenticDesignSystem'
+import Libra from './components/Cards/Libra/Libra'
+import Quote from './components/Cards/quote/Quote'
 
 function App() {
   return (
@@ -35,6 +39,18 @@ function App() {
           </div>
           <div className="grid-slot" style={{ gridArea: '2 / 3 / 4 / 5' }}>
             <ModularSofa />
+          </div>
+          <div className="grid-slot" style={{ gridArea: '3 / 1 / 5 / 3' }}>
+            <DesignSystem />
+          </div>
+          <div className="grid-slot" style={{ gridArea: '4 / 3 / 6' }}>
+            <AgenticDesignSystem />
+          </div>
+          <div className="grid-slot" style={{ gridArea: '4 / 4 / 6 / 5' }}>
+            <Libra />
+          </div>
+          <div className="grid-slot" style={{ gridArea: '5 / 1 / auto / 3' }}>
+            <Quote />
           </div>
 
         </div>

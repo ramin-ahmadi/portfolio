@@ -9,11 +9,11 @@
  *   3. Component  — scoped to specific UI patterns (widgets, panels)
  *
  *  These match exactly the variables to set up in Figma:
- *   File: Portfolio - Design System
+ *   File: Ramin Ahmadi's Portfolio - Design System
  *   Collections: "Color", "Typography", "Spacing"
  * ═══════════════════════════════════════════════════════════
  */
-
+@import './fonts.css';
 :root {
 
   /* ───────────────────────────────────────────
@@ -24,30 +24,30 @@
 
   /* Neutral — full scale */
   --color-primitive-neutral-0:      #ffffff;
-  --color-primitive-neutral-50:     #faf9f7;   /* cards, nav background        */
-  --color-primitive-neutral-75:     #f5f5f5;   /* panel surface                */
-  --color-primitive-neutral-100:    #f0f0f0;   /* skeleton shimmer light, miro bg */
-  --color-primitive-neutral-150:    #e0e0e0;   /* skeleton shimmer dark        */
-  --color-primitive-neutral-200:    #d0d0d0;   /* ceiling mount                */
-  --color-primitive-neutral-300:    #aaaaaa;   /* text subtle                  */
-  --color-primitive-neutral-350:    #999999;   /* widget text muted            */
-  --color-primitive-neutral-400:    #888888;   /* checkerboard light           */
-  --color-primitive-neutral-450:    #666666;   /* widget text subtle           */
-  --color-primitive-neutral-500:    #555555;   /* checkerboard dark            */
-  --color-primitive-neutral-600:    #3a3a3a;   /* widget border, surface hover */
-  --color-primitive-neutral-650:    #333333;   /* panel text dark              */
-  --color-primitive-neutral-750:    #2c2c2c;   /* widget surface raised, primary text */
-  --color-primitive-neutral-850:    #252525;   /* widget surface               */
-  --color-primitive-neutral-880:    #1e1e1e;   /* widget bg                    */
-  --color-primitive-neutral-950:    #181818;   /* expanded bio text            */
+  --color-primitive-neutral-50:     #fbf8f7;   /* cards, nav background */
+  --color-primitive-neutral-75:     #f7f1ef;   /* panel surface */
+  --color-primitive-neutral-100:    #f1e7e5;   /* skeleton shimmer light, miro bg */
+  --color-primitive-neutral-150:    #e6d5d2;   /* skeleton shimmer dark */
+  --color-primitive-neutral-200:    #d8c1bd;   /* ceiling mount */
+  --color-primitive-neutral-300:    #b99a95;   /* text subtle */
+  --color-primitive-neutral-350:    #a98983;   /* widget text muted */
+  --color-primitive-neutral-400:    #97746e;   /* checkerboard light */
+  --color-primitive-neutral-450:    #835f59;   /* widget text subtle */
+  --color-primitive-neutral-500:    #6f4d48;   /* checkerboard dark */
+  --color-primitive-neutral-600:    #573a36;   /* widget border, surface hover */
+  --color-primitive-neutral-650:    #4a302d;   /* panel text dark */
+  --color-primitive-neutral-750:    #435a79;   /* widget surface raised, primary text */
+  --color-primitive-neutral-850:    #2d1d1b;   /* widget surface */
+  --color-primitive-neutral-880:    #261817;   /* widget bg */
+  --color-primitive-neutral-950:    #1c1110;   /* expanded bio text */
   --color-primitive-neutral-1000:   #000000;
 
   /* Warm — beige / off-white */
-  --color-primitive-warm-100:       #f0ede8;   /* body background              */
+  --color-primitive-warm-100:       #efe1c6;   /* body background              */
   --color-primitive-warm-50:        #fffcf0;   /* bulb-on card background      */
 
   /* Teal — Primary */
-  --color-primitive-teal-500:       #008B8B;   /* primary brand colour         */
+  --color-primitive-teal-500:       #823c34;   /* primary brand colour         */
 
   /* Green */
   --color-primitive-green-100:      #e8f8ee;   /* background gradient start    */
@@ -127,7 +127,7 @@
   --color-primitive-alpha-purple-20:     rgba(100, 60, 200, 0.20);
   --color-primitive-alpha-purple-widget-18: rgba(99, 69, 255, 0.18);
   --color-primitive-alpha-neutral50-50:  rgba(249, 249, 249, 0.50);
-  --color-primitive-alpha-indigo-75:     rgba(18, 18, 30, 0.75);
+  --color-primitive-alpha-indigo-75:     rgba(26, 26, 46, 1);
   --color-primitive-alpha-sun-65:        rgba(245, 166, 35, 0.65);
   --color-primitive-alpha-moon-55:       rgba(180, 180, 240, 0.55);
   --color-primitive-alpha-neutral900-30: rgba(44, 44, 44, 0.30);
@@ -161,12 +161,13 @@
   ─────────────────────────────────────────── */
 
   /* Font families */
-  --font-family-primary:  'Syne', sans-serif;
+  --font-family-primary:  'Hanken Grotesk', sans-serif;
   --font-family-display:  'Fredoka', sans-serif;
   --font-family-system:   -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
   --font-family-mono:     'SF Mono', 'Fira Code', 'Consolas', monospace;
   --font-family-rayo:     'Rayo Mabry Pro', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
   --font-family-manrope:  'Manrope', sans-serif;
+  --font-family-heading:  'roca', sans-serif;
 
   /* Font sizes — T-shirt scale */
   --text-3xs:   9px;
@@ -224,7 +225,7 @@
   --color-primary:            var(--color-primitive-teal-500);
 
   /* Brand gradient — teal → purple (used for bold text, tags, buttons) */
-  --gradient-brand:           linear-gradient(135deg, var(--color-primitive-teal-500) 0%, var(--color-primitive-purple-600) 100%);
+  --gradient-brand:           linear-gradient(135deg, var(--color-primitive-neutral-500) 0%, var(--color-primitive-alpha-sun-65) 100%);
 
   /* Background */
   --color-bg-body:            var(--color-primitive-warm-100);
@@ -248,7 +249,7 @@
   /* Text */
   --color-text-primary:       var(--color-primitive-neutral-750);
   --color-text-body:          var(--color-text-primary);           /* consolidated — was neutral-950 */
-  --color-text-subtle:        var(--color-primitive-neutral-300);
+  --color-text-subtle:        var(--color-primitive-teal-500);
   --color-text-on-dark:       var(--color-primitive-alpha-white-80);
   --color-text-on-primary:    var(--color-primitive-neutral-0);  /* white text on teal/gradient bg */
   --color-text-muted:         var(--color-primitive-alpha-neutral900-30);
@@ -259,7 +260,7 @@
   --color-card-inset-bottom:       var(--color-primitive-alpha-black-4);    /* subtle base shadow     */
   --card-grain-opacity:            0.028;
   --card-grain-blend:              multiply;
-  --color-card-ripple:             var(--color-primitive-alpha-teal-10);   /* teal pulse on light bg */
+  --color-card-ripple:             var(--color-primitive-alpha-sun-65);   /* teal pulse on light bg */
 
   /* Shadow */
   --color-shadow-card-rest:        var(--color-primitive-alpha-black-4);
@@ -317,6 +318,9 @@
   --color-brand-goldsmiths:        var(--color-primitive-goldsmiths);
   --color-brand-futur:             var(--color-primitive-futur);
   --color-brand-brainstation:      var(--color-primitive-brainstation);
+
+  /* Tooltip */
+  --color-tooltip-bg: var(--color-primitive-teal-500);
 
 
   /* ───────────────────────────────────────────
@@ -468,7 +472,11 @@
   --tag-size:                var(--text-sm);      /* 12px */
   --tag-weight:              var(--weight-semibold);
   --tag-tracking:            var(--tracking-wide);
+
+  /* logo url */
+ --website-logo:  url("./src/assets/logos/Ramin-Ahmadi-logo.png");
 }
+
 
 
 /* ═══════════════════════════════════════════════════════════
@@ -478,7 +486,7 @@
 [data-theme="dark"] {
 
   /* Card surface treatment — dark mode overrides */
-  --color-card-ripple:             var(--color-primitive-alpha-teal-dark-18);  /* teal pulse on dark bg */
+  --color-card-ripple:             var(--color-primitive-neutral-75);  /* teal pulse on dark bg */
   --color-card-inset-top:          var(--color-primitive-alpha-white-6);       /* whisper-thin highlight */
   --color-card-inset-bottom:       var(--color-primitive-alpha-black-20);
   --card-grain-opacity:            0.045;
@@ -505,7 +513,7 @@
   /* Text */
   --color-text-primary:            var(--color-primitive-indigo-100);
   --color-text-body:               var(--color-text-primary);        /* consolidated — was indigo-200 */
-  --color-text-subtle:             var(--color-primitive-indigo-400);
+  --color-text-subtle:             var(--color-primitive-neutral-100);
   --color-text-muted:              var(--color-primitive-alpha-indigo-text-30);
   --color-text-muted-dark:         var(--color-primitive-alpha-white-40);
 
@@ -526,5 +534,14 @@
   --color-miro-grid:               var(--color-primitive-alpha-white-6);
 
   /* Brand — About card links (dark overrides) */
-  --color-brand-bauer:             #C28FFF;
+  --color-brand-bauer:             #ae75b9;
+
+  --color-primitive-teal-500: var(--color-brand-bauer);
+  --color-tooltip-bg: var(--color-primitive-neutral-750);
+
+    /* Brand gradient — teal → purple (used for bold text, tags, buttons) */
+  --gradient-brand:           linear-gradient(135deg, var( --color-brand-bauer) 0%, var(--color-primitive-purple-500) 100%);
+
+    /* logo url */
+ --website-logo:  url("./src/assets/logos/Ramin-Ahmadi-logo-dark.png");
 }

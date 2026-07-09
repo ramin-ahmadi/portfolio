@@ -15,7 +15,7 @@ const IMG_SEL_REGION = '/src/assets/images/modular-sofa/select-layout-hover.png'
 const IMG_FIND_ST = '/src/assets/images/modular-sofa/pick-modules-hover.png'
 const IMG_QUICK = '/src/assets/images/modular-sofa/assembly-guide-hover.png'
 
-const ICON_EXPAND = '/src/assets/icons/expand.svg'
+const ICON_EXPAND = '/src/assets/icons/full-screen.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
 
 type AntonymCard = {

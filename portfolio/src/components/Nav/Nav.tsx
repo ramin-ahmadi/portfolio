@@ -174,7 +174,7 @@ export default function Nav() {
     
     return (
         <nav className="nav">
-            <img className="nav-logo" src="/src/assets/logos/Ramin-Ahmadi.svg" alt="Ramin Ahmadi"/>
+            <span className="nav-logo"  title="Ramin Ahmadi"></span>
             <div className="nav-pills" ref={pillsRef} onMouseLeave={onPillLeave}>
                 <span className="nav-pill-hover-ghost" style={hoverStyle}></span>
                 <span 

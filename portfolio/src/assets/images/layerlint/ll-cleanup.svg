@@ -1,0 +1,21 @@
+<svg width="1360" height="850" viewBox="0 0 1360 850" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1360" height="850" rx="36" fill="#ECFDF5"/>
+  <rect x="210" y="86" width="940" height="678" rx="28" fill="#FFFFFF" stroke="#D1FAE5"/>
+  <text x="270" y="164" fill="#064E3B" font-family="Arial, sans-serif" font-size="34" font-weight="700">Cleanup results</text>
+  <g font-family="Arial, sans-serif" font-size="24">
+    <rect x="270" y="222" width="820" height="76" rx="14" fill="#F9FAFB"/>
+    <text x="306" y="270" fill="#111827">Vector 2</text>
+    <rect x="888" y="242" width="142" height="36" rx="18" fill="#FEE2E2"/>
+    <text x="918" y="267" fill="#B91C1C" font-size="18" font-weight="700">hidden</text>
+    <rect x="270" y="326" width="820" height="76" rx="14" fill="#F9FAFB"/>
+    <text x="306" y="374" fill="#111827">Rectangle 8</text>
+    <rect x="906" y="346" width="124" height="36" rx="18" fill="#EDE9FE"/>
+    <text x="934" y="371" fill="#6D28D9" font-size="18" font-weight="700">empty</text>
+    <rect x="270" y="430" width="820" height="76" rx="14" fill="#F9FAFB"/>
+    <text x="306" y="478" fill="#111827">Group 5</text>
+    <rect x="888" y="450" width="142" height="36" rx="18" fill="#FEE2E2"/>
+    <text x="918" y="475" fill="#B91C1C" font-size="18" font-weight="700">hidden</text>
+    <rect x="270" y="590" width="820" height="72" rx="18" fill="#0D9488"/>
+    <text x="565" y="636" fill="white" font-weight="700">Remove selected layers</text>
+  </g>
+</svg>

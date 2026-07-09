@@ -33,7 +33,7 @@ img {
   position: fixed;
   pointer-events: none;
   z-index: 9999;
-  background: var(--color-primary);
+  background: var(--color-tooltip-bg);
   opacity: 0.8;
   border-radius: 8px;
   padding: 8px 16px;
@@ -63,6 +63,10 @@ body {
   font-family: var(--font-family-primary);
   color: var(--color-text-primary);
   transition: background 0.5s ease, color 0.5s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
 }
 
 /* ── Global semibold → gradient ── */
@@ -128,9 +132,13 @@ strong, b {
 }
 
 .nav-logo {
-  width: 46px;
-  height: 46px;
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
+  background-image: var(--website-logo);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .nav-pills {
@@ -197,7 +205,7 @@ strong, b {
   z-index: 1;
   padding: 8px 16px;
   border-radius: 100px;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-heading);
   font-weight: 500;
   font-size: 16px;
   color: var(--color-text-primary);
@@ -217,7 +225,7 @@ strong, b {
 
 /* Active text stays dark (indicator handles the background) */
 .nav-pill.active {
-  color: var(--color-text-primary);
+  color: var(--color-primitive-teal-500);
 }
 
 /* Hover — teal text, no pill (ghost does the pill job) */
@@ -240,7 +248,7 @@ strong, b {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--color-text-primary);
-  cursor: none;
+  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   overflow: hidden;
@@ -257,7 +265,7 @@ strong, b {
 }
 
 .lazy-toggle__label {
-  font-family: 'Syne', sans-serif;
+  font-family: var( --font-family-heading);
   font-weight: 500;
   font-size: 13px;
   transition: opacity 0.15s ease;
@@ -973,7 +981,7 @@ strong, b {
   border-radius: 100px;
   border: none;
   background: transparent;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-heading);
   font-size: var(--action-size);
   font-weight: var(--action-weight);
   color: var(--color-text-primary);
@@ -983,9 +991,13 @@ strong, b {
   text-align: center;
 }
 .tldr-pill:not(.tldr-pill--active):hover {
-  color: var(--color-primary);
+  color: var(--color-primitive-teal-500);
 }
 
+
+.tldr-pill--active {
+  color: var(--color-primitive-teal-500);
+}
 /* ── TL;DR collapsible content ── */
 .tldr-collapsible {
   display: grid;
@@ -1011,7 +1023,7 @@ strong, b {
 }
 
 .cs-title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-heading);
   font-size: var(--cs-title-size);
   font-weight: var(--cs-title-weight);
   line-height: var(--cs-title-leading);
@@ -1021,7 +1033,7 @@ strong, b {
 }
 
 .cs-section-title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-heading);
   font-size: var(--cs-section-size);
   font-weight: var(--cs-section-weight);
   line-height: var(--cs-section-leading);
@@ -1031,7 +1043,7 @@ strong, b {
 }
 
 .cs-subsection-title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-heading);
   font-size: var(--cs-subsection-size);
   font-weight: var(--cs-subsection-weight);
   line-height: var(--cs-subsection-leading);
@@ -2297,7 +2309,7 @@ strong, b {
 }
 
 .cs-review-title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-heading);
   font-size: var(--review-title-size);
   font-weight: var(--review-title-weight);
   color: var(--color-text-primary);
@@ -2695,6 +2707,7 @@ strong, b {
   transform: scale(0);
   animation: card-ripple 0.52s linear forwards;
   background: var(--color-card-ripple);
+  opacity: 0.2;
   pointer-events: none;
   z-index: 10;
 }
@@ -3081,7 +3094,7 @@ strong, b {
 }
 .duolingo-streak {
   position: absolute;
-  top: 32px; left: 50%;
+  top: 20px; left: 50%;
   transform: translateX(-50%);
   display: flex; align-items: center; gap: 2px;
   white-space: nowrap;
@@ -3104,7 +3117,7 @@ strong, b {
   bottom: 0; left: 50%;
   transform: translateX(-50%);
   height: 70%;
-  width: auto;
+  width: 50%;
   object-fit: contain;
   object-position: bottom;
   z-index: 1;
