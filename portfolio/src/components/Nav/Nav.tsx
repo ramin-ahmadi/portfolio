@@ -1,7 +1,6 @@
-import './Nav.css'
 import { useState, useRef, useEffect, useCallback } from 'react'
 
-const NAV_ITEMS = ['All', 'About me', 'Work', 'Fun']
+const NAV_ITEMS = ['All', 'About me', 'Work', 'Blog']
 
 export default function Nav() {
     const [activePill, setActivePill] = useState('All')
@@ -174,6 +173,7 @@ export default function Nav() {
     
     return (
         <nav className="nav">
+            <span></span>
             <span className="nav-logo"  title="Ramin Ahmadi"></span>
             <div className="nav-pills" ref={pillsRef} onMouseLeave={onPillLeave}>
                 <span className="nav-pill-hover-ghost" style={hoverStyle}></span>

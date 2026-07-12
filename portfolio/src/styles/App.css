@@ -434,6 +434,18 @@ strong, b {
   transform: scale(1);
 }
 
+.essity-card {
+  background: linear-gradient(135deg, rgba(18, 84, 122, 0.95), rgba(57, 112, 154, 0.9));
+}
+
+.essity-card .essity-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
 /* ══════════════════════════════════════
    CARD ENTER ANIMATION
 ══════════════════════════════════════ */
@@ -467,7 +479,8 @@ strong, b {
 /* Row 6 */
 .schedule-card      { --card-enter-delay: 1.0s; }  /* cols 1-2 */
 /* Row 7 */
-.ss-ds-card         { --card-enter-delay: 1.1s; }  /* cols 3-4 */
+.essity-card        { --card-enter-delay: 1.1s; }  /* cols 1-2 */
+.ss-ds-card         { --card-enter-delay: 1.2s; }  /* cols 3-4 */
 /* Row 8 */
 .claw-invest-card   { --card-enter-delay: 1.3s; }  /* col 1    */
 .strava-card        { --card-enter-delay: 1.4s; }  /* col 2    */

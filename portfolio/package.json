@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "fetch:strava": "node scripts/fetch-strava.js",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

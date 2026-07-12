@@ -14,9 +14,16 @@ import AgenticDesignSystem from './components/Cards/AgenticDesignSystem/AgenticD
 import Libra from './components/Cards/Libra/Libra'
 import Quote from './components/Cards/quote/Quote'
 import QuoteUX from './components/Cards/QuoteUX/QuoteUX'
+import Essity from './components/Cards/Essity/Essity'
+import Strava from './components/Cards/Strava/Strava'
+import Books from './components/Cards/Books/Books'
+
+
 
 function App() {
+
   return (
+    
     <>
     <div className="cs-root" >
        </div>
@@ -56,9 +63,19 @@ function App() {
           <div className="grid-slot" style={{ gridArea: '6 / 3 / auto / 5' }}>
             <QuoteUX />
           </div>
+          <div className="grid-slot" style={{ gridArea: '6 / 1 / 8 / 3' }}>
+            <Essity />
+          </div>
+          <div className="grid-slot" style={{ gridArea: '7 / 3' }}>
+            <Strava />
+          </div>
+          <div className="grid-slot" style={{ gridArea: '7 / 4' }}>
+            <Books />
+          </div>
 
         </div>
       </main>
+
       <CursorTooltip />
     </>
   )
