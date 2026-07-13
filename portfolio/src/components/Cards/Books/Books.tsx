@@ -135,7 +135,7 @@ export default function Books() {
         <p className="quote-text">
           Great UX gives users a clear sense of <strong>control</strong>.
         </p>
-        <span className="design-principle">My design principle</span>
+        <span className="design-principle">Books</span>
       </div>
 
       {expanded ? (
@@ -173,7 +173,7 @@ export default function Books() {
                 <img className="ux-quote-expanded-icon" src={QUOTE_ICON} alt="" />
 
                 <p className="ux-quote-expanded-quote">
-                  Great UX gives users a clear sense of <strong>control</strong>.
+                  Books <strong>control</strong>.
                 </p>
 
                 <div className="ux-quote-expanded-body">

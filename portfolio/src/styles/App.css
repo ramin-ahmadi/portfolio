@@ -3677,9 +3677,10 @@ strong, b {
     animation-duration: 16s;
   }
 
-  /* ── Hide back-to-top on mobile homepage (nav is already at bottom) ── */
+  /* ── Back-to-top clears the bottom mobile nav ── */
   .back-to-top {
-    display: none;
+    bottom: 96px;
+    right: 24px;
   }
 
   /* ── Always show action icon (no hover needed) ── */

@@ -2,8 +2,14 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 
 const NAV_ITEMS = ['All', 'About me', 'Work', 'Blog']
 
-export default function Nav() {
-    const [activePill, setActivePill] = useState('All')
+type NavProps = {
+    activePill?: string
+    onSelect?: (item: string) => void
+}
+
+export default function Nav({ activePill: controlledActivePill, onSelect }: NavProps) {
+    const [internalActivePill, setInternalActivePill] = useState('All')
+    const activePill = controlledActivePill ?? internalActivePill
     const [indicatorStyle, setIndicatorStyle] = useState({ left: '0px', width: '0px' })
     const [hoverStyle, setHoverStyle] = useState({ left: '0px', width: '0px', opacity: 0 })
     const [indicatorReady, setIndicatorReady] = useState(false)
@@ -138,11 +144,15 @@ export default function Nav() {
         setHoverStyle(prev => ({ ...prev, opacity: 0 }))
     }, [])
 
-    const selectItem = useCallback((item:any) => {
+    const selectItem = useCallback((item:string) => {
         if (item === activePill) return
 
         const fromMetrics = getElMetrics(activePill)
         const toMetrics = getElMetrics(item)
+        const commitSelection = () => {
+            if (controlledActivePill === undefined) setInternalActivePill(item)
+            onSelect?.(item)
+        }
 
         setHoverStyle(prev => ({ ...prev, opacity: 0 }))
 
@@ -153,7 +163,7 @@ export default function Nav() {
 
             setIsAnimating(true)
             setStretchTransform(`scaleX(${stretchX}) scaleY(${squishY})`)
-            setActivePill(item)
+            commitSelection()
 
             setTimeout(() => {
                 updateIndicator(false, item)
@@ -166,10 +176,10 @@ export default function Nav() {
                 }, 80)
             }, 0)
         } else {
-            setActivePill(item)
+            commitSelection()
             setTimeout(() => updateIndicator(false, item), 0)
         }
-    }, [activePill, getElMetrics, updateIndicator])
+    }, [activePill, controlledActivePill, getElMetrics, onSelect, updateIndicator])
     
     return (
         <nav className="nav">

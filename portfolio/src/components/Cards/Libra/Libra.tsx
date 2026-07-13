@@ -509,7 +509,7 @@ function CardFace({ className = '' }: { className?: string }) {
   return (
     <div className={['ll-card-face', className].filter(Boolean).join(' ')}>
       <img src={LOGO_SRC} alt="Layer Lint" className="ll-card-logo" />
-      <p className="ll-card-title">Layer{'\n'}Lint</p>
+      <p className="ll-card-title">Libra{'\n'}Project</p>
     </div>
   )
 }
