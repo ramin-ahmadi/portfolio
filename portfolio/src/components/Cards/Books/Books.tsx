@@ -1,12 +1,30 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import goodreadsSnapshot from '../../../assets/goodreads-books.json'
 import { useRipple } from '../../useRipple'
 
 const ICON_EXPAND = '/src/assets/icons/expand.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
-const QUOTE_ICON = '/src/assets/images/general/quote-icon.svg'
+const GOODREADS_PROFILE = 'https://www.goodreads.com/user/show/5344267'
 
 const ABOUT_MAX_W = 800
 const ANIM_MS = 700
+
+type GoodreadsBook = {
+  reviewId?: string
+  title: string
+  author?: string
+  rating?: string
+  dateRead?: string
+  cover?: string
+  url?: string
+}
+
+type GoodreadsData = {
+  source: string
+  count: number
+  fetchedAt: string | null
+  books: GoodreadsBook[]
+}
 
 export default function Books() {
   const cardEl = useRef<HTMLDivElement | null>(null)
@@ -19,6 +37,7 @@ export default function Books() {
   const [expanded, setExpanded] = useState(false)
   const [settled, setSettled] = useState(false)
   const [closing, setClosing] = useState(false)
+  const booksData = goodreadsSnapshot as GoodreadsData
   const { spawnRipple, renderRipples } = useRipple()
 
   useEffect(() => {
@@ -111,13 +130,17 @@ export default function Books() {
     }, ANIM_MS + 20)
   }, [])
 
+  const books = booksData?.books || []
+  const bookCount = booksData?.count ?? books.length
+  const latestBooks = books.slice(0, 3)
+
   return (
     <div className="ux-quote-card-wrapper">
       <div
         ref={cardEl}
         className={['bento-card', 'ux-quote-card', expanded ? 'ux-quote-card--ghost' : ''].filter(Boolean).join(' ')}
         onClick={open}
-        data-tooltip="My UX philosophy"
+        data-tooltip="Books read on Goodreads"
       >
         <a
           className="action-icon"
@@ -131,11 +154,16 @@ export default function Books() {
           <img src={ICON_EXPAND} alt="Expand" />
         </a>
 
-        <img className="quote-icon" src={QUOTE_ICON} alt="" />
+        <span className="books-icon"></span>
+        <p className="quote-text">My <strong>library</strong> at Goodreads</p>
         <p className="quote-text">
-          Great UX gives users a clear sense of <strong>control</strong>.
+          {bookCount > 0 ? (
+            <></>
+          ) : (
+            <>My read books from <strong>Goodreads</strong>.</>
+          )}
         </p>
-        <span className="design-principle">Books</span>
+        <span className="design-principle"></span>
       </div>
 
       {expanded ? (
@@ -170,22 +198,54 @@ export default function Books() {
 
             <div ref={innerEl} className="about-expanded-inner ux-quote-expanded-inner">
               <div className="about-expanded-content">
-                <img className="ux-quote-expanded-icon" src={QUOTE_ICON} alt="" />
+                <span className="books-expanded-icon"></span>
 
                 <p className="ux-quote-expanded-quote">
-                  Books <strong>control</strong>.
+                  Books read on <strong>Goodreads</strong>.
                 </p>
 
-                <div className="ux-quote-expanded-body">
-                  <p>
-                    The strongest interfaces do more than function smoothly; they help people <strong>feel confident</strong> as they use them. When someone understands what will happen next, can recover from errors, and moves through a flow without hesitation, that is not luck. It is design.
-                  </p>
-                  <p>
-                    I design experiences where users can always recognise where they are, what actions are available, and what has just changed. That does not mean stripping everything back to nothing; it means making complexity feel understandable. Control is not about reducing choices, it is about providing <strong>clarity at every decision point</strong>.
-                  </p>
+                <div className="ux-quote-expanded-body books-expanded-body">
+                  {bookCount === 0 ? (
+                    <p>No read books have been imported yet. Run <strong>npm run fetch:goodreads</strong> to pull the public read shelf.</p>
+                  ) : null}
+
+                  {bookCount > 0 ? (
+                    <>
+                      <p>
+                        Imported <strong>{bookCount}</strong> read books from Goodreads.
+                      </p>
+                      <div className="books-list">
+                        {books.map((book) => (
+                          <a
+                            className="books-list-item"
+                            href={book.url || GOODREADS_PROFILE}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={book.reviewId || `${book.title}-${book.author}`}
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            {book.cover ? <img className="books-cover" src={book.cover} alt="" /> : <span className="books-cover books-cover--empty" />}
+                            <span className="books-meta">
+                              <span className="books-title">{book.title}</span>
+                              {book.author ? <span className="books-author">{book.author}</span> : null}
+                              {[book.rating, book.dateRead].filter(Boolean).length ? (
+                                <span className="books-detail">{[book.rating, book.dateRead].filter(Boolean).join(' · ')}</span>
+                              ) : null}
+                            </span>
+                          </a>
+                        ))}
+                      </div>
+                    </>
+                  ) : null}
                 </div>
 
-                <span className="design-principle">My design principle</span>
+                {latestBooks.length ? (
+                  <span className="design-principle">
+                    Latest: {latestBooks.map((book) => book.title).join(', ')}
+                  </span>
+                ) : (
+                  <span className="design-principle">Goodreads shelf</span>
+                )}
               </div>
             </div>
 

@@ -3,7 +3,7 @@ import { useRipple } from "../../useRipple";
 
 const ICON_EXPAND = "/src/assets/icons/expand.svg";
 const ICON_SHRINK = "/src/assets/icons/shrink.svg";
-const AVATAR = "/src/assets/images/Ramin-Ahmadi.png";
+const AVATAR = "/src/assets/images/Ramin-Ahmadi-2.png";
 const ABOUT_MAX_W = 800;
 const ANIM_MS = 700;
 const EASE = "cubic-bezier(0.34, 1.1, 0.64, 1)";
@@ -244,7 +244,7 @@ export default function AboutCard() {
         <div className="about-bio">
           <p>Hiya 👋</p>
           <p>
-            My name is Ramin Ahmadi and I'm a product designer at GlobeWest. 
+            My name is Ramin Ahmadi and I'm a product designer at <strong>GlobeWest</strong>.
           </p>
         </div>
       </div>

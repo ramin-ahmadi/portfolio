@@ -3,7 +3,7 @@ import { useRipple } from '../../useRipple'
 
 const ICON_EXPAND = '/src/assets/icons/expand.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
-const QUOTE_ICON = '/src/assets/images/general/quote-icon.svg'
+
 
 const ABOUT_MAX_W = 800
 const ANIM_MS = 700
@@ -146,7 +146,7 @@ export default function Quote() {
           <img src={ICON_EXPAND} alt="Expand" />
         </a>
 
-        <img className="quote-icon" src={QUOTE_ICON} alt="" />
+        <span className="quote-icon" />
         <p className="quote-text">
           Design systems create speed and consistency, but <strong>never at the cost of user experience</strong>.
         </p>
@@ -185,7 +185,7 @@ export default function Quote() {
 
             <div ref={innerEl} className="about-expanded-inner ds-quote-expanded-inner">
               <div className="about-expanded-content">
-                <img className="ds-quote-expanded-icon" src={QUOTE_ICON} alt="" />
+                <span className="ds-quote-expanded-icon" ></span>
 
                 <p className="ds-quote-expanded-quote">
                   Design systems create speed and consistency, but <strong>never at the cost of user experience</strong>.

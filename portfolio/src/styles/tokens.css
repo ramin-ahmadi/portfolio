@@ -475,6 +475,10 @@
 
   /* logo url */
  --website-logo:  url("./src/assets/logos/Ramin-Ahmadi-logo.png");
+ /* Quote card image */
+ --quote-image: url("./src/assets/images/general/quote-icon-default.svg");
+  /* Books card image */
+ --books-image: url("./src/assets/images/general/goodreads-default.svg");
 }
 
 
@@ -544,4 +548,8 @@
 
     /* logo url */
  --website-logo:  url("./src/assets/logos/Ramin-Ahmadi-logo-dark.png");
+ /* Quote card image */
+ --quote-image: url("./src/assets/images/general/quote-icon-dark.svg");
+   /* Books card image */
+ --books-image: url("./src/assets/images/general/goodreads-dark.svg");
 }

@@ -3,7 +3,6 @@ import { useRipple } from '../../useRipple'
 
 const ICON_EXPAND = '/src/assets/icons/expand.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
-const QUOTE_ICON = '/src/assets/images/general/quote-icon.svg'
 
 const ABOUT_MAX_W = 800
 const ANIM_MS = 700
@@ -131,7 +130,7 @@ export default function QuoteUX() {
           <img src={ICON_EXPAND} alt="Expand" />
         </a>
 
-        <img className="quote-icon" src={QUOTE_ICON} alt="" />
+        <span className="quote-icon"></span>
         <p className="quote-text">
           Great UX gives users a clear sense of <strong>control</strong>.
         </p>
@@ -170,7 +169,7 @@ export default function QuoteUX() {
 
             <div ref={innerEl} className="about-expanded-inner ux-quote-expanded-inner">
               <div className="about-expanded-content">
-                <img className="ux-quote-expanded-icon" src={QUOTE_ICON} alt="" />
+                <span className="ux-quote-expanded-icon"></span>
 
                 <p className="ux-quote-expanded-quote">
                   Great UX gives users a clear sense of <strong>control</strong>.
