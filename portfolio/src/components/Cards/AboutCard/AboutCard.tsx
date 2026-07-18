@@ -3,7 +3,7 @@ import { useRipple } from "../../useRipple";
 
 const ICON_EXPAND = "/src/assets/icons/expand.svg";
 const ICON_SHRINK = "/src/assets/icons/shrink.svg";
-const AVATAR = "/src/assets/images/Ramin-Ahmadi-2.png";
+const AVATAR = "/src/assets/images/Ramin-Ahmadi.png";
 const ABOUT_MAX_W = 800;
 const ANIM_MS = 700;
 const EASE = "cubic-bezier(0.34, 1.1, 0.64, 1)";
@@ -289,22 +289,13 @@ export default function AboutCard() {
                     My name is Ramin Ahmadi and I'm a product designer who
                     enjoys solving complex problems and building products that
                     balance user needs with business goals.
-                    Currently working as a Lead Product Designer at GlobeWest in
-                    Melbourne, Australia.
+                    Currently working as a Lead Product Designer at <strong>GlobeWest</strong>.
                   </p>
                   <p>
-                    I have over 11 years of experience designing B2B SaaS
-                    platforms, e-commerce products, and AI-enabled interfaces. I
-                    also hold two Master's degrees from the University of
-                    Melbourne in Artificial Intelligence and User Experience,
-                    which have shaped how I approach product design combining
-                    human-centred thinking with emerging technologies.
-                  </p>
+                    I am product designer with over 11 years of experience and two Master’s degrees in Artificial Intelligence and User Experience from the University of Melbourne, specialising in user-centred product design, design systems and AI interfaces.
+                    </p>
                   <p>
                     Over the years, I've led design teams and worked closely with engineers, product managers, and stakeholders to build scalable products. With a background in front-end development, I naturally bridge the gap between design and engineering, ensuring solutions are not only intuitive but also technically feasible and practical to implement.
-                  </p>
-                  <p>
-                    I believe the best design simplifies complexity. Rather than designing for "users", I focus on understanding people, the context they work in, and the systems they rely on. I enjoy working within constraints because they reveal what truly matters. My design approach is to build abstract and strong foundations that enable products and teams to evolve over time.
                   </p>
                 </div>
               </div>

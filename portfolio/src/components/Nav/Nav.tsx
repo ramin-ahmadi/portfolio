@@ -183,8 +183,9 @@ export default function Nav({ activePill: controlledActivePill, onSelect }: NavP
     
     return (
         <nav className="nav">
-            <span></span>
+            <span className="nav-logo-wrapper"  >
             <span className="nav-logo"  title="Ramin Ahmadi"></span>
+            </span>
             <div className="nav-pills" ref={pillsRef} onMouseLeave={onPillLeave}>
                 <span className="nav-pill-hover-ghost" style={hoverStyle}></span>
                 <span 

@@ -29,6 +29,7 @@ type GoodreadsData = {
 export default function Books() {
   const cardEl = useRef<HTMLDivElement | null>(null)
   const innerEl = useRef<HTMLDivElement | null>(null)
+  const booksScrollEl = useRef<HTMLDivElement | null>(null)
   const startRect = useRef<DOMRect | null>(null)
   const closeTimer = useRef<number | null>(null)
   const expandedRef = useRef(false)
@@ -37,7 +38,13 @@ export default function Books() {
   const [expanded, setExpanded] = useState(false)
   const [settled, setSettled] = useState(false)
   const [closing, setClosing] = useState(false)
+  const [viewedPercent, setViewedPercent] = useState(0)
+  const [hasCompletedList, setHasCompletedList] = useState(false)
   const booksData = goodreadsSnapshot as GoodreadsData
+  const books = booksData?.books || []
+  const bookCount = booksData?.count ?? books.length
+  const latestBooks = books.slice(0, 3)
+  const isAtListEnd = viewedPercent >= 100
   const { spawnRipple, renderRipples } = useRipple()
 
   useEffect(() => {
@@ -47,6 +54,39 @@ export default function Books() {
   useEffect(() => {
     closingRef.current = closing
   }, [closing])
+
+  const updateViewedPercent = useCallback(() => {
+    const el = booksScrollEl.current
+    if (!el) {
+      setViewedPercent(0)
+      return
+    }
+
+    const scrollable = el.scrollHeight - el.clientHeight
+    if (scrollable <= 0) {
+      const nextPercent = bookCount > 0 ? 100 : 0
+      setViewedPercent(nextPercent)
+      if (nextPercent === 100) setHasCompletedList(true)
+      return
+    }
+
+    const viewed = (el.scrollTop / scrollable) * 100
+    const nextPercent = Math.min(100, Math.max(0, Math.round(viewed)))
+    setViewedPercent(nextPercent)
+    if (nextPercent === 100) setHasCompletedList(true)
+  }, [bookCount])
+
+  useEffect(() => {
+    if (!expanded) return
+
+    const frame = window.requestAnimationFrame(updateViewedPercent)
+    window.addEventListener('resize', updateViewedPercent)
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('resize', updateViewedPercent)
+    }
+  }, [expanded, updateViewedPercent])
 
   useEffect(() => {
     return () => {
@@ -130,9 +170,16 @@ export default function Books() {
     }, ANIM_MS + 20)
   }, [])
 
-  const books = booksData?.books || []
-  const bookCount = booksData?.count ?? books.length
-  const latestBooks = books.slice(0, 3)
+  const toggleBooksScroll = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+    const el = booksScrollEl.current
+    if (!el) return
+
+    el.scrollTo({
+      top: isAtListEnd ? 0 : Math.min(el.scrollHeight, el.scrollTop + Math.max(240, el.clientHeight * 0.85)),
+      behavior: 'smooth',
+    })
+  }, [isAtListEnd])
 
   return (
     <div className="ux-quote-card-wrapper">
@@ -140,7 +187,7 @@ export default function Books() {
         ref={cardEl}
         className={['bento-card', 'ux-quote-card', expanded ? 'ux-quote-card--ghost' : ''].filter(Boolean).join(' ')}
         onClick={open}
-        data-tooltip="Books read on Goodreads"
+        data-tooltip="Books read on Goodreads 📚"
       >
         <a
           className="action-icon"
@@ -156,14 +203,7 @@ export default function Books() {
 
         <span className="books-icon"></span>
         <p className="quote-text">My <strong>library</strong> at Goodreads</p>
-        <p className="quote-text">
-          {bookCount > 0 ? (
-            <></>
-          ) : (
-            <>My read books from <strong>Goodreads</strong>.</>
-          )}
-        </p>
-        <span className="design-principle"></span>
+       
       </div>
 
       {expanded ? (
@@ -198,22 +238,20 @@ export default function Books() {
 
             <div ref={innerEl} className="about-expanded-inner ux-quote-expanded-inner">
               <div className="about-expanded-content">
-                <span className="books-expanded-icon"></span>
 
-                <p className="ux-quote-expanded-quote">
-                  Books read on <strong>Goodreads</strong>.
-                </p>
-
-                <div className="ux-quote-expanded-body books-expanded-body">
+                <div
+                  ref={booksScrollEl}
+                  className="ux-quote-expanded-body books-expanded-body"
+                  onScroll={updateViewedPercent}
+                >
+                  <p> Reading has been one of the biggest influences on how I think and work. Here's a collection of books I've finished over the years. The list below is pulled straight from my <a href={GOODREADS_PROFILE} target="_blank" rel="noopener noreferrer">Goodreads profile</a> account.</p>
                   {bookCount === 0 ? (
-                    <p>No read books have been imported yet. Run <strong>npm run fetch:goodreads</strong> to pull the public read shelf.</p>
+                    <p>Failed to connect to Goodreads.</p>
                   ) : null}
 
                   {bookCount > 0 ? (
                     <>
-                      <p>
-                        Imported <strong>{bookCount}</strong> read books from Goodreads.
-                      </p>
+
                       <div className="books-list">
                         {books.map((book) => (
                           <a
@@ -227,10 +265,6 @@ export default function Books() {
                             {book.cover ? <img className="books-cover" src={book.cover} alt="" /> : <span className="books-cover books-cover--empty" />}
                             <span className="books-meta">
                               <span className="books-title">{book.title}</span>
-                              {book.author ? <span className="books-author">{book.author}</span> : null}
-                              {[book.rating, book.dateRead].filter(Boolean).length ? (
-                                <span className="books-detail">{[book.rating, book.dateRead].filter(Boolean).join(' · ')}</span>
-                              ) : null}
                             </span>
                           </a>
                         ))}
@@ -248,6 +282,30 @@ export default function Books() {
                 )}
               </div>
             </div>
+
+            {bookCount > 0 ? (
+              <div className="books-scroll-footer" onClick={(event) => event.stopPropagation()}>
+                <span
+                  className={[
+                    'books-scroll-progress',
+                    hasCompletedList ? 'books-scroll-progress--complete' : '',
+                  ].filter(Boolean).join(' ')}
+                  aria-label={hasCompletedList ? 'Completed the books list' : `${viewedPercent}% through the list`}
+                >
+                  {hasCompletedList ? <span className="books-scroll-check" aria-hidden="true" /> : `${viewedPercent}% through the list`}
+                </span>
+                <button
+                  className={[
+                    'books-scroll-btn',
+                    isAtListEnd ? 'books-scroll-btn--up' : '',
+                  ].filter(Boolean).join(' ')}
+                  type="button"
+                  onClick={toggleBooksScroll}
+                  aria-label={isAtListEnd ? 'Scroll to the top of the books list' : 'Scroll down the books list'}
+                  data-tooltip={isAtListEnd ? 'Back to top' : 'Scroll down'}
+                />
+              </div>
+            ) : null}
 
             {renderRipples()}
           </div>
