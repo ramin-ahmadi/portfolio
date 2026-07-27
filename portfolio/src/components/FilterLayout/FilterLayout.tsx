@@ -30,7 +30,7 @@ export const LAYOUTS = {
     BulbCard: { col: "1", row: "2" },
     DuolingoCard: { col: "2", row: "2" },
     Quote: { col: "3 / 5", row: "2" },
-    ModularSofa: { col: "1 / 5", row: "3 / 5"},
+    ModularSofa: { col: "1 / 5", row: "3 / 5" },
     DesignSystem: { col: "1 / 5", row: "5 / 7" },
     AgenticDesignSystem: { col: "3", row: "8 /10" },
     Libra: { col: "4 / 5", row: "8 / 10" },
@@ -52,10 +52,10 @@ export const LAYOUTS = {
     QuoteUX: { col: "1/3", row: "3" },
     Books: { col: "3", row: "3" },
     Strava: { col: "4", row: "3" },
-    ModularSofa: { col: "1 / 5", row: "4/6" , dim: true},
-    DesignSystem: { col: "1 / 5", row: "6/8" , dim: true},
-    AgenticDesignSystem: { col: "3", row: "8/10" , dim: true},
-    Libra: { col: "4", row: "8/10" , dim: true},
+    ModularSofa: { col: "1 / 5", row: "4/6", dim: true },
+    DesignSystem: { col: "1 / 5", row: "6/8", dim: true },
+    AgenticDesignSystem: { col: "3", row: "8/10", dim: true },
+    Libra: { col: "4", row: "8/10", dim: true },
     Essity: { col: "1 / 3", row: "8 / 10", dim: true },
   },
 
@@ -81,7 +81,7 @@ export const LAYOUTS = {
   // ── Blog ──────────────────────────────────────────────────────────
 
   Blog: {
- url:"https://medium.com/@raminahmadi"
+    url: "https://medium.com/@raminahmadi",
   },
 };
 
@@ -119,37 +119,35 @@ export const MOBILE_LAYOUTS = {
     Strava: { col: "1", row: "5" },
     Books: { col: "2", row: "5" },
     QuoteUX: { col: "1/3", row: "6" },
-    ModularSofa: { col: "1 /3", row: "7 / 9" , dim: true},
-    AgenticDesignSystem: { col: "1", row: "9 / 11", dim: true },
-    Libra: { col: "2", row: "9 / 11", dim: true },
-    Essity: { col: "1 / 3", row: "11 / 13", dim: true },
-    DesignSystem: { col: "1/3 ", row: "13 / 14" , dim: true},
-  
+    ModularSofa: { col: "1 /3", row: "7 / 9", dim: true },
+        DesignSystem: { col: "1/3 ", row: "9 / 11", dim: true },
+    AgenticDesignSystem: { col: "1", row: "11 / 13", dim: true },
+    Libra: { col: "2", row: "11 / 13", dim: true },
+    Essity: { col: "1 / 3", row: "13 / 15", dim: true },
   },
 
   // ── WORK (mobile) ───────────────────────────────────────────────────────
 
   Work: {
-        ModularSofa: { col: "1 /3", row: "1 / 3" },
-    AgenticDesignSystem: { col: "1", row: "3 / 5" },
-    Libra: { col: "2", row: "3 / 5" },
-    Essity: { col: "1 / 3", row: "5 / 7" },
-    DesignSystem: { col: "1/3 ", row: "7 / 9" },
-    AboutCard: { col: "1 / 3", row: "9" , dim: true},
+    ModularSofa: { col: "1 /3", row: "1 / 3" },
+    DesignSystem: { col: "1/3 ", row: "3 / 5" },
+    AgenticDesignSystem: { col: "1", row: "5 / 7" },
+    Libra: { col: "2", row: "5 / 7" },
+    Essity: { col: "1 / 3", row: "7 / 9" },
+    AboutCard: { col: "1 / 3", row: "9", dim: true },
     GmailCard: { col: "1", row: "10", dim: true },
-    LinkedinCard: { col: "2", row: "10", dim: true},
-    BulbCard: { col: "1", row: "11" , dim: true},
-    DuolingoCard: { col: "2", row: "11" , dim: true},
-    Quote: { col: "1/3", row: "12" , dim: true},
+    LinkedinCard: { col: "2", row: "10", dim: true },
+    BulbCard: { col: "1", row: "11", dim: true },
+    DuolingoCard: { col: "2", row: "11", dim: true },
+    Quote: { col: "1/3", row: "12", dim: true },
     Strava: { col: "1", row: "13", dim: true },
-    Books: { col: "2", row: "13" , dim: true},
-    QuoteUX: { col: "1/3", row: "14" , dim: true},
-
+    Books: { col: "2", row: "13", dim: true },
+    QuoteUX: { col: "1/3", row: "14", dim: true },
   },
 
   // ── Blog (mobile) ────────────────────────────────────────────────
   Blog: {
- url:"https://medium.com/@raminahmadi"
+    url: "https://medium.com/@raminahmadi",
   },
 };
 

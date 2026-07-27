@@ -3747,9 +3747,12 @@ width: 36px; height: 36px;
   .nav-pill {
     flex: 1;
     text-align: center;
-    padding: 10px 8px;
+    padding: 10px 6px;
   }
 
+  .nav-logo-wrapper {
+    display: none;
+  }
   /* Stack logo above grid instead of side-by-side */
   .main {
     flex-direction: column;
