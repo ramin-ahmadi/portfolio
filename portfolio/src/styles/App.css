@@ -928,6 +928,8 @@ strong, b {
   flex-shrink: 0;
   margin-top: 40px;
   transition: opacity 0.2s ease;
+  object-fit: contain;
+    background: var(--color-bg-body);
 }
 
 /* ── Back-to-top inside expanded case study ── */
@@ -3831,7 +3833,8 @@ width: 36px; height: 36px;
     width:  calc(100vw - 48px) !important;
     height: calc(100vw - 48px) !important;
     max-width: 448px;
-    max-height: 448px;
+    max-height: 250px;
+    object-fit: cover;
   }
 
   /* ── Agentic DS hero wrap — match shrunk hero size ── */
@@ -3976,6 +3979,23 @@ width: 36px; height: 36px;
       inset 0 -1px 0 var(--color-card-inset-bottom) !important;
     transition: transform 0.08s ease, box-shadow 0.08s ease !important;
   }
+
+.duolingo-app-flag {
+  width: 24px;
+    height: 24px;
+    border-radius: 8px;
+}
+
+.duolingo-app-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+}
+
+.ds-video {
+  object-fit: contain;
+  transform: scale(1.3);
+}
 }
 
 /* ══════════════════════════════════════

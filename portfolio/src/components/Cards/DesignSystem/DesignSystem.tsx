@@ -7,7 +7,7 @@ import {
 import ColourVariables from '../ColourVariables/ColourVariables'
 import { useRipple } from '../../useRipple'
 
-const VIDEO_SRC = '/src/assets/videos/rayo-ds-clip.mp4'
+const VIDEO_SRC = '/src/assets/videos/fava-design-system.mp4'
 const IMG_DS_POST = '/src/assets/images/design-system/design-system/rayo-ds-post-update.png'
 const IMG_DS_PRE = '/src/assets/images/design-system/design-system/rayo-ds-pre-update.png'
 
@@ -51,7 +51,7 @@ function CaseStudyOverlay({
   videoSrc: string
   videoClass: string
   tooltip: string
-  heroSize: number
+  heroSize: {width:number, height:number}
   children: ReactNode
 }) {
   const [open, setOpen] = useState(false)
@@ -152,7 +152,7 @@ function CaseStudyOverlay({
                   muted
                   playsInline
                   preload="auto"
-                  style={{ width: `${heroSize}px`, height: `${heroSize}px` }}
+                  style={{ width: `${heroSize.width}px`, height: `${heroSize.height}px` }}
                 />
                 {children}
               </div>
@@ -164,7 +164,20 @@ function CaseStudyOverlay({
               aria-label="Back to top"
               onClick={() => innerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              ↑
+                <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
             </button>
 
             {renderRipples()}
@@ -363,13 +376,14 @@ export default function DesignSystem() {
       cardClass="ds-card"
       videoSrc={VIDEO_SRC}
       videoClass="ds-video"
-      tooltip={'Maximise efficiency and consistency\nby refactoring the design-system Design System 🎨'}
-      heroSize={448}
+      tooltip={'How we transformed a fragmented UI \ninto a scalable design system 🎨'}
+      heroSize={{ width: 632, height: 355
+       }}
     >
       <TldrToggle modelValue={tldr} onUpdate={setTldr} />
 
       <div className="cs-body">
-        <h1 className="cs-title">Refactoring the design-system Design System for Scalability &amp; Consistency</h1>
+        <h1 className="cs-title">How we transformed a fragmented UI into a scalable design system called Fava</h1>
 
         {full(
           <p className="cs-body-text" key="intro">
