@@ -3214,7 +3214,9 @@ strong, b {
   height: 100%;
   object-fit: cover;
   display: block;
+  border: 0;
   border-radius: inherit;
+  pointer-events: none;
 }
 
 /* Duolingo */

@@ -210,15 +210,25 @@ function CaseStudyOverlay({
         data-tooltip={tooltip}
         onClick={openOverlay}
       >
-        <video
-          className={videoClass}
-          src={videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-        />
+        {videoClass === "ds-video" ? (
+          <iframe
+            className="ds-video"
+            src="https://player.vimeo.com/video/1214723999?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&dnt=1"
+            title="Design system preview"
+            allow="autoplay; fullscreen"
+            tabIndex={-1}
+          />
+        ) : (
+          <video
+            className={videoClass}
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+          />
+        )}
         <span className="action-icon" aria-hidden="true">
           <img src={ICON_EXPAND} alt="" />
         </span>
