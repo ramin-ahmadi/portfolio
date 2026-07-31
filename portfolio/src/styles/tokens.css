@@ -163,9 +163,7 @@
   /* Font families */
   --font-family-primary:  'Hanken Grotesk', sans-serif;
   --font-family-display:  'Fredoka', sans-serif;
-  --font-family-system:   -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
   --font-family-mono:     'SF Mono', 'Fira Code', 'Consolas', monospace;
-  --font-family-rayo:     'Rayo Mabry Pro', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
   --font-family-manrope:  'Manrope', sans-serif;
   --font-family-heading:  'roca', sans-serif;
 
@@ -412,7 +410,7 @@
   --about-expanded-leading:  var(--leading-looser); /* 1.6 */
 
   /* Hint / caption */
-  --hint-size:               var(--text-xl);      /* 16px */
+  --hint-size:               var(--text-sm);      /* 16px */
   --hint-weight:             var(--weight-regular);
 
   /* Quote cards */
