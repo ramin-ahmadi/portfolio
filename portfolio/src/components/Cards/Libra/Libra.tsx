@@ -1,14 +1,14 @@
 import {
-  type CSSProperties,
   type ReactNode,
   useEffect,
   useRef,
   useState,
 } from 'react'
 import { useRipple } from '../../useRipple'
+import './Libra.scss'
 
 // ── Assets ──
-const LOGO_SRC = '/src/assets/images/layerlint-logo.svg'
+const LOGO_SRC = '/src/assets/images/libra/libra-logo.avif'
 const HERO_SRC = '/src/assets/images/layerlint-hero.svg'
 const IMG_CLEANUP = '/src/assets/images/layerlint/ll-cleanup.svg'
 const IMG_RENAME = '/src/assets/images/layerlint/ll-rename.svg'
@@ -17,10 +17,6 @@ const IMG_COVER = '/src/assets/images/layerlint/ll-cover.svg'
 
 const ICON_EXPAND = '/src/assets/icons/full-screen.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
-
-// SVG paths for eye icons (16×16 viewBox)
-const EYE_OPEN = 'M8 3C3.6 3 .5 8 .5 8s3.1 5 7.5 5 7.5-5 7.5-5S12.4 3 8 3Zm0 8.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0-5.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z'
-const EYE_CLOSED = 'M13.36 3.35 2.65 14.06l.7.7 2.2-2.2A7.7 7.7 0 0 0 8 13c4.4 0 7.5-5 7.5-5a13 13 0 0 0-2.84-3.35l2.4-2.4-.7-.7ZM8 4.5c-.47 0-.93.06-1.37.16L8.2 6.24A2 2 0 0 1 9.76 7.8l1.58 1.57A3.5 3.5 0 0 0 8 4.5ZM.5 8s3.1 5 7.5 5c.67 0 1.32-.1 1.94-.3L8.2 10.96A3.5 3.5 0 0 1 4.54 7.3L2.84 5.62A13 13 0 0 0 .5 8Z'
 
 const TYPE_ICONS: Record<string, string> = {
   frame: '#',
@@ -32,24 +28,6 @@ const TYPE_ICONS: Record<string, string> = {
   line: '—',
 }
 
-type Layer = {
-  name: string
-  semantic: string | null
-  type: string
-  hidden: boolean
-}
-
-type BgRow = Layer & {
-  _idx: number
-  display: string
-  visible: boolean
-  wiping: boolean
-  gapShift: number
-  gapDelay: number
-  renamed: boolean
-  showCursor: boolean
-}
-
 type PanelLayer = {
   name: string
   type: string
@@ -57,336 +35,16 @@ type PanelLayer = {
   hidden: boolean
 }
 
-const BATCHES: Layer[][] = [
-  [
-    { name: 'Frame 114', semantic: 'product-card', type: 'frame', hidden: false },
-    { name: 'Rectangle 47', semantic: 'card-image', type: 'rect', hidden: false },
-    { name: 'Group 12', semantic: 'card-content', type: 'group', hidden: false },
-    { name: 'Vector 2', semantic: null, type: 'vector', hidden: true },
-    { name: 'Ellipse 9', semantic: 'product-icon', type: 'ellipse', hidden: false },
-    { name: 'Frame 3', semantic: 'info-row', type: 'frame', hidden: false },
-    { name: 'Rectangle 8', semantic: null, type: 'rect', hidden: true },
-    { name: 'Text', semantic: 'product-label', type: 'text', hidden: false },
-    { name: 'Group 5', semantic: null, type: 'group', hidden: true },
-    { name: 'Line 4', semantic: 'divider', type: 'line', hidden: false },
-  ],
-  [
-    { name: 'Frame 22', semantic: 'nav-header', type: 'frame', hidden: false },
-    { name: 'Rectangle 19', semantic: 'search-input', type: 'rect', hidden: false },
-    { name: 'Ellipse 1', semantic: null, type: 'ellipse', hidden: true },
-    { name: 'Group 88', semantic: 'menu-list', type: 'group', hidden: false },
-    { name: 'Frame 7', semantic: 'menu-item', type: 'frame', hidden: false },
-    { name: 'Vector', semantic: null, type: 'vector', hidden: true },
-    { name: 'Rectangle 3', semantic: 'avatar-circle', type: 'rect', hidden: false },
-    { name: 'Text', semantic: 'username-label', type: 'text', hidden: false },
-    { name: 'Line 9', semantic: null, type: 'line', hidden: true },
-    { name: 'Component 3', semantic: 'logout-button', type: 'frame', hidden: false },
-  ],
-  [
-    { name: 'Frame 51', semantic: 'hero-section', type: 'frame', hidden: false },
-    { name: 'Rectangle 2', semantic: 'hero-image', type: 'rect', hidden: false },
-    { name: 'Group 4', semantic: 'cta-group', type: 'group', hidden: false },
-    { name: 'Frame 88', semantic: null, type: 'frame', hidden: true },
-    { name: 'Text', semantic: 'headline-text', type: 'text', hidden: false },
-    { name: 'Ellipse 5', semantic: 'play-button', type: 'ellipse', hidden: false },
-    { name: 'Vector 7', semantic: null, type: 'vector', hidden: true },
-    { name: 'Rectangle 31', semantic: 'overlay-bg', type: 'rect', hidden: false },
-    { name: 'Frame 9', semantic: 'badge-row', type: 'frame', hidden: false },
-    { name: 'Group 14', semantic: null, type: 'group', hidden: true },
-  ],
-]
-
-const ROW_SLOT = 29
-const T_REVEAL_STAGGER = 40
-const T_PAUSE_AFTER_REVEAL = 1800
-const T_REMOVE_STAGGER = 100
-const T_PAUSE_AFTER_REMOVE = 600
-const T_ERASE_PER_CHAR = 32
-const T_ERASE_STAGGER = 120
-const T_PAUSE_AFTER_ERASE = 300
-const T_WRITE_PER_CHAR = 28
-const T_WRITE_STAGGER = 80
-const T_PAUSE_AFTER_WRITE = 2000
-const T_SCROLL_DURATION = 800
-
-function fillHeight(batch: Layer[], height: number) {
-  const visibleInBatch = batch.filter((layer) => !layer.hidden).length
-  const totalInBatch = batch.length
-  const visibleNeeded = Math.ceil(height / ROW_SLOT) + 2
-  const totalNeeded = Math.ceil(visibleNeeded * totalInBatch / visibleInBatch)
-
-  return Array.from({ length: totalNeeded }, (_, i) => ({
-    ...batch[i % batch.length],
-    _idx: i,
-  }))
-}
-
-function FloatingLayersBg() {
-  const wrapRef = useRef<HTMLDivElement | null>(null)
-  const curPanelRef = useRef<HTMLDivElement | null>(null)
-  const currentRowsRef = useRef<BgRow[]>([])
-  const nextRowsRef = useRef<BgRow[]>([])
-  const batchIdxRef = useRef(0)
-  const containerHRef = useRef(500)
-  const timersRef = useRef<number[]>([])
-  const destroyedRef = useRef(false)
-
-  const [currentRows, setCurrentRows] = useState<BgRow[]>([])
-  const [nextRows, setNextRows] = useState<BgRow[]>([])
-  const [scrollOffset, setScrollOffset] = useState(0)
-  const [scrollTransition, setScrollTransition] = useState(false)
-
-  function schedule(fn: () => void, ms: number) {
-    const id = window.setTimeout(() => {
-      if (!destroyedRef.current) fn()
-    }, ms)
-    timersRef.current.push(id)
-    return id
-  }
-
-  function clearTimers() {
-    timersRef.current.forEach((id) => window.clearTimeout(id))
-    timersRef.current = []
-  }
-
-  function getBatch(idx: number) {
-    return BATCHES[idx % BATCHES.length]
-  }
-
-  function buildRows(batch: Layer[]) {
-    return fillHeight(batch, containerHRef.current).map((layer) => ({
-      ...layer,
-      display: layer.name,
-      visible: false,
-      wiping: false,
-      gapShift: 0,
-      gapDelay: 0,
-      renamed: false,
-      showCursor: false,
-    }))
-  }
-
-  function commitCurrent(rows = currentRowsRef.current) {
-    currentRowsRef.current = rows
-    setCurrentRows([...rows])
-  }
-
-  function commitNext(rows = nextRowsRef.current) {
-    nextRowsRef.current = rows
-    setNextRows([...rows])
-  }
-
-  function mutateCurrent(index: number, patch: Partial<BgRow>) {
-    const rows = currentRowsRef.current
-    rows[index] = { ...rows[index], ...patch }
-    commitCurrent(rows)
-  }
-
-  function startScroll() {
-    const nextRowsVisible = nextRowsRef.current.map((row) => ({ ...row, visible: true }))
-    commitNext(nextRowsVisible)
-
-    const panelH = curPanelRef.current ? curPanelRef.current.offsetHeight : containerHRef.current
-    setScrollTransition(true)
-    setScrollOffset(panelH)
-
-    schedule(() => {
-      batchIdxRef.current += 1
-      setScrollTransition(false)
-      setScrollOffset(0)
-
-      commitCurrent(nextRowsRef.current)
-      const upcomingBatch = getBatch(batchIdxRef.current + 1)
-      commitNext(buildRows(upcomingBatch).map((row) => ({ ...row, visible: true })))
-      schedule(startCleanup, T_PAUSE_AFTER_REVEAL)
-    }, T_SCROLL_DURATION + 50)
-  }
-
-  function startWrite() {
-    const visible = currentRowsRef.current
-      .map((row, index) => ({ row, index }))
-      .filter(({ row }) => !row.hidden && row.semantic)
-
-    visible.forEach(({ row, index }, i) => {
-      const target = row.semantic || ''
-      const len = target.length
-
-      schedule(() => {
-        mutateCurrent(index, { renamed: true })
-        for (let c = 0; c <= len; c += 1) {
-          schedule(() => mutateCurrent(index, { display: target.slice(0, c) }), c * T_WRITE_PER_CHAR)
-        }
-        schedule(() => mutateCurrent(index, { showCursor: false }), len * T_WRITE_PER_CHAR)
-      }, i * T_WRITE_STAGGER)
-    })
-
-    const longestSemantic = Math.max(...visible.map(({ row }) => (row.semantic || '').length))
-    const totalWrite = (visible.length - 1) * T_WRITE_STAGGER + longestSemantic * T_WRITE_PER_CHAR
-    schedule(startScroll, totalWrite + T_PAUSE_AFTER_WRITE)
-  }
-
-  function startErase() {
-    const visible = currentRowsRef.current
-      .map((row, index) => ({ row, index }))
-      .filter(({ row }) => !row.hidden && row.semantic)
-
-    visible.forEach(({ row, index }, i) => {
-      const fullName = row.name
-      const len = fullName.length
-
-      schedule(() => {
-        mutateCurrent(index, { showCursor: true })
-        for (let c = 0; c < len; c += 1) {
-          schedule(() => mutateCurrent(index, { display: fullName.slice(0, len - 1 - c) }), c * T_ERASE_PER_CHAR)
-        }
-        schedule(() => mutateCurrent(index, { display: '' }), len * T_ERASE_PER_CHAR)
-      }, i * T_ERASE_STAGGER)
-    })
-
-    const longestName = Math.max(...visible.map(({ row }) => row.name.length))
-    const totalErase = (visible.length - 1) * T_ERASE_STAGGER + longestName * T_ERASE_PER_CHAR
-    schedule(startWrite, totalErase + T_PAUSE_AFTER_ERASE)
-  }
-
-  function startCleanup() {
-    const rows = currentRowsRef.current
-    const hidden = rows
-      .map((row, index) => ({ row, index }))
-      .filter(({ row }) => row.hidden)
-
-    if (hidden.length === 0) {
-      schedule(startErase, T_PAUSE_AFTER_REMOVE)
-      return
-    }
-
-    hidden.forEach(({ index }, i) => {
-      schedule(() => mutateCurrent(index, { wiping: true }), i * T_REMOVE_STAGGER)
-    })
-
-    const allWipesDone = (hidden.length - 1) * T_REMOVE_STAGGER + 450
-
-    schedule(() => {
-      const hiddenSet = new Set(hidden.map(({ index }) => index))
-      let gapsAbove = 0
-      let lastGapIdx = -Infinity
-
-      const shiftedRows = currentRowsRef.current.map((row, i) => {
-        if (hiddenSet.has(i)) {
-          gapsAbove += 1
-          lastGapIdx = i
-          return row
-        }
-
-        if (gapsAbove > 0) {
-          const distFromGap = i - lastGapIdx
-          return {
-            ...row,
-            gapShift: gapsAbove * ROW_SLOT,
-            gapDelay: Math.min((distFromGap - 1) * 30, 200),
-          }
-        }
-
-        return row
-      })
-
-      commitCurrent(shiftedRows)
-    }, allWipesDone + 150)
-
-    const gapCloseTime = allWipesDone + 150 + 200 + 700
-    schedule(startErase, gapCloseTime + T_PAUSE_AFTER_REMOVE)
-  }
-
-  function startCycle() {
-    if (wrapRef.current) {
-      containerHRef.current = wrapRef.current.getBoundingClientRect().height
-    }
-
-    const batch = getBatch(batchIdxRef.current)
-    const current = buildRows(batch)
-    commitCurrent(current)
-    setScrollOffset(0)
-    setScrollTransition(false)
-
-    const nextBatch = getBatch(batchIdxRef.current + 1)
-    commitNext(buildRows(nextBatch))
-
-    current.forEach((_, i) => {
-      schedule(() => mutateCurrent(i, { visible: true }), i * T_REVEAL_STAGGER)
-    })
-
-    const totalReveal = current.length * T_REVEAL_STAGGER
-    schedule(startCleanup, totalReveal + T_PAUSE_AFTER_REVEAL)
-  }
-
-  useEffect(() => {
-    startCycle()
-
-    return () => {
-      destroyedRef.current = true
-      clearTimers()
-    }
-  }, [])
-
-  function renderPanel(panelRows: BgRow[], keyPrefix: string, panelRef?: React.RefObject<HTMLDivElement | null>) {
-    return (
-      <div className="ll-bg-panel" ref={panelRef || null}>
-        {panelRows.map((row) => {
-          const style: CSSProperties = {}
-          if (row.gapShift > 0) {
-            style.transform = `translateY(-${row.gapShift}px)`
-            style.transition = 'transform 0.65s cubic-bezier(0.25, 0.1, 0.25, 1)'
-            style.transitionDelay = `${row.gapDelay}ms`
-          }
-
-          return (
-            <div
-              key={`${keyPrefix}-${row._idx}-${row.name}`}
-              className={[
-                'll-bg-row',
-                row.visible ? 'll-bg-row--visible' : '',
-                row.hidden ? 'll-bg-row--hidden' : '',
-                row.wiping ? 'll-bg-row--wiping' : '',
-                row.renamed ? 'll-bg-row--renamed' : '',
-              ].filter(Boolean).join(' ')}
-              style={style}
-            >
-              <span className="ll-bg-icon">{TYPE_ICONS[row.type] || '#'}</span>
-              <span className="ll-bg-name">
-                {row.display}
-                {row.showCursor ? <span className="ll-bg-cursor" /> : null}
-              </span>
-              <span className="ll-bg-eye">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className={row.hidden ? 'll-bg-eye--closed' : ''}
-                >
-                  <path d={row.hidden ? EYE_CLOSED : EYE_OPEN} />
-                </svg>
-              </span>
-            </div>
-          )
-        })}
-      </div>
-    )
-  }
-
+function LayerLintBackgroundVideo() {
   return (
-    <div className="ll-bg-wrap" ref={wrapRef} aria-hidden="true">
-      <div
-        className="ll-bg-track"
-        style={{
-          transform: `translateY(-${scrollOffset}px)`,
-          transition: scrollTransition
-            ? `transform ${T_SCROLL_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`
-            : 'none',
-        }}
-      >
-        {renderPanel(currentRows, `cur-${batchIdxRef.current}`, curPanelRef)}
-        {renderPanel(nextRows, `nxt-${batchIdxRef.current + 1}`)}
-      </div>
+    <div className="ll-bg-wrap" aria-hidden="true">
+      <iframe
+        className="ll-bg-video"
+        src="https://player.vimeo.com/video/1214782978?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&dnt=1"
+        title=""
+        allow="autoplay; fullscreen"
+        tabIndex={-1}
+      />
     </div>
   )
 }
@@ -509,7 +167,7 @@ function CardFace({ className = '' }: { className?: string }) {
   return (
     <div className={['ll-card-face', className].filter(Boolean).join(' ')}>
       <img src={LOGO_SRC} alt="Layer Lint" className="ll-card-logo" />
-      <p className="ll-card-title">Libra{'\n'}Project</p>
+      <p className="ll-card-title">Libra{'\n'}Website Redesign</p>
     </div>
   )
 }
@@ -584,7 +242,7 @@ function CaseStudyOverlay({
         onClick={openOverlay}
       >
         <img src={imageSrc} className={imageClass} alt="" aria-hidden="true" />
-        <FloatingLayersBg />
+        <LayerLintBackgroundVideo />
         <CardFace />
         <span className="action-icon" aria-hidden="true">
           <img src={ICON_EXPAND} alt="" />
@@ -626,7 +284,7 @@ function CaseStudyOverlay({
                 >
                   <img src={imageSrc} className={imageClass} alt="" aria-hidden="true" />
                   <div className="ll-hero-overlay">
-                    <FloatingLayersBg />
+                    <LayerLintBackgroundVideo />
                     <CardFace />
                   </div>
                 </div>
@@ -679,7 +337,7 @@ export default function Libra() {
       imageSrc={HERO_SRC}
       imageClass="ll-hero-img"
       heroWrapClass="ll-hero-wrap"
-      tooltip={'Clean your Figma layers\nso AI agents can read them 🧹'}
+      tooltip={"Behind the Scenes of LoveLibra's\nUser-Centric Makeover🖌️"}
       heroSize={448}
     >
       <TldrToggle modelValue={tldr} onUpdate={setTldr} />
