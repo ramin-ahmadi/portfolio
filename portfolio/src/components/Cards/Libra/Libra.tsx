@@ -9,11 +9,11 @@ import './Libra.scss'
 
 // ── Assets ──
 const LOGO_SRC = '/src/assets/images/libra/libra-logo.avif'
-const HERO_SRC = '/src/assets/images/layerlint-hero.svg'
-const IMG_CLEANUP = '/src/assets/images/layerlint/ll-cleanup.svg'
-const IMG_RENAME = '/src/assets/images/layerlint/ll-rename.svg'
-const IMG_SETTINGS = '/src/assets/images/layerlint/ll-settings.svg'
-const IMG_COVER = '/src/assets/images/layerlint/ll-cover.svg'
+const HIFI_GALLERY_IMAGES = Array.from(
+  { length: 12 },
+  (_, index) => `/src/assets/images/libra/Libra-hifi-${index + 1}.png`,
+)
+
 
 const ICON_EXPAND = '/src/assets/icons/full-screen.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
@@ -174,19 +174,15 @@ function CardFace({ className = '' }: { className?: string }) {
 
 function CaseStudyOverlay({
   cardClass,
-  imageSrc,
-  imageClass,
   heroWrapClass,
   tooltip,
-  heroSize,
+  heroSize = { width: 680, height: 350 },
   children,
 }: {
   cardClass: string
-  imageSrc: string
-  imageClass: string
   heroWrapClass: string
   tooltip: string
-  heroSize: number
+  heroSize?: { width: number; height: number }
   children: ReactNode
 }) {
   const [open, setOpen] = useState(false)
@@ -241,7 +237,7 @@ function CaseStudyOverlay({
         data-tooltip={tooltip}
         onClick={openOverlay}
       >
-        <img src={imageSrc} className={imageClass} alt="" aria-hidden="true" />
+
         <LayerLintBackgroundVideo />
         <CardFace />
         <span className="action-icon" aria-hidden="true">
@@ -276,17 +272,12 @@ function CaseStudyOverlay({
                 <div
                   className={heroWrapClass}
                   style={{
-                    width: `${heroSize}px`,
-                    height: `${heroSize}px`,
+                    width: `${heroSize.width}px`,
+                    height: `${heroSize.height}px`,
                     position: 'relative',
                     flexShrink: 0,
                   }}
                 >
-                  <img src={imageSrc} className={imageClass} alt="" aria-hidden="true" />
-                  <div className="ll-hero-overlay">
-                    <LayerLintBackgroundVideo />
-                    <CardFace />
-                  </div>
                 </div>
                 {children}
               </div>
@@ -298,20 +289,20 @@ function CaseStudyOverlay({
               aria-label="Back to top"
               onClick={() => innerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-                <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-  >
-    <polyline points="18 15 12 9 6 15"></polyline>
-  </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="18 15 12 9 6 15"></polyline>
+              </svg>
             </button>
 
             {renderRipples()}
@@ -334,162 +325,230 @@ export default function Libra() {
   return (
     <CaseStudyOverlay
       cardClass="ll-card"
-      imageSrc={HERO_SRC}
-      imageClass="ll-hero-img"
       heroWrapClass="ll-hero-wrap"
       tooltip={"Behind the Scenes of LoveLibra's\nUser-Centric Makeover🖌️"}
-      heroSize={448}
     >
       <TldrToggle modelValue={tldr} onUpdate={setTldr} />
 
       <div className="cs-body">
-        <h1 className="cs-title">Your layers are the prompt. Make sure they’re worth reading.</h1>
+        <h1 className="cs-title">Behind the scenes of Libra's user-centric make-over</h1>
 
         {full(
           <p className="cs-body-text" key="intro-1">
-            Every time an AI coding agent reads a Figma file, it encounters your layer names. "Rectangle 47" tells it nothing. "product-card" gives it meaningful context. The gap between those two names is the gap between an agent that guesses and one that builds closer to what you designed.
+            Libra, a female care brand in Australia, was the leading brand in 2021 but faced a challenge: only small precentage of their sales came from their online store. To address this, we embarked on a comprehensive UX design and discovery project focused on engaging a younger female audience.
           </p>,
           <p className="cs-body-text" key="intro-2">
-            Layer Lint is a Figma plugin I built to close that gap between design files and AI agents. It scans your files for hidden and empty layers cluttering the panel, then uses Claude to batch-rename auto-generated names into semantic, developer-friendly ones - optimised for both AI agents and the humans who review their output.
+            As the lead UI/UX designer (2021), I led the project based on a design thinking approach, which involved conducting comprehensive user research and analysis, creating wireframes and prototypes, performing user testing and usability evaluations, and continuously incorporating feedback to update design resources ensuring high levels of usability and optimal user engagement.
           </p>,
           <p className="cs-body-text" key="intro-3">
-            It’s live on the Figma Community -{' '}
+            It’s live on  {' '}
             <a
               className="cs-link"
               role="link"
               tabIndex={0}
-              onClick={() => window.open('https://www.figma.com/community/plugin/1626564985947649735/layer-lint', '_blank')}
+              onClick={() => window.open('https://lovelibra.com/au/', '_blank')}
             >
-              install Layer Lint
+              https://lovelibra.com/au/
             </a>
             .
           </p>,
         )}
 
         <h2 className="cs-section-title">My role</h2>
-        <p className="cs-body-text">Side project - design & development</p>
+        <p className="cs-body-text">Lead UI/UX designer</p>
 
         <h2 className="cs-section-title">Impact</h2>
 
-        <h3 className="cs-subsection-title">🧹 One-Click Layer Cleanup</h3>
+        <h3 className="cs-subsection-title">Optimised ordering process </h3>
         {full(
           <p className="cs-body-text" key="impact-1">
-            Scans the current page and flags every hidden subtree and invisible shape - the forgotten artifacts that accumulate in any working Figma file. Select all or pick individually, then remove them in a single action.
+            Subscriptions, custom bundles and easier reordering reduced the work required to replenish essential products, supporting stronger retention and more predictable revenue.
           </p>,
         )}
 
-        <h3 className="cs-subsection-title">🤖 AI-Powered Semantic Renaming</h3>
+        <h3 className="cs-subsection-title">Better product discovery</h3>
         {full(
           <p className="cs-body-text" key="impact-2">
-            Claude reads each layer’s type, text content, layout direction, children, and - for visually complex nodes - an exported PNG. It proposes kebab-case names that describe purpose, not appearance. Every suggestion is reviewable: edit, accept, or skip individually before applying.
+            Clearer product information helped new customers understand product suitability and benefits, reducing uncertainty before adding an item to their cart.
           </p>,
         )}
 
-        <h3 className="cs-subsection-title">🛡️ Instance-Safe by Design</h3>
+        <h3 className="cs-subsection-title">Improved awareness of Libra’s free product program</h3>
         {full(
           <p className="cs-body-text" key="impact-3">
-            The plugin never walks into or modifies content inside component instances. Instance contents belong to their main component - renaming them locally would create overrides that break on the next component update. Layer Lint respects that boundary automatically.
+            Prominent navigation and clearer program content made it easier for students and schools to discover the initiative and understand how to participate.
           </p>,
         )}
-      </div>
-
-      <img className="cs-cover-img" src={IMG_COVER} alt="Layer Lint plugin interface showing cleanup and rename tabs" />
-      <p className="cs-hint">Cleanup and rename - the two tabs of Layer Lint</p>
-
-      <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Problem</h2>
-        <p className="cs-body-text">
-          Figma auto-generates layer names like "Rectangle 47", "Frame 3", and "Group 12". For a designer working visually, these names are harmless - you can see what each layer is on the canvas. But for anything reading the file programmatically - an AI coding agent, a design-to-code tool, a developer in Dev Mode - those names are noise. They carry zero semantic information.
-        </p>
-
-        <p className="cs-body-text">
-          On top of that, working Figma files accumulate hidden layers, empty shapes, and forgotten artifacts. These don’t affect the visual output, but they bloat the layer panel, slow down file loading, and confuse any tool or agent trying to parse the file’s structure. The problem compounds at scale: the more complex the file, the harder it is to maintain manually.
-        </p>
-      </div>
-
-      <BeforeAfterToggle />
-      <InteractiveTag hint="Toggle between the raw and cleaned layer panel" />
-
-      <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Cleanup: finding what’s invisible</h2>
+        <h3 className="cs-subsection-title">Faster mobile shopping experience</h3>
         {full(
-          <p className="cs-body-text" key="cleanup-1">
-            The cleanup scan walks the page tree and flags two types of node: hidden subtrees (where only the root needs removing) and leaf shapes with no visible fill, stroke, or effect - visually indistinguishable from hidden layers but technically still "visible" in Figma’s model. Mixed fills are treated as intentional. The scan never enters component instances.
-          </p>,
-          <p className="cs-body-text" key="cleanup-2">
-            Results appear as a checklist with each layer’s name, type, and reason (hidden or empty). Clicking a row zooms to the node on the canvas. Select all or cherry-pick, then remove.
+          <p className="cs-body-text" key="impact-4">
+            A mobile-first interface made browsing, purchasing and managing orders easier for the more than 80% of Libra customers accessing the website by phone.
           </p>,
         )}
       </div>
 
-      <img className="cs-cover-img" src={IMG_CLEANUP} alt="Layer Lint cleanup tab showing flagged hidden and empty layers" />
-      <p className="cs-hint">Cleanup results with hidden and empty layer badges</p>
+      <img
+        className="cs-cover-img"
+        data-scroll-reveal
+        src="./src/assets/images/libra/stats.png"
+        alt="Page speed test recorded using https://tools.pingdom.com/."
+      />
+      <span className="cs-hint">
+        Page speed test recorded using https://tools.pingdom.com/.
+      </span>
+
 
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Rename: giving layers meaning</h2>
+        <h2 className="cs-section-title">Challenges</h2>
+        <p className="cs-body-text">
+          Online shopping is about convenience and speed, but for many of Libra’s users, that experience was falling short. Websites need to be fast and engaging, yet Libra's site was plagued by long loading times that caused user frustration and drop-offs.
+
+        </p>
+        <p className="cs-body-text">
+          And while a seamless checkout process is crucial for securing sales, Libra’s slow and cumbersome checkout experience led to frequent cart abandonment. These issues collectively hindered the brand’s ability to convert website visits into sales.
+        </p>
+
+        <p className="cs-body-text">
+          Many critical aspects of user needs remained undiscovered, highlighting the challenges of fully understanding the target audience of Libra.
+
+        </p>
+      </div>
+
+      <div className="cs-body cs-body--continued">
+        <h4 className="cs-section-title">Key drivers</h4>
+        {full(
+          <p>&nbsp;</p>,
+          <h3>Repetitive ordering process</h3>,
+          <p className="cs-body-text">
+            Users are required to manually create orders with multiple products each time, despite frequently purchasing the same items.
+          </p>,
+          <p>&nbsp;</p>,
+          <h3>Insufficient product information</h3>,
+          <p className="cs-body-text">
+            Product descriptions are brief and confined to what’s listed on the product label, leaving new users unable to fully understand the suitability or benefits of the products.
+          </p>,
+          <p>&nbsp;</p>,
+          <h3>Lack of product awareness</h3>,
+          <p className="cs-body-text">
+            There was no visibility of the free product distribution program in schools. Libra's free product program was unknown to students and schools, with schools unsure how to place orders.
+          </p>,
+          <p>&nbsp;</p>,
+          <h3>Poor mobile experience</h3>,
+          <p className="cs-body-text">
+            Over 80% of users access the website via their phones, but its lack of mobile optimisation discourages browsing and ultimately leads to fewer product orders.
+          </p>,
+        )}
+      </div>
+
+      <div className="cs-body cs-body--continued">
+        <h2 className="cs-section-title">Journey mapping</h2>
         {full(
           <p className="cs-body-text" key="rename-1">
-            The rename flow collects context for each candidate layer: its type, dimensions, parent path, up to 10 children, layout direction, fill classification, and for text nodes (the first 200 characters of content.) For visually complex nodes (vectors, images) above a minimum size, it also exports a 1x PNG so Claude can see what the layer actually looks like.
+            Drawing from rich data collected through in-person interviews, surveys, and user reviews, I began organising my observations and insights into a customer journey map. This journey map became an integral tool, revealing pain points and highlighting opportunities for improvement across every stage of the user experience.
           </p>,
           <p className="cs-body-text" key="rename-2">
-            Candidates are batched to stay within API limits - 50 text-only layers per request, 10 visual layers. Claude is instructed via a constrained tool-use pattern: it must call a submit_names tool with exactly one kebab-case name per layer ID. The plugin deduplicates sibling names automatically (appending -2, -3 if needed) and sanitises every response to enforce the naming convention.
+            It didn’t just identify where the website needed improvements, but it also initiated meaningful discussions, helping bridge knowledge gaps and igniting idea generation among the team and stakeholders.
           </p>,
           <p className="cs-body-text" key="rename-3">
-            Two scope modes let the designer choose: rename only default-named layers (the "Rectangle 47" pattern) or all layers including manually named ones. The results appear in a side-by-side list where every proposal is editable before applying.
+            Mapping the journey also allowed me to identify key touch points, delving into user intent and tasks while considering the emotions and expectations users had along the way.
           </p>,
         )}
       </div>
 
-      <img className="cs-cover-img" src={IMG_RENAME} alt="Layer Lint rename tab showing AI-proposed names alongside originals" />
-      <p className="cs-hint">Side-by-side rename review - edit any suggestion before applying</p>
+      <img
+        className="cs-cover-img"
+        data-scroll-reveal
+        src="/src/assets/images/libra/journey-map.png"
+        alt="A five-stage journey mapping"
+      />
+      <p className="cs-hint">A five-stage journey map following the persona from recognising a need to receiving her order, highlighting actions, emotions, pain points, touchpoints and opportunities.</p>
 
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Model selection and cost transparency</h2>
+        <h2 className="cs-section-title">Ideation:Balancing user needs with business priorities</h2>
         {full(
           <p className="cs-body-text" key="model-1">
-            The settings panel lets designers choose between Haiku (fast and cheap - the default), Sonnet (balanced), or Opus (highest quality). Haiku handles most files well. Sonnet or Opus are worth switching to for dense layouts or when Haiku is overloaded. The plugin tracks input and output token usage per session and displays it after each rename run, so designers always know what a batch cost.
+            Facilitating UX ideation workshops for the Libra website was a pivotal step in introducing the client to design thinking. I brought together stakeholders from marketing, commercial, and product management for the workshops which aimed to align diverse perspectives around user needs and business objectives.
           </p>,
           <p className="cs-body-text" key="model-2">
-            Transient errors (rate limits, overload, server errors) are retried automatically with exponential backoff - up to three attempts with clear status messages between each retry so the designer knows the plugin isn’t stuck.
+            Balancing user needs with business priorities was a recurring theme. I presented direct quotes from interviews and user feedback that underscored the value of some features such as subscription products. These insights shifted the conversation and helped me to add those features into the product roadmap.
           </p>,
         )}
       </div>
 
-      <img className="cs-cover-img" src={IMG_SETTINGS} alt="Layer Lint settings panel showing model selector and API key management" />
-      <p className="cs-hint">BYOK settings with model selection and cost tracking</p>
+      <img className="cs-cover-img" data-scroll-reveal src="/src/assets/images/libra/ideation.png" alt="Layer Lint settings panel showing model selector and API key management" />
+      <p className="cs-hint">using customer insights to introduce design thinking, align user and business needs, and secure features such as subscriptions on the product roadmap.</p>
 
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">The other side of the agentic equation</h2>
+        <h2 className="cs-section-title">Ideas to sketches</h2>
         {full(
-          <p className="cs-body-text" key="agentic-1">
-            In the{' '}
-            <a
-              className="cs-link"
-              role="link"
-              tabIndex={0}
-              onClick={() => window.open('#agenticds', '_blank')}
-            >
-              Agentic Design System
-            </a>{' '}
-            case study, I structured a design system so AI agents could operate within it - auditing tokens, catching drift, keeping Figma and code in sync. That work assumed the Figma files were already well-structured. Layer Lint tackles the prerequisite: making sure the raw design files are readable by machines in the first place.
+          <p className="cs-body-text" key="ideas-1">
+            I translated initial ideas into low-fidelity sketches and collaborated closely with my team to refine concepts. These sketches formed the basis for user testing, allowing us to quickly gather feedback and identify areas for improvement. Through iterative cycles, we updated the designs, moving step-by-step towards a solution for new concepts such as subscription and ordering product samples online. The process helped me make sure each iteration brought us closer to a better user experience.
           </p>,
-          <p className="cs-body-text" key="agentic-2">
-            Together they form two halves of the same thesis. A semantically named layer tree means an AI agent reading the file via Figma MCP gets meaningful context instead of "Frame 3 contains Rectangle 47". And a well-structured design system means the agent knows what those layers should be called, what tokens they should reference, and how they relate to code. Layer Lint is the cleanup. The agentic DS is the vocabulary.
-          </p>,
+
         )}
 
-        <h2 className="cs-section-title">What I took away</h2>
+        <div className="video-autoplayer libra-ideas-video">
+          <iframe
+            src="https://player.vimeo.com/video/1216622779?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&playsinline=1&dnt=1"
+            title="Ideas to sketches"
+            allow="autoplay; fullscreen; picture-in-picture"
+            tabIndex={-1}
+          />
+        </div>
+
+        <h2 className="cs-section-title">User testing</h2>
 
         <p className="cs-body-text">
-          The biggest insight was that <strong>layer names are an interface</strong>. Not only for humans to navigate visually. But for every machine that reads the file: AI coding agents, design-to-code tools, accessibility audits, automated testing. A layer called "user-avatar" is a contract. A layer called "Ellipse 9" is a guessing game.
+          I conducted moderated user testing to assess the usability and effectiveness of the design. I selected a group of 5 participants that reflected the target audience (young women) and facilitated the testing sessions, where users were guided through key tasks such as making a purchase, subscribing to a kit, and navigating the website’s promotions and content.
         </p>
 
         {full(
           <p className="cs-body-text" key="closing-1">
-            Layer Lint came out of preparing our production Figma files at work for an agentic design system. As I started cleaning up, I discovered just how many dead layers and default names had accumulated. Hidden groups, unnamed rectangles, orphaned vectors everywhere. Renaming them one by one was <strong>time-consuming and mentally draining</strong>. I needed a way to semi-automate the process, so I built one. What started as solving my own frustration became something broader: as AI agents become a bigger part of the design-to-code pipeline, the quality of what they build depends on the quality of what they read. Clean layers aren’t housekeeping - they’re infrastructure.
+            As users completed these tasks, I observed their behaviour, identified pain points, and encouraged them to think out loud to capture their thoughts and feelings about the interface.
+            The session results provided valuable insights that led to design improvement primarily in checkout and shopping cart features.
           </p>,
         )}
+        <img
+          className="cs-cover-img"
+          data-scroll-reveal
+          src="/src/assets/images/libra/user-testing.png"
+          alt="User testing session"
+        />
+        <p className="cs-hint">I tested the design with five participants, watching how they shopped and subscribed, and used what I learnt to refine the cart and checkout experience.</p>
       </div>
+      <div className="cs-body cs-body--continued">
+
+        <h2 className="cs-section-title">High fidelity designs</h2>
+
+        <p className="cs-body-text">
+          Following the review of low-fidelity designs, I was tasked with creating high-fidelity designs in Figma that aligned with Libra's established brand guidelines. One of the biggest challenges was incorporating Libra Girl, a new section of the website with a completely different brand identity. To maintain consistency between the two brand identities, I used design tokens and shared styles. 
+        </p>
+
+        {full(
+          <p className="cs-body-text" key="closing-1">
+By defining colours, typography, and spacing as variables, I was able to create a flexible yet consistent design system that could seamlessly blend both Libra and Libra Girl’s aesthetics.
+          </p>,
+          <p className="cs-body-text" key="closing-2">
+Changing these variables allowed me to adapt the designs quickly while ensuring that both brands felt cohesive and true to their individual identities, without redundancy in assets. This approach not only streamlined the design process but also ensured a scalable and adaptable system moving forward.
+          </p>,
+
+        )}
+
+        <div className="libra-hifi-gallery" aria-label="Libra high-fidelity designs">
+          {HIFI_GALLERY_IMAGES.map((src, index) => (
+            <img
+              className="cs-cover-img libra-hifi-gallery__image"
+              data-scroll-reveal
+              src={src}
+              alt={`Libra high-fidelity design ${index + 1}`}
+              loading="lazy"
+              decoding="async"
+              key={src}
+            />
+          ))}
+        </div>
+      </div>
+
     </CaseStudyOverlay>
   )
 }

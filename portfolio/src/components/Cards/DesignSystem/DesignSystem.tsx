@@ -1,5 +1,4 @@
 import {
-  type MouseEvent as ReactMouseEvent,
   type ReactNode,
   useEffect,
   useRef,
@@ -135,10 +134,6 @@ function CaseStudyOverlay({
   const [closing, setClosing] = useState(false);
   const [wasOpen, setWasOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [lightboxImage, setLightboxImage] = useState<{
-    src: string;
-    alt: string;
-  } | null>(null);
   const innerRef = useRef<HTMLDivElement | null>(null);
   const { spawnRipple, renderRipples } = useRipple();
 
@@ -156,38 +151,19 @@ function CaseStudyOverlay({
       setOpen(false);
       setClosing(false);
       setShowBackToTop(false);
-      setLightboxImage(null);
     }, 450);
-  }
-
-  function openImageLightbox(event: ReactMouseEvent<HTMLDivElement>) {
-    const target = event.target;
-    if (!(target instanceof HTMLImageElement)) return;
-    if (!target.classList.contains("cs-cover-img")) return;
-
-    event.stopPropagation();
-    setLightboxImage({
-      src: target.currentSrc || target.src,
-      alt: target.alt,
-    });
   }
 
   useEffect(() => {
     if (!open) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-
-      if (lightboxImage) {
-        setLightboxImage(null);
-      } else {
-        closeOverlay();
-      }
+      if (event.key === "Escape") closeOverlay();
     };
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open, lightboxImage]);
+  }, [open]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -272,10 +248,7 @@ function CaseStudyOverlay({
                 setShowBackToTop(event.currentTarget.scrollTop > 600)
               }
             >
-              <div
-                className="cs-expanded-content cs-expanded-content--image-lightbox"
-                onClick={openImageLightbox}
-              >
+              <div className="cs-expanded-content">
                 <video
                   className="cs-hero-video"
                   src={videoSrc}
@@ -321,43 +294,6 @@ function CaseStudyOverlay({
                 <polyline points="18 15 12 9 6 15"></polyline>
               </svg>
             </button>
-
-            {lightboxImage ? (
-              <div
-                className="cs-image-lightbox"
-                role="dialog"
-                aria-modal="true"
-                aria-label={lightboxImage.alt || "Expanded image"}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  if (event.target === event.currentTarget) {
-                    setLightboxImage(null);
-                  }
-                }}
-              >
-                <div className="cs-image-lightbox-dialog">
-                  <img src={lightboxImage.src} alt={lightboxImage.alt} />
-                  <button
-                    className="cs-image-lightbox-close"
-                    type="button"
-                    aria-label="Close expanded image"
-                    autoFocus
-                    onClick={() => setLightboxImage(null)}
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M6 6l12 12M18 6L6 18" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            ) : null}
 
             {renderRipples()}
           </div>
@@ -733,7 +669,7 @@ export default function DesignSystem() {
         the autocomplete field is not clearly identifiable.
       </span>
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Problem</h2>
+        <h2 className="cs-section-title">Challenges</h2>
         <p className="cs-body-text">
           At Enable, no two features looked the same, even when they shared the
           exact same UI elements. A button in one feature had rounded corners,

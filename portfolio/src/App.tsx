@@ -55,13 +55,74 @@ function useIsMobileLayout() {
   return isMobile
 }
 
+function useGlobalCoverImageReveal() {
+  useEffect(() => {
+    const selector = '.cs-expanded-content .cs-cover-img'
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const intersectionObserver = !reduceMotion && 'IntersectionObserver' in window
+      ? new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return
+
+              entry.target.classList.add('cs-scroll-reveal--visible')
+              observer.unobserve(entry.target)
+            })
+          },
+          {
+            rootMargin: '0px 0px -8% 0px',
+            threshold: 0.12,
+          },
+        )
+      : null
+
+    const registerImage = (image: Element) => {
+      if (image.classList.contains('cs-scroll-reveal--visible')) return
+
+      if (intersectionObserver) {
+        intersectionObserver.observe(image)
+      } else {
+        image.classList.add('cs-scroll-reveal--visible')
+      }
+    }
+
+    const registerImagesWithin = (root: ParentNode) => {
+      if (root instanceof Element && root.matches(selector)) {
+        registerImage(root)
+      }
+      root.querySelectorAll(selector).forEach(registerImage)
+    }
+
+    registerImagesWithin(document)
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node instanceof Element) registerImagesWithin(node)
+        })
+      })
+    })
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      intersectionObserver?.disconnect()
+      mutationObserver.disconnect()
+    }
+  }, [])
+}
+
 function App() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null)
   const slotRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const previousSlotRects = useRef<Record<string, DOMRect>>({})
   const hasMeasuredInitialLayout = useRef(false)
   const isMobileLayout = useIsMobileLayout()
+
+  useGlobalCoverImageReveal()
 
   const activeLayouts = isMobileLayout ? MOBILE_LAYOUTS : LAYOUTS
   const activeLayout = activeLayouts[activeFilter as keyof typeof activeLayouts] || activeLayouts.All
@@ -98,6 +159,41 @@ function App() {
       window.removeEventListener('resize', onScroll)
     }
   }, [])
+
+  useEffect(() => {
+    const openCoverImage = (event: MouseEvent) => {
+      const target = event.target
+      if (!(target instanceof Element)) return
+
+      const image = target.closest('img.cs-cover-img')
+      if (!(image instanceof HTMLImageElement)) return
+
+      event.preventDefault()
+      event.stopPropagation()
+      setLightboxImage({
+        src: image.currentSrc || image.src,
+        alt: image.alt,
+      })
+    }
+
+    document.addEventListener('click', openCoverImage, true)
+    return () => document.removeEventListener('click', openCoverImage, true)
+  }, [])
+
+  useEffect(() => {
+    if (!lightboxImage) return
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+
+      event.preventDefault()
+      event.stopImmediatePropagation()
+      setLightboxImage(null)
+    }
+
+    document.addEventListener('keydown', closeOnEscape, true)
+    return () => document.removeEventListener('keydown', closeOnEscape, true)
+  }, [lightboxImage])
 
   function captureSlotRects() {
     previousSlotRects.current = Object.fromEntries(
@@ -205,6 +301,40 @@ function App() {
       </button>
 
       <CursorTooltip />
+
+      {lightboxImage ? (
+        <div
+          className="cs-image-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightboxImage.alt || 'Expanded image'}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setLightboxImage(null)
+          }}
+        >
+          <div className="cs-image-lightbox-dialog">
+            <img src={lightboxImage.src} alt={lightboxImage.alt} />
+            <button
+              className="cs-image-lightbox-close"
+              type="button"
+              aria-label="Close expanded image"
+              autoFocus
+              onClick={() => setLightboxImage(null)}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      ) : null}
     </>
   )
 }
