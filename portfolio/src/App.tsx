@@ -12,7 +12,7 @@ import BulbCard from './components/Cards/BulbCard/BulbCard'
 import DuolingoCard from './components/Cards/DuolingoCard/DuolingoCard'
 import ModularSofa from './components/Cards/modular-sofa/ModularSofa'
 import DesignSystem from './components/Cards/DesignSystem/DesignSystem'
-import AgenticDesignSystem from './components/Cards/AgenticDesignSystem/AgenticDesignSystem'
+import Rebrand from './components/Cards/Rebrand/Rebrand'
 import Libra from './components/Cards/Libra/Libra'
 import Quote from './components/Cards/quote/Quote'
 import QuoteUX from './components/Cards/QuoteUX/QuoteUX'
@@ -28,7 +28,7 @@ const CARD_COMPONENTS: Record<string, ReactNode> = {
   DuolingoCard: <DuolingoCard />,
   ModularSofa: <ModularSofa />,
   DesignSystem: <DesignSystem />,
-  AgenticDesignSystem: <AgenticDesignSystem />,
+  Rebrand: <Rebrand />,
   Libra: <Libra />,
   Quote: <Quote />,
   QuoteUX: <QuoteUX />,
