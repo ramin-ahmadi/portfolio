@@ -132,9 +132,9 @@ export default function QuoteUX() {
 
         <span className="quote-icon"></span>
         <p className="quote-text">
-          Great UX gives users a clear sense of <strong>control</strong>.
+           My path into <strong>product design</strong>.
         </p>
-        <span className="design-principle">My design principle</span>
+        <span className="design-principle">From writing code to shaping products</span>
       </div>
 
       {expanded ? (
@@ -172,19 +172,21 @@ export default function QuoteUX() {
                 <span className="ux-quote-expanded-icon"></span>
 
                 <p className="ux-quote-expanded-quote">
-                  Great UX gives users a clear sense of <strong>control</strong>.
+                  My path into product design
                 </p>
 
                 <div className="ux-quote-expanded-body">
                   <p>
-                    The strongest interfaces do more than function smoothly; they help people <strong>feel confident</strong> as they use them. When someone understands what will happen next, can recover from errors, and moves through a flow without hesitation, that is not luck. It is design.
+                   I started my career as a front-end engineer, moving from simple HTML, CSS and JS websites to building React applications over six years. Over time, I became more interested in the decisions behind the interface which led me to complete a Master’s degree in Human Computer Interaction (UX specialisation) at the University of Melbourne and gradually move into product design.
                   </p>
                   <p>
-                    I design experiences where users can always recognise where they are, what actions are available, and what has just changed. That does not mean stripping everything back to nothing; it means making complexity feel understandable. Control is not about reducing choices, it is about providing <strong>clarity at every decision point</strong>.
+                    I’m drawn to simple ideas that help make sense of complex systems. Atomic Design shaped how I think about interfaces as connected parts rather than one page. while the work of Brad Frost, TJ Pitre, Don Norman and Michael Youngblood continues to influence how I think about design systems, AI agents. 
+                
+                  </p>
+                  <p>
+                     Outside of work I spend my time hiking, camping, reading (very) old books and occasionally writing about product design. you can find more of those thoughts on my blog at <a href="https://medium.com/@raminahmadi" target="_blank" rel="noopener noreferrer">https://medium.com/@raminahmadi</a>.
                   </p>
                 </div>
-
-                <span className="design-principle">My design principle</span>
               </div>
             </div>
 
