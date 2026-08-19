@@ -50,11 +50,7 @@ const HERO_SRC = './src/assets/images/agentic-ds/agentic-ds-hero.svg'
 
 // ── Image assets (add screenshots as you take them) ──
 const IMG_FIGMA_TOKENS = '/src/assets/images/agentic-ds/figma-tokens.png'
-const IMG_DRIFT_AUDIT = '/src/assets/images/agentic-ds/drift-audit.png'
 const IMG_CONSOLIDATION = '/src/assets/images/agentic-ds/token-consolidation.png'
-const IMG_SECTIONS_FIGMA = '/src/assets/images/agentic-ds/figma-sections.png'
-const IMG_STORYBOOK_SHOT = '/src/assets/images/agentic-ds/storybook-screenshot.png'
-const STORYBOOK_URL = 'https://main--69d91a00abeffaea79b942f8.chromatic.com/?path=/story/design-tokens-colours--semantic-colours'
 const PRELOAD_ONLY_ASSETS = [IMG_FIGMA_TOKENS, IMG_CONSOLIDATION]
 
 const ICON_EXPAND = '/src/assets/icons/full-screen.svg'
