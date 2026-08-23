@@ -6,9 +6,8 @@ import {
   useState,
 } from 'react'
 import { useRipple } from '../../useRipple'
-import './modular-sofa.css'
+import './ModularSofa.scss'
 
-const VIDEO_SRC = '/src/assets/videos/modular-sofa-clip.mp4'
 const SCREENSHOT = '/src/assets/images/modular-sofa/modular-sofa-configurator.png'
 const PODCAST_SCREENSHOT = '/src/assets/images/modular-sofa/modular-sofa-room-preview.png'
 const IMG_SEL_REGION = '/src/assets/images/modular-sofa/select-layout-hover.png'
@@ -17,6 +16,12 @@ const IMG_QUICK = '/src/assets/images/modular-sofa/assembly-guide-hover.png'
 
 const ICON_EXPAND = '/src/assets/icons/full-screen.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
+const IDEATION_IMAGES = [
+  '/src/assets/images/modular/ideation1.png',
+  '/src/assets/images/modular/Ideation2.png',
+  '/src/assets/images/modular/Ideation3.png',
+  '/src/assets/images/modular/Ideation4.png',
+]
 
 type AntonymCard = {
   id: string
@@ -353,7 +358,10 @@ function CaseStudyOverlay({
   videoSrc: string
   videoClass: string
   tooltip: string
-  heroSize: number
+  heroSize: {
+    width: number
+    height: number
+  }
   children: ReactNode
 }) {
   const [open, setOpen] = useState(false)
@@ -408,14 +416,10 @@ function CaseStudyOverlay({
         data-tooltip={tooltip}
         onClick={openOverlay}
       >
-        <video
+        <img
           className={videoClass}
           src={videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
+          alt="Modular sofa banner"
         />
         <span className="action-icon" aria-hidden="true">
           <img src={ICON_EXPAND} alt="" />
@@ -435,7 +439,7 @@ function CaseStudyOverlay({
             onClick={spawnRipple}
           >
             <div className="cs-header">
-              <button className="cs-header-close" type="button"  data-tooltip="Press Esc to exit fullscreen" aria-label="Close case study" onClick={closeOverlay}>
+              <button className="cs-header-close" type="button" data-tooltip="Press Esc to exit fullscreen" aria-label="Close case study" onClick={closeOverlay}>
                 <img src={ICON_SHRINK} alt="" />
               </button>
             </div>
@@ -446,15 +450,15 @@ function CaseStudyOverlay({
               onScroll={(event) => setShowBackToTop(event.currentTarget.scrollTop > 600)}
             >
               <div className="cs-expanded-content">
-                <video
+                <img
                   className="cs-hero-video"
                   src={videoSrc}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  style={{ width: `${heroSize}px`, height: `${heroSize}px` }}
+                  alt="Modular sofa banner"
+                  style={{
+                    width: `${heroSize.width}px`,
+                    height: `${heroSize.height}px`,
+                    objectFit: 'cover',
+                  }}
                 />
                 {children}
               </div>
@@ -466,20 +470,20 @@ function CaseStudyOverlay({
               aria-label="Back to top"
               onClick={() => innerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-                <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-  >
-    <polyline points="18 15 12 9 6 15"></polyline>
-  </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="18 15 12 9 6 15"></polyline>
+              </svg>
             </button>
 
             {renderRipples()}
@@ -503,97 +507,184 @@ export default function ModularSofa() {
   return (
     <CaseStudyOverlay
       cardClass="plugin-card"
-      videoSrc={VIDEO_SRC}
+      videoSrc="/src/assets/images/modular/modular-banner.png"
       videoClass="plugin-video"
       tooltip={'Design a flexible sofa system\nwith modular components 🛋️'}
-      heroSize={448}
+      heroSize={{ width: 680, height: 382 }}
     >
       <TldrToggle modelValue={tldr} onUpdate={setTldr} />
 
       <div className="cs-body">
-        <h1 className="cs-title">Designing a Modular Sofa Configurator for Flexible Living Spaces</h1>
+        <h1 className="cs-title">A new modular sofa user experience</h1>
 
         {full(
           <p className="cs-body-text" key="intro">
-            Modular Sofa is a product configurator that helps customers build a sofa from interchangeable modules, preview layout changes, and understand which combinations fit their room. It makes a complex furniture system feel simple, visual, and easy to personalise before purchase.
+            A modular sofa is made from separate pieces that can be combined into different shapes and sizes. This gives customers more flexibility, but it can also make choosing the right sofa feel like solving a puzzle.
           </p>,
+          <p className="cs-body-text" >
+            Previous modular sofa purchase exprience made it difficult for customers to understand their options and make a confident purchase decision. The information was fragmented and the experience offered little guidance through the purchase.
+          </p>,
+          <p className="cs-body-text" >
+            I led the redesign of GlobeWest’s modular sofa experience, changing how the products were organised and presented online. The new modular sofa purchase journey introduced complete options that the customers could easily understand, compare and buy.
+          </p>
         )}
 
         <h2 className="cs-section-title">My role</h2>
-        <p className="cs-body-text">Product design, interaction design, and prototyping</p>
+        <p className="cs-body-text">As Lead product designer, I guided the project from discovery through launch and post-launch activities.
+
+          My work included customer research, journey mapping, workshop facilitation, experience strategy, interaction design, prototype testing, analytics planning and user acceptance testing.
+
+          I also worked closely with product, engineering, and sales teams to understand how modular sofas are created and maintained behind the scenes.
+
+          This meant my role went beyond just designing screens. I helped establish the product rules and internal processes needed to support the experience over time.</p>
 
         <h2 className="cs-section-title">Impact</h2>
 
-        <h3 className="cs-subsection-title">⚡️ Faster Configuration</h3>
+        <h3 className="cs-subsection-title">Increase in modular sofa sales</h3>
         {full(
           <p className="cs-body-text" key="faster">
-            Reduced the effort of comparing sofa setups by making layout, module, and fabric choices visible in one guided flow. Customers can quickly test options without needing to decode product codes or dimensions.
+            Post-launch results showed growth in both modular sofa sales and order volume that indicates stronger customer engagement with the new experience.
           </p>,
         )}
 
-        <h3 className="cs-subsection-title">🧩 Clear Modular Logic</h3>
+        <h3 className="cs-subsection-title">Reduced the risk of incorrect orders</h3>
         {full(
           <p className="cs-body-text" key="latest">
-            Turned a flexible furniture system into clear rules for what can connect, where each piece fits, and how the final sofa changes as modules are added or removed.
+            Clear product information such as dimensions and component details helped customers understand what they were buying, reducing the likelihood of ordering mistakes and avoidable returns.
           </p>,
         )}
 
-        <h3 className="cs-subsection-title">🏠 Room-Level Confidence</h3>
+        <h3 className="cs-subsection-title">Easier product management</h3>
         {full(
           <p className="cs-body-text" key="regions">
-            Helped users move from abstract product choices to a room-ready decision by showing scale, orientation, fabric, and layout implications before checkout.
+            The project created a repeatable process for adding, updating and removing modular sofas which makes the range easier for internal teams to manage over time. It also created a scalable solution for product imagery needs.
           </p>,
         )}
       </div>
-
-      <AntonymSection />
-      {canHover ? <InteractiveTag hint="Hover on the cards to learn more" /> : null}
-
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Problem</h2>
+        <h2 className="cs-section-title">Project plan</h2>
         <p className="cs-body-text">
-          Modular furniture gives customers freedom, but it also introduces decision complexity. Shoppers need to understand module types, connection rules, room fit, fabric choices, and final pricing at the same time. Without a guided experience, the buying journey can become slow, uncertain, and dependent on sales support.
+          Before moving into design, I worked with the product owner to create a shared project plan in FigJam to break the work into clear stages. The plan covered research, journey mapping, feature definition, design, validation, development handover and post-launch analysis.
         </p>
 
-        <h2 className="cs-section-title">Solution</h2>
         {full(
           <p className="cs-body-text" key="solution">
-            I designed a configurator experience that breaks the sofa-building process into clear steps: select a layout, choose compatible modules, preview the arrangement, customise materials, and save the final setup. The interaction model keeps the structure visible while giving users immediate feedback on every change.
+            It became a shared reference for product, sales and engineering. It helped us agree on what we needed to learn, what success looked like and which Magento and NetSuite constraints needed to be considered early. As we learned more through interviews, audits and testing, I updated the plan to reflect changes in scope and direction.
           </p>,
         )}
       </div>
 
-      <video
-        className="cs-demo-video"
-        src="/src/assets/videos/modular-sofa-demo.mp4"
-        poster="/src/assets/images/modular-sofa/modular-sofa-demo-poster.jpg"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        disablePictureInPicture
-        controlsList="nodownload nofullscreen noremoteplayback"
-        style={{ pointerEvents: 'none' }}
-        onLoadedData={(event) => {
-          event.currentTarget.muted = true
-          event.currentTarget.play().catch(() => {})
-        }}
+      <img
+        className="cs-cover-img"
+        data-scroll-reveal
+        src="/src/assets/images/modular/project-plan.png"
+        alt="Modular sofa project plan"
       />
+      <p className="cs-hint">Modular sofa project plan.</p>
+
 
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Continuous Iteration</h2>
+        <h2 className="cs-section-title">Understanding the pain points</h2>
+        <p className="cs-body-text">
+          I used semi-structured interviews to understand the experience from both sides. I spoke with eight internal stakeholders across sales, customer service, showrooms and product to learn about business rules and technical constraints. I then interviewed eight customers and asked them to walk through the existing modulae sofa purchase journey togetehr. This helped me compare what internal teams believed was happening with what customers experienced.
+        </p>
+
+        {full(
+          <p className="cs-body-text" key="solution">
+            Between interviews, I conducted a detailed UX audit of the existing modular sofa experience and reviewed ten major Australian sofa brands to understand how they approached similar challenges.
+          </p>,
+        )}
+
+      </div>
+
+
+
+      <div className="cs-body cs-body--continued">
+      <h2 className="cs-section-title">Pain points</h2>
+
+        <h3 className="cs-subsection-title">Customers couldn't visualise different sofa layouts </h3>
+        {full(
+          <p className="cs-body-text" key="faster">
+            The existing product structure only allowed the website to present modular sofas as individual pieces rather than complete options, such as a four-seater L-shaped sofa. Without a clear view of the finished result, customers and designers struggled to understand how the pieces would come together and often created their own drawings or mock-ups.
+          </p>,
+        )}
+              <img
+        className="cs-cover-img"
+        data-scroll-reveal
+        src="/src/assets/images/modular/pain-point1.png"
+        alt="Customers couldn't visualise different sofa layouts."
+      />
+      <p className="cs-hint">During an interview, a customer explained how difficult it was to visualise different sofa layouts since they could only purchase individual pieces.</p>
+
+          <h3 className="cs-subsection-title">Customers had difficulty understanding dimensions </h3>
+        {full(
+          <p className="cs-body-text" key="faster">
+            The website showed the dimensions of each piece separately, leaving customers to calculate the sofa’s total size themselves. This made it difficult to know whether a configuration would fit their space and increased the risk of mistakes.
+          </p>,
+        )}
+              <img
+        className="cs-cover-img"
+        data-scroll-reveal
+        src="/src/assets/images/modular/pain-point2.png"
+        alt="Customers had difficulty understanding dimensions"
+      />
+      <p className="cs-hint">Microsoft Clarity heatmap showed customers opening every individual piece to find basic information such as dimensions. This turned a simple size check into a repetitive and frustrating part of the purchase journey.</p>
+
+
+            <h3 className="cs-subsection-title">It was unclear how the pieces worked together </h3>
+        {full(
+          <p className="cs-body-text" key="faster">
+            Customers struggled to understand what was included, which pieces connected and what left or right orientation meant. This increased the risk of incorrect orders.
+          </p>,
+        )}
+
+      </div>
+
+      <div className="cs-body cs-body--continued">
+        <h2 className="cs-section-title">Ideation</h2>
         {full(
           <p className="cs-body-text" key="iteration-1">
-            I iterated on the flow by identifying where users hesitated: understanding module names, choosing a starting layout, comparing fabric options, and recognising invalid combinations. Each round made the configurator more visual and less dependent on explanatory copy.
-          </p>,
-          <p className="cs-body-text" key="iteration-2">
-            The project evolved from a simple module picker into a more complete planning tool. Features were progressively introduced, including room preview, guided assembly rules, fabric comparison, saved configurations, and clearer error states for combinations that could not be built.
+            Once the research themes became clear, I ran several ideation workshops with the product manager to turn the findings into practical ideas. We reviewed the affinity map, reframed the main pain points as “How might we” questions, and used reverse brainstorming to challenge our assumptions. We then considered technical and business constraints alongside useful patterns from the competitor review. This helped us prioritise features that addressed the strongest customer needs while remaining realistic to design and build.
           </p>,
         )}
       </div>
 
-      <VersionSection />
+      <div className="modular-ideation-gallery" aria-label="Modular sofa ideation workshop">
+        {IDEATION_IMAGES.map((src, index) => (
+          <img
+            className="cs-cover-img modular-ideation-gallery__image"
+            data-scroll-reveal
+            src={src}
+            alt={`Modular sofa ideation workshop ${index + 1}`}
+            loading="lazy"
+            decoding="async"
+            key={src}
+          />
+        ))}
+      </div>
+
+            <div className="cs-body cs-body--continued">
+        <h2 className="cs-section-title">Solution</h2>
+        {full(
+          <p className="cs-body-text" key="iteration-1">
+        The solution introduced complete, pre-configured sofas that customers could browse by familiar shapes such as L-shaped, curved and chaise. Each option showed the finished sofa, total dimensions, price, fabric, availability and the individual pieces included. Customers who wanted more flexibility could still explore separate pieces or extend an existing configuration. </p>,
+                    <p className="cs-body-text" key="iteration-2">
+         During a workshop, the product owner and I grouped the features into different release versions. We agreed on a minimum marketable product for the first launch, then created a roadmap for additional features such as improved component browsing, configuration extensions and richer visualisation tools.
+          </p>,
+        )}
+
+                      <img
+        className="cs-cover-img"
+        data-scroll-reveal
+        src="/src/assets/images/modular/feature-map.png"
+        alt="product feature map"
+      />
+      <p className="cs-hint">A product feature map showing how ideas were grouped and prioritised across the first release and future versions, balancing customer value, business needs and technical feasibility.</p>
+
+      </div>
+
+
+
 
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">User Guidance & Error Handling</h2>
@@ -608,6 +699,8 @@ export default function ModularSofa() {
       </div>
 
       <ErrorSection />
+            <AntonymSection />
+      {canHover ? <InteractiveTag hint="Hover on the cards to learn more" /> : null}
 
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Result</h2>

@@ -1,7 +1,0 @@
-.cs-responsive-measure {
-  width: min(680px, calc(100vw - 48px));
-  display: flex;
-  justify-content: center;
-}
-
-
