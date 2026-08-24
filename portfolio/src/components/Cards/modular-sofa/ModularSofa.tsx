@@ -57,11 +57,11 @@ const V_IMGS = [
   { src: '/src/assets/images/modular-sofa/modular-sofa-V5.png', hint: 'Guided setup' },
 ]
 
-const ERROR_IMGS = [
-  '/src/assets/images/modular-sofa/modular-sofa-error-layout.png',
-  '/src/assets/images/modular-sofa/modular-sofa-error-module.png',
-  '/src/assets/images/modular-sofa/modular-sofa-error-dimensions.png',
-  '/src/assets/images/modular-sofa/modular-sofa-error-fabric.png',
+const PDP_HOTSPOTS = [
+  { x: 12, y: 25, side: 'right', title: 'Dimension images', text: 'Clear diagrams show the total size of the sofa, helping customers understand whether it will fit their space.' },
+  { x: 89, y: 24, side: 'left', title: 'Swatch hover', text: 'Hovering over a fabric swatch reveals a larger preview, making its colour and texture easier to assess.' },
+  { x: 67, y: 42, side: 'left', title: 'Full configuration', text: 'Customers can see the complete sofa arrangement rather than imagining how separate pieces will look together.' },
+  { x: 87, y: 55, side: 'left', title: 'See included components', text: 'A clear breakdown shows every piece and quantity included in the configuration before purchase.' },
 ]
 
 // ── Marquee background rows ──
@@ -278,46 +278,41 @@ function VersionSection() {
 }
 
 function ErrorSection() {
-  const [activeIdx, setActiveIdx] = useState(0)
-  const [prevIdx, setPrevIdx] = useState<number | null>(null)
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveIdx((current) => {
-        setPrevIdx(current)
-        window.setTimeout(() => setPrevIdx(null), 420)
-        return (current + 1) % ERROR_IMGS.length
-      })
-    }, 2500)
-
-    return () => window.clearInterval(timer)
-  }, [])
-
-  // aria-hidden: decorative rotating error-state demo. The case-study
-  // prose explains the error guidance; the rotating images are visual
-  // illustration only.
   return (
-    <div className="cs-error-section" aria-hidden="true">
-      <div className="cs-error-bar">
-        {ERROR_IMGS.map((src, i) => {
-          const isActive = activeIdx === i
-          const isLeaving = prevIdx === i
-          return (
-            <img
-              key={src}
-              src={src}
-              alt={`Modular sofa guidance ${i + 1}`}
-              className={[
-                'cs-error-img',
-                isActive ? 'cs-error-img--active' : '',
-                isLeaving ? 'cs-error-img--leaving' : '',
-              ].filter(Boolean).join(' ')}
-            />
-          )
-        })}
-      </div>
-
-      <img className="cs-figma-bar" src="/src/assets/images/modular-sofa/configurator-toolbar.png" alt="Configurator toolbar" />
+    <div className="modular-pdp-hotspots">
+      <img
+       style={{ maxWidth: '632px' }}
+        className="modular-pdp-hotspots__image"
+        src="/src/assets/images/modular/pdp.png"
+        alt="Modular sofa product page with configuration details"
+      />
+      {PDP_HOTSPOTS.map((hotspot, index) => {
+        const tooltipId = `modular-pdp-hotspot-${index + 1}`
+        return (
+          <div
+            className={`modular-pdp-hotspots__item modular-pdp-hotspots__item--${hotspot.side}`}
+            style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
+            key={hotspot.title}
+          >
+            <button
+              className="modular-pdp-hotspots__button"
+              type="button"
+              aria-label={`Show ${hotspot.title.toLowerCase()} details`}
+              aria-describedby={tooltipId}
+            >
+              <span aria-hidden="true" />
+            </button>
+            <div
+              className="modular-pdp-hotspots__popup"
+              id={tooltipId}
+              role="tooltip"
+            >
+              <p className="modular-pdp-hotspots__popup-title">{hotspot.title}</p>
+              <p className="modular-pdp-hotspots__popup-text">{hotspot.text}</p>
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -674,6 +669,7 @@ export default function ModularSofa() {
         )}
 
                       <img
+                      style={{ maxWidth: '632px' }}
         className="cs-cover-img"
         data-scroll-reveal
         src="/src/assets/images/modular/feature-map.png"
@@ -687,18 +683,27 @@ export default function ModularSofa() {
 
 
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">User Guidance & Error Handling</h2>
+        <h2 className="cs-section-title">Solving product imagery</h2>
         {full(
           <p className="cs-body-text" key="error-1">
-            A key focus was keeping the experience supportive when users selected incompatible modules or dimensions. The configurator needed to explain constraints without making the product feel restrictive.
+           Photographing every modular sofa configuration was not practical. Each setup required the physical pieces to be assembled, styled and photographed, making the process costly and difficult to scale.
           </p>,
           <p className="cs-body-text" key="error-2">
-            To address this, I designed clear, actionable guidance that explains why a choice will not work and what the user can do next. This keeps the flow moving and builds confidence in the final configuration.
+            I worked with an overseas visualisation vendor to create accurate 3D models and rendered images instead. We reviewed the models with interior designers before producing the final assets, giving the website and sales team a consistent way to present complete configurations without relying on a physical photoshoot for every option.
           </p>,
+                        <img
+        className="cs-cover-img"
+        data-scroll-reveal
+        src="/src/assets/images/modular/pain-point2.png"
+        alt="Customers had difficulty understanding dimensions"
+      />,
+      <p className="cs-hint">Microsoft Clarity heatmap showed customers opening every individual piece to find basic information such as dimensions. This turned a simple size check into a repetitive and frustrating part of the purchase journey.</p>
+
         )}
+
       </div>
 
-      <ErrorSection />
+ <ErrorSection />
             <AntonymSection />
       {canHover ? <InteractiveTag hint="Hover on the cards to learn more" /> : null}
 

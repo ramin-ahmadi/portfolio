@@ -1309,6 +1309,11 @@ strong, b {
   margin-top: 32px;
 }
 
+.cs-body--continued .cs-cover-img {
+  width: 100%;
+  max-width: 680px;
+}
+
 .cs-cover-img--full {
   width: calc(100% - 48px);
   max-width: 100%;
