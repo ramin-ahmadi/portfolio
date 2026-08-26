@@ -22,6 +22,18 @@ const IDEATION_IMAGES = [
   '/src/assets/images/modular/Ideation3.png',
   '/src/assets/images/modular/Ideation4.png',
 ]
+const RENDER_IMAGES = [
+  '/src/assets/images/modular/3D1.png',
+  '/src/assets/images/modular/3D2.png',
+  '/src/assets/images/modular/3D3.jpg',
+  '/src/assets/images/modular/3D4.jpg',
+]
+const DATA_IMAGES = [
+  '/src/assets/images/modular/data-1.png',
+  '/src/assets/images/modular/data-2.png',
+  '/src/assets/images/modular/data-3.png',
+  '/src/assets/images/modular/data-4.png',
+]
 
 type AntonymCard = {
   id: string
@@ -59,8 +71,8 @@ const V_IMGS = [
 
 const PDP_HOTSPOTS = [
   { x: 12, y: 25, side: 'right', title: 'Dimension images', text: 'Clear diagrams show the total size of the sofa, helping customers understand whether it will fit their space.' },
-  { x: 89, y: 24, side: 'left', title: 'Swatch hover', text: 'Hovering over a fabric swatch reveals a larger preview, making its colour and texture easier to assess.' },
-  { x: 67, y: 42, side: 'left', title: 'Full configuration', text: 'Customers can see the complete sofa arrangement rather than imagining how separate pieces will look together.' },
+  { x: 67, y: 42, side: 'left', title: 'Swatch hover', text: 'Hovering over a fabric swatch reveals a larger preview, making its colour and texture easier to assess.' },
+  { x: 89, y: 24, side: 'left', title: 'Full configuration', text: 'Customers can see the complete sofa arrangement rather than imagining how separate pieces will look together.' },
   { x: 87, y: 55, side: 'left', title: 'See included components', text: 'A clear breakdown shows every piece and quantity included in the configuration before purchase.' },
 ]
 
@@ -129,6 +141,32 @@ function TldrToggle({ modelValue, onUpdate }: { modelValue: boolean; onUpdate: (
 
 function InteractiveTag({ hint }: { hint: string }) {
   return <p className="cs-hint">{hint}</p>
+}
+
+function ModularImageGallery({
+  images,
+  label,
+  altPrefix,
+}: {
+  images: string[]
+  label: string
+  altPrefix: string
+}) {
+  return (
+    <div className="modular-ideation-gallery" aria-label={label}>
+      {images.map((src, index) => (
+        <img
+          className="cs-cover-img modular-ideation-gallery__image"
+          data-scroll-reveal
+          src={src}
+          alt={`${altPrefix} ${index + 1}`}
+          loading="lazy"
+          decoding="async"
+          key={src}
+        />
+      ))}
+    </div>
+  )
 }
 
 function AntonymSection() {
@@ -644,19 +682,11 @@ export default function ModularSofa() {
         )}
       </div>
 
-      <div className="modular-ideation-gallery" aria-label="Modular sofa ideation workshop">
-        {IDEATION_IMAGES.map((src, index) => (
-          <img
-            className="cs-cover-img modular-ideation-gallery__image"
-            data-scroll-reveal
-            src={src}
-            alt={`Modular sofa ideation workshop ${index + 1}`}
-            loading="lazy"
-            decoding="async"
-            key={src}
-          />
-        ))}
-      </div>
+      <ModularImageGallery
+        images={IDEATION_IMAGES}
+        label="Modular sofa ideation workshop"
+        altPrefix="Modular sofa ideation workshop"
+      />
 
             <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Solution</h2>
@@ -691,19 +721,84 @@ export default function ModularSofa() {
           <p className="cs-body-text" key="error-2">
             I worked with an overseas visualisation vendor to create accurate 3D models and rendered images instead. We reviewed the models with interior designers before producing the final assets, giving the website and sales team a consistent way to present complete configurations without relying on a physical photoshoot for every option.
           </p>,
-                        <img
-        className="cs-cover-img"
-        data-scroll-reveal
-        src="/src/assets/images/modular/pain-point2.png"
-        alt="Customers had difficulty understanding dimensions"
-      />,
-      <p className="cs-hint">Microsoft Clarity heatmap showed customers opening every individual piece to find basic information such as dimensions. This turned a simple size check into a repetitive and frustrating part of the purchase journey.</p>
-
+          <ModularImageGallery
+            images={RENDER_IMAGES}
+            label="Modular sofa 3D renders"
+            altPrefix="Modular sofa 3D render"
+            key="render-gallery"
+          />,
         )}
-
       </div>
 
- <ErrorSection />
+            <div className="cs-body cs-body--continued">
+        <h2 className="cs-section-title">Solving product data</h2>
+        {full(
+          <p className="cs-body-text" key="error-1">
+           The new experience depended on product data that did not yet exist in a consistent or centralised format. With limited IT resources, I worked through the range configuration by configuration, defining which pieces connected, their quantities, layout and total dimensions. I first cleansed and standardised the raw NetSuite data, then used GPT to convert it into the structure required by the website. This process produced the data for more than 380 configuration products.
+          </p>,
+          <p className="cs-body-text" key="error-2">
+            I also onboarded the product team to Notion and created a shared knowledge base for maintaining the information. Connecting Notion with GPT reduced the manual work involved in reformatting raw data and made the process easier to repeat. The same dataset guided the 3D vendor by defining the exact layout of each configuration, keeping the rendered imagery aligned with the products shown on the website.
+          </p>,
+          <ModularImageGallery
+            images={DATA_IMAGES}
+            label="Modular sofa product data workflow"
+            altPrefix="Modular sofa product data"
+            key="data-gallery"
+          />,
+        )}
+      </div>
+
+                  <div className="cs-body cs-body--continued">
+        <h2 className="cs-section-title">Key takeaways</h2>
+           <h3 className="cs-subsection-title">Consider the wider customer journey </h3>
+        {full(
+          <p className="cs-body-text" key="faster">
+           The strongest insight came from seeing how customers and sales teams made modular sofas easier to understand. In showrooms, sales teams used small wooden models to demonstrate different layouts. Online, Microsoft Clarity showed customers opening multiple product pages to find dimensions and understand how the pieces connected.
+           This inspired me to provide a solution that not only makes the modular product purchase easier but also compliments existing sales tools.
+          </p>,
+          <div className="modular-sales-gallery" key="sales-gallery">
+            <img
+              className="cs-cover-img modular-sales-gallery__image"
+              data-scroll-reveal
+              src="/src/assets/images/modular/sales1.png"
+              alt="Sales team using wooden models to demonstrate different sofa layouts"
+            />
+            <img
+              className="cs-cover-img modular-sales-gallery__image"
+              data-scroll-reveal
+              src="/src/assets/images/modular/sales2.png"
+              alt="How modular components are connected to each other using metal connectors"
+            />
+          </div>,
+                <p className="cs-hint">Physical modular models used by showroom teams to help customers explore and compare different sofa layouts.</p>
+        )}
+
+            <h3 className="cs-subsection-title">A good UX needs reliable data behind it</h3>
+        {full(
+          <p className="cs-body-text" key="faster">
+           Presenting a complete sofa looked simple on the website, but it required accurate relationships between hundreds of individual products. It involved cleansing the raw NetSuite data, using GPT and Notion to create a workflow.
+           <br /> A repeatable workflow is essential for success since GlobeWest introduces new product ranges each year. The modular process proved its value when the collection 2027 launched with 6 new modular sofa families successfully using the same approach.
+          </p>,
+        )}
+
+                    <h3 className="cs-subsection-title">Prioritisation of features</h3>
+        {full(
+          <p className="cs-body-text" key="faster">
+        We had ideas for advanced visualisation and configuration tools, but delivering everything in the first release was not realistic. The product owner and I divided the features into different versions, focusing the first release on complete configurations, dimensions, imagery and included pieces.
+          </p>,
+        )}
+      </div>
+
+      <div className="video-autoplayer" >
+        <iframe
+          src="https://player.vimeo.com/video/1221363437?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&playsinline=1&dnt=1"
+          title="Modular sofa experience"
+          allow="autoplay; fullscreen; picture-in-picture"
+          loading="lazy"
+          tabIndex={-1}
+        />
+      </div>
+
             <AntonymSection />
       {canHover ? <InteractiveTag hint="Hover on the cards to learn more" /> : null}
 

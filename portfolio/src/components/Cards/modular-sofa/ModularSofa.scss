@@ -17,13 +17,31 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
-  width: min(680px, calc(100vw - 48px));
+  width: min(632px, calc(100vw - 48px));
   margin-top: 32px;
 
   &__image {
     width: 100% !important;
     height: auto;
     aspect-ratio: 4 / 3;
+    margin: 0;
+    border-radius: 16px;
+    object-fit: cover;
+  }
+}
+
+.modular-sales-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 680px;
+  margin-top: 32px;
+
+  &__image {
+    width: 100% !important;
+    height: auto;
+    aspect-ratio: 1;
     margin: 0;
     border-radius: 16px;
     object-fit: cover;
