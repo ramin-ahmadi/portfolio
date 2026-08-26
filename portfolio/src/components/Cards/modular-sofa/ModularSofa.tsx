@@ -1,5 +1,4 @@
 import {
-  type CSSProperties,
   type ReactNode,
   useEffect,
   useRef,
@@ -7,12 +6,6 @@ import {
 } from 'react'
 import { useRipple } from '../../useRipple'
 import './ModularSofa.scss'
-
-const SCREENSHOT = '/src/assets/images/modular-sofa/modular-sofa-configurator.png'
-const PODCAST_SCREENSHOT = '/src/assets/images/modular-sofa/modular-sofa-room-preview.png'
-const IMG_SEL_REGION = '/src/assets/images/modular-sofa/select-layout-hover.png'
-const IMG_FIND_ST = '/src/assets/images/modular-sofa/pick-modules-hover.png'
-const IMG_QUICK = '/src/assets/images/modular-sofa/assembly-guide-hover.png'
 
 const ICON_EXPAND = '/src/assets/icons/full-screen.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
@@ -33,47 +26,6 @@ const DATA_IMAGES = [
   '/src/assets/images/modular/data-2.png',
   '/src/assets/images/modular/data-3.png',
   '/src/assets/images/modular/data-4.png',
-]
-
-type AntonymCard = {
-  id: string
-  title: string
-  desc: string
-  left: number
-  top: number
-  hoverImg: string | null
-}
-
-// Card positions taken directly from Figma (680px-wide container)
-const CARDS: AntonymCard[] = [
-  { id: 'select-region', title: 'Select a layout', desc: 'Pick a base arrangement for compact, corner, or open-plan rooms.', left: 55, top: 88, hoverImg: IMG_SEL_REGION },
-  { id: 'find-station', title: 'Pick modules', desc: 'Choose seats, corners, chaises, and ottomans to build the sofa.', left: 55, top: 217, hoverImg: IMG_FIND_ST },
-  { id: 'content-type', title: 'Preview mode', desc: 'Switch between configurator view and room preview.', left: 472, top: 63, hoverImg: null },
-  { id: 'quick-guide', title: 'Assembly guide', desc: 'Clear rules for connectors, sizing, spacing, and combinations.', left: 472, top: 178, hoverImg: IMG_QUICK },
-  { id: 'apply-designs', title: 'Save layout', desc: 'Apply the selected setup to the room and keep it for later.', left: 472, top: 313, hoverImg: null },
-]
-
-const ANTONYM_H = 600
-const ANTONYM_SCREENSHOT_W = 225
-const ANTONYM_SCREENSHOT_H = 476
-const ANTONYM_CARD_W = 152
-
-// Mobile card order: content-type first, then the rest stacked
-const MOBILE_CARDS = [CARDS[2], CARDS[0], CARDS[1], CARDS[3], CARDS[4]]
-
-const V_IMGS = [
-  { src: '/src/assets/images/modular/modular-V1.png?v=2', hint: 'POC' },
-  { src: '/src/assets/images/modular/modular-V2.png', hint: 'Added modules' },
-  { src: '/src/assets/images/modular/modular-V3.png', hint: 'Room preview' },
-  { src: '/src/assets/images/modular/modular-V4.png', hint: 'Fabric options' },
-  { src: '/src/assets/images/modular/modular-sofa-V5.png', hint: 'Guided setup' },
-]
-
-const PDP_HOTSPOTS = [
-  { x: 12, y: 25, side: 'right', title: 'Dimension images', text: 'Clear diagrams show the total size of the sofa, helping customers understand whether it will fit their space.' },
-  { x: 67, y: 42, side: 'left', title: 'Swatch hover', text: 'Hovering over a fabric swatch reveals a larger preview, making its colour and texture easier to assess.' },
-  { x: 89, y: 24, side: 'left', title: 'Full configuration', text: 'Customers can see the complete sofa arrangement rather than imagining how separate pieces will look together.' },
-  { x: 87, y: 55, side: 'left', title: 'See included components', text: 'A clear breakdown shows every piece and quantity included in the configuration before purchase.' },
 ]
 
 // ── Marquee background rows ──
@@ -102,34 +54,6 @@ const MARQUEE_ROWS = [
   { imgs: shuffleImages(MARQUEE_IMAGES), dir: 'right' },
 ]
 
-function useResponsiveScale(baseWidth: number) {
-  const ref = useRef<HTMLDivElement | null>(null)
-  const [containerW, setContainerW] = useState(baseWidth)
-  const [canHover, setCanHover] = useState(false)
-
-  useEffect(() => {
-    const query = window.matchMedia('(hover: hover) and (pointer: fine)')
-    const update = () => setCanHover(query.matches)
-    update()
-    query.addEventListener('change', update)
-    return () => query.removeEventListener('change', update)
-  }, [])
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    const observer = new ResizeObserver(([entry]) => {
-      setContainerW(Math.min(baseWidth, Math.max(280, entry.contentRect.width)))
-    })
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [baseWidth])
-
-  return { ref, containerW, scale: containerW / baseWidth, canHover }
-}
-
 function TldrToggle({ modelValue, onUpdate }: { modelValue: boolean; onUpdate: (value: boolean) => void }) {
   return (
     <div className="tldr-bar">
@@ -155,10 +79,6 @@ function TldrToggle({ modelValue, onUpdate }: { modelValue: boolean; onUpdate: (
   )
 }
 
-function InteractiveTag({ hint }: { hint: string }) {
-  return <p className="cs-hint">{hint}</p>
-}
-
 function ModularImageGallery({
   images,
   label,
@@ -181,192 +101,6 @@ function ModularImageGallery({
           key={src}
         />
       ))}
-    </div>
-  )
-}
-
-function AntonymSection() {
-  const { ref, containerW: csW, scale: csScale, canHover } = useResponsiveScale(680)
-  const [active, setActive] = useState<string | null>(null)
-
-  const s = csScale
-
-  // aria-hidden: decorative interactive demo of the configurator UI cards.
-  // The case-study prose covers the meaning; card titles/descriptions
-  // would otherwise leak as run-on text into Reader Mode and screen readers.
-
-  // ── Mobile: flex layout — cards left, screenshot right ──
-  if (!canHover) {
-    return (
-      <div ref={ref} className="cs-responsive-measure">
-        <div
-          className="cs-antonym-section cs-antonym-section--mobile"
-          style={{ width: `${csW}px` }}
-          aria-hidden="true"
-        >
-          <div className="cs-antonym-mobile-cards">
-            {MOBILE_CARDS.map((card) => (
-              <div key={card.id} className="cs-antonym-card">
-                <p className="cs-antonym-card-title">{card.title}</p>
-                <p className="cs-antonym-card-desc">{card.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="cs-antonym-mobile-screenshot">
-            <img className="cs-antonym-screenshot" src={SCREENSHOT} alt="Modular sofa configurator interface" />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // ── Desktop: absolute positioning from Figma ──
-  return (
-    <div ref={ref} className="cs-responsive-measure">
-      <div
-        className="cs-antonym-section"
-        style={{ width: `${csW}px`, height: `${Math.round(ANTONYM_H * s)}px` }}
-        aria-hidden="true"
-      >
-        <div
-          className="cs-antonym-screenshot-wrap"
-          style={{
-            left: `calc(50% - ${Math.round((ANTONYM_SCREENSHOT_W * s) / 2)}px)`,
-            top: `${Math.round(62 * s)}px`,
-            width: `${Math.round(ANTONYM_SCREENSHOT_W * s)}px`,
-            height: `${Math.round(ANTONYM_SCREENSHOT_H * s)}px`,
-          }}
-        >
-          <img
-            className={['cs-antonym-screenshot', active === 'content-type' ? 'cs-antonym-screenshot--exit' : ''].filter(Boolean).join(' ')}
-            src={SCREENSHOT}
-            alt="Modular sofa configurator interface"
-          />
-          <img
-            className={['cs-antonym-screenshot', 'cs-antonym-screenshot--podcast', active === 'content-type' ? 'cs-antonym-screenshot--active' : ''].join(' ')}
-            src={PODCAST_SCREENSHOT}
-            alt="Modular sofa room preview interface"
-          />
-        </div>
-
-        {CARDS.map((card) => (
-          <div
-            key={card.id}
-            className="cs-antonym-card-wrapper"
-            style={{
-              left: `${Math.round(card.left * s)}px`,
-              top: `${Math.round(card.top * s)}px`,
-              width: `${Math.round(ANTONYM_CARD_W * s)}px`,
-            }}
-            onMouseEnter={() => setActive(card.id)}
-            onMouseLeave={() => setActive(null)}
-          >
-            <div
-              className="cs-antonym-card"
-              style={{ opacity: active && active !== card.id ? 0.3 : 1 }}
-            >
-              <p className="cs-antonym-card-title">{card.title}</p>
-              <p className="cs-antonym-card-desc">{card.desc}</p>
-            </div>
-
-            {card.hoverImg ? (
-              <img
-                className={['cs-antonym-hover-img', active === card.id ? 'cs-antonym-hover-img--visible' : ''].join(' ').trim()}
-                src={card.hoverImg}
-                alt={card.title}
-              />
-            ) : null}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function VersionSection() {
-  const { ref: measureRef, containerW: csW } = useResponsiveScale(680)
-  const sectionRef = useRef<HTMLDivElement | null>(null)
-  const [triggered, setTriggered] = useState(false)
-
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTriggered(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.2 },
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  // aria-hidden: decorative version-history demo. Version hint labels
-  // would otherwise leak into Reader Mode alongside the case-study prose.
-  return (
-    <div ref={measureRef} className="cs-responsive-measure">
-      <div
-        ref={sectionRef}
-        className="cs-versions-section"
-        style={{ width: `${Math.round(csW * 1.5)}px` }}
-        aria-hidden="true"
-      >
-        {V_IMGS.map((img, i) => (
-          <div
-            key={img.src}
-            className={['cs-version-wrap', triggered ? 'cs-version-wrap--visible' : ''].join(' ').trim()}
-            style={{ '--i': i } as CSSProperties}
-          >
-            <img className="cs-version-img" src={img.src} alt={`Modular Sofa V${i + 1}`} />
-            <p className="cs-hint">{img.hint}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function ErrorSection() {
-  return (
-    <div className="modular-pdp-hotspots">
-      <img
-        style={{ maxWidth: '632px' }}
-        className="modular-pdp-hotspots__image"
-        src="/src/assets/images/modular/pdp.png"
-        alt="Modular sofa product page with configuration details"
-      />
-      {PDP_HOTSPOTS.map((hotspot, index) => {
-        const tooltipId = `modular-pdp-hotspot-${index + 1}`
-        return (
-          <div
-            className={`modular-pdp-hotspots__item modular-pdp-hotspots__item--${hotspot.side}`}
-            style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
-            key={hotspot.title}
-          >
-            <button
-              className="modular-pdp-hotspots__button"
-              type="button"
-              aria-label={`Show ${hotspot.title.toLowerCase()} details`}
-              aria-describedby={tooltipId}
-            >
-              <span aria-hidden="true" />
-            </button>
-            <div
-              className="modular-pdp-hotspots__popup"
-              id={tooltipId}
-              role="tooltip"
-            >
-              <p className="modular-pdp-hotspots__popup-title">{hotspot.title}</p>
-              <p className="modular-pdp-hotspots__popup-text">{hotspot.text}</p>
-            </div>
-          </div>
-        )
-      })}
     </div>
   )
 }
@@ -551,7 +285,6 @@ function CaseStudyOverlay({
 }
 
 export default function ModularSofa() {
-  const { canHover } = useResponsiveScale(680)
   const [tldr, setTldr] = useState(false)
 
   const full = (...nodes: ReactNode[]) => (
