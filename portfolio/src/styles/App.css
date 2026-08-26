@@ -2237,12 +2237,13 @@ strong, b {
 .cs-marquee-img {
   height: 160px;
   width: auto;
-  border-radius: 12px;
+  border-radius: 16px;
   display: block;
   flex-shrink: 0;
   opacity: 0.6;
   transition: opacity 0.25s ease;
   cursor: default;
+  border: 1px solid var(--color-primary);
 }
 
 .cs-marquee-img:hover {

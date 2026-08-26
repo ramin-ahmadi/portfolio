@@ -48,6 +48,25 @@
   }
 }
 
+.cs-marquee-hero--video {
+  width: min(680px, calc(100vw - 48px));
+  height: auto;
+  aspect-ratio: 12 / 9;
+  overflow: hidden;
+  background: none;
+  box-shadow: none;
+  background: #efe1c6;
+  padding: 27px 0;
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    pointer-events: none;
+  }
+}
+
 @media (max-width: 520px) {
   .modular-ideation-gallery {
     grid-template-columns: 1fr;
