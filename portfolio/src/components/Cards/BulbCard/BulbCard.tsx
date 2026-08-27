@@ -199,7 +199,10 @@ const TOGGLE_ANIM = {
 } as const;
 
 type LottieAnimationHandle = {
+  destroy: () => void;
   goToAndStop: (frame: number, isFrame?: boolean) => void;
+  play: () => void;
+  setSpeed: (speed: number) => void;
   setDirection: (direction: number) => void;
   goToAndPlay: (frame: number, isFrame?: boolean) => void;
 };
@@ -224,6 +227,7 @@ export default function BulbCard() {
   );
   const lottieEl = useRef<HTMLDivElement | null>(null);
   const lottieAnim = useRef<LottieAnimationHandle | null>(null);
+  const initialIsDark = useRef(isDark);
   const { spawnRipple, renderRipples } = useRipple();
 
   useEffect(() => {
@@ -237,7 +241,7 @@ export default function BulbCard() {
       animationData: TOGGLE_ANIM,
     });
 
-    lottieAnim.current.goToAndStop(isDark ? 14 : 0, true);
+    lottieAnim.current.goToAndStop(initialIsDark.current ? 14 : 0, true);
   }, []);
 
   function toggleTheme() {

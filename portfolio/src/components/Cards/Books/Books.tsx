@@ -26,11 +26,14 @@ type GoodreadsData = {
   books: GoodreadsBook[]
 }
 
+const BOOKS_DATA = goodreadsSnapshot as GoodreadsData
+const BOOKS = BOOKS_DATA.books || []
+const BOOK_COUNT = BOOKS_DATA.count ?? BOOKS.length
+
 export default function Books() {
   const cardEl = useRef<HTMLDivElement | null>(null)
   const innerEl = useRef<HTMLDivElement | null>(null)
   const booksScrollEl = useRef<HTMLDivElement | null>(null)
-  const startRect = useRef<DOMRect | null>(null)
   const closeTimer = useRef<number | null>(null)
   const expandedRef = useRef(false)
   const closingRef = useRef(false)
@@ -38,12 +41,10 @@ export default function Books() {
   const [expanded, setExpanded] = useState(false)
   const [settled, setSettled] = useState(false)
   const [closing, setClosing] = useState(false)
+  const [startRect, setStartRect] = useState<DOMRect | null>(null)
   const [viewedPercent, setViewedPercent] = useState(0)
   const [hasCompletedList, setHasCompletedList] = useState(false)
-  const booksData = goodreadsSnapshot as GoodreadsData
-  const books = booksData?.books || []
-  const bookCount = booksData?.count ?? books.length
-  const latestBooks = books.slice(0, 3)
+  const latestBooks = BOOKS.slice(0, 3)
   const isAtListEnd = viewedPercent >= 100
   const { spawnRipple, renderRipples } = useRipple()
 
@@ -64,7 +65,7 @@ export default function Books() {
 
     const scrollable = el.scrollHeight - el.clientHeight
     if (scrollable <= 0) {
-      const nextPercent = bookCount > 0 ? 100 : 0
+      const nextPercent = BOOK_COUNT > 0 ? 100 : 0
       setViewedPercent(nextPercent)
       if (nextPercent === 100) setHasCompletedList(true)
       return
@@ -74,7 +75,7 @@ export default function Books() {
     const nextPercent = Math.min(100, Math.max(0, Math.round(viewed)))
     setViewedPercent(nextPercent)
     if (nextPercent === 100) setHasCompletedList(true)
-  }, [bookCount])
+  }, [])
 
   useEffect(() => {
     if (!expanded) return
@@ -96,20 +97,8 @@ export default function Books() {
     }
   }, [])
 
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') close()
-    }
-
-    if (expanded) {
-      window.addEventListener('keydown', handleKeyDown)
-    }
-
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [expanded])
-
   function expandedStyle(): React.CSSProperties {
-    if (!startRect.current) return {}
+    if (!startRect) return {}
 
     const vpW = window.innerWidth
     const vpH = window.innerHeight
@@ -120,10 +109,10 @@ export default function Books() {
 
     if (!settled || closing) {
       return {
-        left: `${startRect.current.left}px`,
-        top: `${startRect.current.top}px`,
-        width: `${startRect.current.width}px`,
-        height: `${startRect.current.height}px`,
+        left: `${startRect.left}px`,
+        top: `${startRect.top}px`,
+        width: `${startRect.width}px`,
+        height: `${startRect.height}px`,
       }
     }
 
@@ -139,7 +128,7 @@ export default function Books() {
     if (expandedRef.current) return
     if (!cardEl.current) return
 
-    startRect.current = cardEl.current.getBoundingClientRect()
+    setStartRect(cardEl.current.getBoundingClientRect())
     setExpanded(true)
     setSettled(false)
     setClosing(false)
@@ -164,11 +153,20 @@ export default function Books() {
       setSettled(false)
       setClosing(false)
       closingRef.current = false
-      startRect.current = null
+      setStartRect(null)
       document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
     }, ANIM_MS + 20)
   }, [])
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') close()
+    }
+
+    if (expanded) window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [close, expanded])
 
   const toggleBooksScroll = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation()
@@ -245,15 +243,15 @@ export default function Books() {
                   onScroll={updateViewedPercent}
                 >
                   <p> Reading has been one of the biggest influences on how I think and work. Here's a collection of books I've finished over the years. The list below is pulled straight from my <a href={GOODREADS_PROFILE} target="_blank" rel="noopener noreferrer">Goodreads profile</a> account.</p>
-                  {bookCount === 0 ? (
+                  {BOOK_COUNT === 0 ? (
                     <p>Failed to connect to Goodreads.</p>
                   ) : null}
 
-                  {bookCount > 0 ? (
+                  {BOOK_COUNT > 0 ? (
                     <>
 
                       <div className="books-list">
-                        {books.map((book) => (
+                        {BOOKS.map((book) => (
                           <a
                             className="books-list-item"
                             href={book.url || GOODREADS_PROFILE}
@@ -283,7 +281,7 @@ export default function Books() {
               </div>
             </div>
 
-            {bookCount > 0 ? (
+            {BOOK_COUNT > 0 ? (
               <div className="books-scroll-footer" onClick={(event) => event.stopPropagation()}>
                 <span
                   className={[

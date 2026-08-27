@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useRipple } from '../../useRipple'
 
 const ICON_EXPAND = '/src/assets/icons/expand.svg'
@@ -8,15 +8,9 @@ const ICON_SHRINK = '/src/assets/icons/shrink.svg'
 const ABOUT_MAX_W = 800
 const ANIM_MS = 700
 
-const PARAGRAPHS: Array<Array<string | { bold: string }>> = [
-  ['A design system gives teams a common language. It helps people work faster, stay aligned, and build with more confidence, but it should remain a tool, ', { bold: 'not a rulebook' }, '. When a component or pattern blocks a better experience, it deserves to be questioned.'],
-  ['I see design systems as evolving foundations, not fixed restrictions. If stepping outside a pattern solves a genuine user problem more effectively, I will do it, then bring that learning back into the system so it improves. The strongest design systems ', { bold: 'aren\'t the ones that enforce the most rules' }, ', but the ones that make it easier to ', { bold: 'do the right thing for users' }, '.'],
-]
-
 export default function Quote() {
   const cardEl = useRef<HTMLDivElement | null>(null)
   const innerEl = useRef<HTMLDivElement | null>(null)
-  const startRect = useRef<DOMRect | null>(null)
   const closeTimer = useRef<number | null>(null)
   const expandedRef = useRef(false)
   const closingRef = useRef(false)
@@ -24,6 +18,7 @@ export default function Quote() {
   const [expanded, setExpanded] = useState(false)
   const [settled, setSettled] = useState(false)
   const [closing, setClosing] = useState(false)
+  const [startRect, setStartRect] = useState<DOMRect | null>(null)
   const { spawnRipple, renderRipples } = useRipple()
 
   useEffect(() => {
@@ -42,6 +37,24 @@ export default function Quote() {
     }
   }, [])
 
+    const close = useCallback(() => {
+    if (closingRef.current) return
+
+    setClosing(true)
+    closingRef.current = true
+
+    if (closeTimer.current) window.clearTimeout(closeTimer.current)
+    closeTimer.current = window.setTimeout(() => {
+      setExpanded(false)
+      setSettled(false)
+      setClosing(false)
+      closingRef.current = false
+      setStartRect(null)
+      document.documentElement.style.overflow = ''
+      document.body.style.overflow = ''
+    }, ANIM_MS + 20)
+  }, [])
+
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') close()
@@ -52,10 +65,10 @@ export default function Quote() {
     }
 
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [expanded])
+  }, [close, expanded])
 
   function expandedStyle(): React.CSSProperties {
-    if (!startRect.current) return {}
+    if (!startRect) return {}
 
     const vpW = window.innerWidth
     const vpH = window.innerHeight
@@ -66,10 +79,10 @@ export default function Quote() {
 
     if (!settled || closing) {
       return {
-        left: `${startRect.current.left}px`,
-        top: `${startRect.current.top}px`,
-        width: `${startRect.current.width}px`,
-        height: `${startRect.current.height}px`,
+        left: `${startRect.left}px`,
+        top: `${startRect.top}px`,
+        width: `${startRect.width}px`,
+        height: `${startRect.height}px`,
       }
     }
 
@@ -85,7 +98,7 @@ export default function Quote() {
     if (expandedRef.current) return
     if (!cardEl.current) return
 
-    startRect.current = cardEl.current.getBoundingClientRect()
+    setStartRect(cardEl.current.getBoundingClientRect())
     setExpanded(true)
     setSettled(false)
     setClosing(false)
@@ -98,33 +111,7 @@ export default function Quote() {
     setSettled(true)
   }, [])
 
-  const close = useCallback(() => {
-    if (closingRef.current) return
 
-    setClosing(true)
-    closingRef.current = true
-
-    if (closeTimer.current) window.clearTimeout(closeTimer.current)
-    closeTimer.current = window.setTimeout(() => {
-      setExpanded(false)
-      setSettled(false)
-      setClosing(false)
-      closingRef.current = false
-      startRect.current = null
-      document.documentElement.style.overflow = ''
-      document.body.style.overflow = ''
-    }, ANIM_MS + 20)
-  }, [])
-
-  function renderParagraph(parts: Array<string | { bold: string }>, index: number) {
-    return (
-      <p key={index}>
-        {parts.map((seg, segIndex): ReactNode => (
-          typeof seg === 'string' ? seg : <strong key={segIndex}>{seg.bold}</strong>
-        ))}
-      </p>
-    )
-  }
 
   return (
     <div className="ds-quote-card-wrapper">

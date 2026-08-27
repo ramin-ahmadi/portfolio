@@ -1,6 +1,5 @@
 import {
   Children,
-  type CSSProperties,
   type ReactNode,
   useEffect,
   useRef,
@@ -11,27 +10,6 @@ import "./Essity.scss";
 
 const HERO_VIDEO_SRC =
   "https://player.vimeo.com/video/1219392750?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&playsinline=1&dnt=1";
-const asset = (name: string) => `/src/assets/images/rayo/schedule/${name}`;
-const IMG = {
-  mockup: asset("schedule-iphone-mockup.png"),
-  epic: asset("station-page-epic.png"),
-  ia: asset("IA-Explorations.jpg"),
-  tree: asset("tree-test-IA.jpg"),
-  journey: asset("user-journey-mapping.jpg"),
-  know: asset("workshop-what-we-know.png"),
-  hub: asset("workshop-station-hub.jpg"),
-  needs: asset("user story.jpg"),
-  radioA: asset("radio-page-a.png"),
-  radioB: asset("radio-page-b.png"),
-  radioC: asset("radio-page-c.png"),
-  header: asset("prototype-header.png"),
-  magicHeader: asset("prototype-header-magic.png"),
-  nav: asset("prototype-nav.png"),
-  home: asset("station-page-home.png"),
-  tracklist: asset("station-page-tracklist.png"),
-  shows: asset("station-page-shows.png"),
-  schedule: asset("schedule-page.png"),
-};
 const ICON_EXPAND = "/src/assets/icons/full-screen.svg";
 const ICON_SHRINK = "/src/assets/icons/shrink.svg";
 const ESSITY_GALLERY_IMAGES = [
@@ -40,31 +18,6 @@ const ESSITY_GALLERY_IMAGES = [
   "CreatePriceSupportList.jpg",
   "CreateRebateClaim.jpg",
 ].map((name) => `/src/assets/images/essity/${name}`);
-
-function useResponsiveScale(baseWidth: number) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [containerW, setContainerW] = useState(baseWidth);
-  const [canHover, setCanHover] = useState(false);
-  useEffect(() => {
-    const query = matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setCanHover(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new ResizeObserver(([entry]) =>
-      setContainerW(
-        Math.min(baseWidth, Math.max(280, entry.contentRect.width)),
-      ),
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [baseWidth]);
-  return { ref, containerW, scale: containerW / baseWidth, canHover };
-}
 
 function TldrToggle({
   value,
@@ -105,150 +58,6 @@ function InteractiveTag({ hint }: { hint: string }) {
       <span className="cc-interactive-tag">Interactive</span>
       {hint}
     </p>
-  );
-}
-
-const SCHEDULE_CARDS = [
-  {
-    id: "station-switcher",
-    title: "Station switcher",
-    desc: "Quickly jump between stations without leaving the schedule.",
-    left: 22,
-    top: 80,
-  },
-  {
-    id: "local-split",
-    title: "Local split",
-    desc: "Switch between local splits so listeners always find their regional schedule.",
-    left: 486,
-    top: 52,
-  },
-  {
-    id: "date-picker",
-    title: "Date picker",
-    desc: "Scroll back for catch-up or forward to see what’s on next - all from one row of tabs.",
-    left: 486,
-    top: 198,
-  },
-  {
-    id: "on-air",
-    title: "On-air",
-    desc: "The live show stands out instantly so listeners can tap and tune in without thinking.",
-    left: 22,
-    top: 240,
-  },
-  {
-    id: "play-button",
-    title: "Play button",
-    desc: "One tap to start any show - live or catch-up - straight from the schedule.",
-    left: 486,
-    top: 360,
-  },
-];
-const SCHEDULE_ZONES = [
-  { id: "local-split", left: "84%", top: "5.5%", width: "12%", height: "6%" },
-  {
-    id: "station-switcher",
-    left: "5%",
-    top: "13%",
-    width: "90%",
-    height: "8%",
-  },
-  { id: "date-picker", left: "2%", top: "22%", width: "96%", height: "7%" },
-  { id: "on-air", left: "3%", top: "40%", width: "94%", height: "13%" },
-  { id: "play-button", left: "78%", top: "41%", width: "18%", height: "10%" },
-];
-
-function ScheduleAntonym() {
-  const { ref, containerW, scale, canHover } = useResponsiveScale(680);
-  const [active, setActive] = useState<string | null>(null);
-  if (!canHover)
-    return (
-      <div ref={ref} className="cs-responsive-measure">
-        <div
-          className="cs-antonym-section cs-antonym-section--mobile"
-          style={{ width: containerW }}
-          aria-hidden="true"
-        >
-          <div className="cs-antonym-mobile-cards">
-            {SCHEDULE_CARDS.map((card) => (
-              <div key={card.id} className="cs-antonym-card">
-                <p className="cs-antonym-card-title">{card.title}</p>
-                <p className="cs-antonym-card-desc">{card.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="cs-antonym-mobile-screenshot">
-            <img
-              className="cs-antonym-screenshot"
-              src={IMG.schedule}
-              alt="Schedule page design"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  return (
-    <div ref={ref} className="cs-responsive-measure">
-      <div
-        className="cs-antonym-section"
-        style={{ width: containerW, height: Math.round(580 * scale) }}
-        onMouseLeave={() => setActive(null)}
-        aria-hidden="true"
-      >
-        <div
-          className="cs-antonym-screenshot-wrap"
-          style={{
-            left: `calc(50% - ${Math.round((225 * scale) / 2)}px)`,
-            top: Math.round(50 * scale),
-            width: Math.round(225 * scale),
-            height: Math.round(488 * scale),
-          }}
-        >
-          <img
-            className="cs-antonym-screenshot"
-            src={IMG.schedule}
-            alt="Schedule page design"
-          />
-          {SCHEDULE_ZONES.map((zone) => (
-            <div
-              key={zone.id}
-              className={`cs-antonym-zone ${active === zone.id ? "cs-antonym-zone--active" : ""}`}
-              style={{
-                position: "absolute",
-                left: zone.left,
-                top: zone.top,
-                width: zone.width,
-                height: zone.height,
-              }}
-              onMouseEnter={() => setActive(zone.id)}
-              onMouseLeave={() => setActive(null)}
-            />
-          ))}
-        </div>
-        {SCHEDULE_CARDS.map((card) => (
-          <div
-            key={card.id}
-            className="cs-antonym-card-wrapper"
-            style={{
-              left: Math.round(card.left * scale),
-              top: Math.round(card.top * scale),
-              width: Math.round(172 * scale),
-            }}
-            onMouseEnter={() => setActive(card.id)}
-            onMouseLeave={() => setActive(null)}
-          >
-            <div
-              className="cs-antonym-card"
-              style={{ opacity: active && active !== card.id ? 0.3 : 1 }}
-            >
-              <p className="cs-antonym-card-title">{card.title}</p>
-              <p className="cs-antonym-card-desc">{card.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -431,246 +240,6 @@ function ZoomableImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-const MIRO_BOARDS = [
-  { src: IMG.know, x: 40, y: 40, w: 825, h: 1576, alt: "What we know so far" },
-  {
-    src: IMG.hub,
-    x: 920,
-    y: 40,
-    w: 1350,
-    h: 1172,
-    alt: "What is the Station Hub",
-  },
-  {
-    src: IMG.needs,
-    x: 920,
-    y: 1270,
-    w: 1350,
-    h: 960,
-    alt: "User needs and user stories",
-  },
-];
-
-function MiroBoard() {
-  const viewerRef = useRef<HTMLDivElement | null>(null),
-    scrollRef = useRef<HTMLDivElement | null>(null),
-    wrapperRef = useRef<HTMLDivElement | null>(null),
-    canvasRef = useRef<HTMLDivElement | null>(null);
-  const metrics = useRef({ w: 680, h: 448, base: 0.2, max: 1, current: 0.2 }),
-    animation = useRef<number | null>(null);
-  const loadCount = useRef(0),
-    loadedRef = useRef(false);
-  const [loaded, setLoaded] = useState(false),
-    [buttons, setButtons] = useState({ in: false, out: false });
-  const position = (scale: number, preserve = false) => {
-    const scroll = scrollRef.current,
-      wrapper = wrapperRef.current,
-      canvas = canvasRef.current,
-      m = metrics.current;
-    if (!scroll || !wrapper || !canvas) return;
-    const oldW = 2340 * m.current,
-      oldH = 2290 * m.current,
-      oldX = Math.max(24, (m.w - oldW) / 2),
-      oldY = Math.max(24, (m.h - oldH) / 2);
-    const cx = (scroll.scrollLeft + m.w / 2) / (oldW + oldX * 2),
-      cy = (scroll.scrollTop + m.h / 2) / (oldH + oldY * 2);
-    m.current = scale;
-    const w = 2340 * scale,
-      h = 2290 * scale,
-      x = Math.max(24, (m.w - w) / 2),
-      y = Math.max(24, (m.h - h) / 2);
-    canvas.style.transform = `scale(${scale})`;
-    wrapper.style.width = `${w}px`;
-    wrapper.style.height = `${h}px`;
-    wrapper.style.margin = `${y}px ${x}px`;
-    if (preserve) {
-      scroll.scrollLeft = cx * (w + x * 2) - m.w / 2;
-      scroll.scrollTop = cy * (h + y * 2) - m.h / 2;
-    } else {
-      scroll.scrollLeft = (scroll.scrollWidth - m.w) / 2;
-      scroll.scrollTop = (scroll.scrollHeight - m.h) / 2;
-    }
-    setButtons({ in: scale < m.max - 0.001, out: scale > m.base + 0.001 });
-  };
-  const fit = () => {
-    const m = metrics.current;
-    m.base = Math.min((m.w - 48) / 2340, (m.h - 48) / 2290);
-    m.max = m.base * 5;
-    position(m.base);
-    loadedRef.current = true;
-    setLoaded(true);
-  };
-  useEffect(() => {
-    const viewer = viewerRef.current,
-      scroll = scrollRef.current;
-    if (!viewer || !scroll) return;
-    const wheel = (event: WheelEvent) => {
-      if (!event.ctrlKey) return;
-      event.preventDefault();
-      if (animation.current) cancelAnimationFrame(animation.current);
-      const m = metrics.current;
-      position(
-        Math.min(m.max, Math.max(m.base, m.current - event.deltaY * 0.002)),
-        true,
-      );
-    };
-    const observer = new ResizeObserver(([entry]) => {
-      metrics.current.w = entry.contentRect.width;
-      metrics.current.h = entry.contentRect.height;
-      if (loadedRef.current) fit();
-    });
-    scroll.addEventListener("wheel", wheel, { passive: false });
-    observer.observe(viewer);
-    return () => {
-      scroll.removeEventListener("wheel", wheel);
-      observer.disconnect();
-      if (animation.current) cancelAnimationFrame(animation.current);
-    };
-    // The canvas uses refs for animation-frame updates and only exposes button state to React.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const zoom = (direction: 1 | -1) => {
-    const m = metrics.current,
-      ratio = Math.pow(5, 0.25),
-      target = Math.min(
-        m.max,
-        Math.max(m.base, direction > 0 ? m.current * ratio : m.current / ratio),
-      ),
-      start = m.current,
-      time = performance.now();
-    if (animation.current) cancelAnimationFrame(animation.current);
-    const tick = (now: number) => {
-      const p = Math.min(1, (now - time) / 300),
-        eased = 1 - Math.pow(1 - p, 3);
-      position(start + (target - start) * eased, true);
-      animation.current = p < 1 ? requestAnimationFrame(tick) : null;
-    };
-    animation.current = requestAnimationFrame(tick);
-  };
-  return (
-    <div
-      ref={viewerRef}
-      className="cs-miro-viewer cs-cover-img"
-      aria-hidden="true"
-    >
-      <div ref={scrollRef} className="cs-miro-scroll">
-        <div ref={wrapperRef} className="cs-miro-wrapper">
-          <div
-            ref={canvasRef}
-            className="cs-miro-canvas"
-            style={{ opacity: loaded ? 1 : 0 }}
-          >
-            {MIRO_BOARDS.map((board) => (
-              <img
-                key={board.src}
-                src={board.src}
-                alt={board.alt}
-                draggable={false}
-                className="cs-miro-board"
-                onLoad={() => {
-                  loadCount.current += 1;
-                  if (loadCount.current >= MIRO_BOARDS.length) fit();
-                }}
-                style={{
-                  position: "absolute",
-                  left: board.x,
-                  top: board.y,
-                  width: board.w,
-                  height: board.h,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="cs-zoom-controls">
-        <button
-          className={`cs-zoom-btn ${!buttons.in ? "cs-zoom-btn--disabled" : ""}`}
-          type="button"
-          tabIndex={-1}
-          onClick={() => zoom(1)}
-          disabled={!buttons.in}
-        >
-          +
-        </button>
-        <button
-          className={`cs-zoom-btn ${!buttons.out ? "cs-zoom-btn--disabled" : ""}`}
-          type="button"
-          tabIndex={-1}
-          onClick={() => zoom(-1)}
-          disabled={!buttons.out}
-        >
-          −
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function ProtoPhone({
-  src,
-  alt,
-  header = IMG.header,
-}: {
-  src: string;
-  alt: string;
-  header?: string;
-}) {
-  const ref = useRef<HTMLDivElement | null>(null),
-    [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const scroll = ref.current;
-    if (!scroll) return;
-    let startY = 0;
-    const onScroll = () => {
-      if (scroll.scrollTop < 0) scroll.scrollTop = 0;
-      setVisible(scroll.scrollTop > 8);
-    };
-    const wheel = (e: WheelEvent) => {
-      if (e.deltaY < 0 && scroll.scrollTop <= 0) e.preventDefault();
-    };
-    const start = (e: TouchEvent) => {
-      startY = e.touches[0]?.clientY ?? 0;
-    };
-    const move = (e: TouchEvent) => {
-      if ((e.touches[0]?.clientY ?? 0) - startY > 0 && scroll.scrollTop <= 0)
-        e.preventDefault();
-    };
-    scroll.addEventListener("scroll", onScroll, { passive: true });
-    scroll.addEventListener("wheel", wheel, { passive: false });
-    scroll.addEventListener("touchstart", start, { passive: true });
-    scroll.addEventListener("touchmove", move, { passive: false });
-    return () => {
-      scroll.removeEventListener("scroll", onScroll);
-      scroll.removeEventListener("wheel", wheel);
-      scroll.removeEventListener("touchstart", start);
-      scroll.removeEventListener("touchmove", move);
-    };
-  }, []);
-  return (
-    <div
-      className={`cs-proto-phone cs-proto-phone-${alt.replace(/\s+/g, "-")}`}
-      aria-hidden="true"
-    >
-      <img
-        src={header}
-        alt="App header"
-        className={`cs-proto-header ${visible ? "cs-proto-header--visible" : ""}`}
-        draggable={false}
-      />
-      <div ref={ref} className="cs-proto-scroll">
-        <img src={src} alt={alt} className="cs-proto-img" draggable={false} />
-      </div>
-      <img
-        src={IMG.nav}
-        alt="App navigation"
-        className="cs-proto-nav"
-        draggable={false}
-      />
-    </div>
-  );
-}
-
 function CaseStudyOverlay({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false),
     [closing, setClosing] = useState(false),
@@ -790,27 +359,6 @@ function CaseStudyOverlay({ children }: { children: ReactNode }) {
   );
 }
 
-const Cover = ({
-  src,
-  alt,
-  full,
-  style,
-}: {
-  src: string;
-  alt: string;
-  full?: boolean;
-  style?: CSSProperties;
-}) => (
-  <img
-    className={`cs-cover-img ${full ? "cs-cover-img--full" : ""}`}
-    src={src}
-    alt={alt}
-    style={style}
-  />
-);
-const Hint = ({ children }: { children: ReactNode }) => (
-  <p className="cs-hint">{children}</p>
-);
 const Section = ({
   title,
   children,
@@ -855,11 +403,7 @@ function EssityDesignGallery() {
 }
 
 export default function Essity() {
-  const { canHover } = useResponsiveScale(680);
-  const [tldr, setTldr] = useState(false),
-    [dark, setDark] = useState(
-      () => document.documentElement.dataset.theme === "dark",
-    );
+  const [tldr, setTldr] = useState(false);
   const full = (...nodes: ReactNode[]) => (
     <div
       className={`tldr-collapsible ${tldr ? "tldr-collapsible--hidden" : ""}`}
@@ -867,16 +411,6 @@ export default function Essity() {
       <div>{Children.toArray(nodes)}</div>
     </div>
   );
-  useEffect(() => {
-    const observer = new MutationObserver(() =>
-      setDark(document.documentElement.dataset.theme === "dark"),
-    );
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-    return () => observer.disconnect();
-  }, []);
   return (
     <CaseStudyOverlay>
       <TldrToggle value={tldr} onChange={setTldr} />
@@ -929,7 +463,7 @@ export default function Essity() {
       <img
         className="cs-cover-img"
         data-scroll-reveal
-        src="/src/assets/images/essity/essity.png"
+        src="/src/assets/images/essity/Essity.png"
         alt="A five-stage journey mapping"
       />
       <p className="cs-hint">Essity project set out to create a B2B and B2C platform that simplified bulk purchasing while bringing sales, inventory, invoicing, pricing and contract management into one system.</p>

@@ -35,10 +35,34 @@ type StravaActivity = {
 
 type Status = 'loading' | 'ready' | 'error'
 
+type LeafletBounds = object
+
+type LeafletMap = {
+  fitBounds: (bounds: LeafletBounds, options: { padding: [number, number] }) => void
+  getZoom: () => number
+  invalidateSize: () => void
+  remove: () => void
+  setView: (center: [number, number], zoom: number) => LeafletMap
+  setZoom: (zoom: number) => void
+}
+
+type LeafletPolyline = {
+  addTo: (map: LeafletMap) => LeafletPolyline
+  getBounds: () => LeafletBounds
+}
+
+type LeafletApi = {
+  map: (element: HTMLElement, options: Record<string, boolean>) => LeafletMap
+  polyline: (coordinates: Array<[number, number]>, options: Record<string, string | number>) => LeafletPolyline
+  tileLayer: (url: string, options: { subdomains: string; maxZoom: number }) => {
+    addTo: (map: LeafletMap) => void
+  }
+}
+
 declare global {
   interface Window {
-    L?: any
-    __stravaLeafletPromise?: Promise<any>
+    L?: LeafletApi
+    __stravaLeafletPromise?: Promise<LeafletApi>
   }
 }
 
@@ -93,11 +117,11 @@ function getPolyline(activity: StravaActivity) {
   return activity.polyline || activity.map?.summary_polyline || activity.map?.polyline || ''
 }
 
-function loadLeaflet() {
+function loadLeaflet(): Promise<LeafletApi> {
   if (window.L) return Promise.resolve(window.L)
   if (window.__stravaLeafletPromise) return window.__stravaLeafletPromise
 
-  window.__stravaLeafletPromise = new Promise((resolve, reject) => {
+  window.__stravaLeafletPromise = new Promise<LeafletApi>((resolve, reject) => {
     if (!document.getElementById('leaflet-css')) {
       const link = Object.assign(document.createElement('link'), {
         id: 'leaflet-css',
@@ -109,7 +133,10 @@ function loadLeaflet() {
 
     const existingScript = document.getElementById('leaflet-js') as HTMLScriptElement | null
     if (existingScript) {
-      existingScript.addEventListener('load', () => resolve(window.L))
+      existingScript.addEventListener('load', () => {
+        if (window.L) resolve(window.L)
+        else reject(new Error('Leaflet failed to initialise'))
+      })
       existingScript.addEventListener('error', reject)
       return
     }
@@ -117,7 +144,10 @@ function loadLeaflet() {
     const script = Object.assign(document.createElement('script'), {
       id: 'leaflet-js',
       src: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js',
-      onload: () => resolve(window.L),
+      onload: () => {
+        if (window.L) resolve(window.L)
+        else reject(new Error('Leaflet failed to initialise'))
+      },
       onerror: reject,
     })
     document.head.appendChild(script)
@@ -128,7 +158,7 @@ function loadLeaflet() {
 
 export default function Strava({ classes = '' }: { classes?: string }) {
   const mapEl = useRef<HTMLDivElement | null>(null)
-  const leafletMap = useRef<any>(null)
+  const leafletMap = useRef<LeafletMap | null>(null)
   const [status, setStatus] = useState<Status>('loading')
   const [rideInfo, setRideInfo] = useState<RideInfo | null>(null)
   const [errMsg, setErrMsg] = useState('')
@@ -144,7 +174,7 @@ export default function Strava({ classes = '' }: { classes?: string }) {
         await new Promise((resolve) => window.setTimeout(resolve, 50))
         if (!mapEl.current || cancelled) return
 
-        leafletMap.current = L.map(mapEl.current, {
+        const map = L.map(mapEl.current, {
           zoomControl: false,
           attributionControl: false,
           dragging: false,
@@ -153,11 +183,12 @@ export default function Strava({ classes = '' }: { classes?: string }) {
           touchZoom: false,
           keyboard: false,
         }).setView(LONG_FOREST_CENTER, LONG_FOREST_ZOOM)
+        leafletMap.current = map
 
         L.tileLayer(
           'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
           { subdomains: 'abcd', maxZoom: 19 },
-        ).addTo(leafletMap.current)
+        ).addTo(map)
 
         const activityRes = await fetch(ACTIVITY_JSON)
 
@@ -187,11 +218,11 @@ export default function Strava({ classes = '' }: { classes?: string }) {
           opacity: 1,
           lineCap: 'round',
           lineJoin: 'round',
-        }).addTo(leafletMap.current)
+        }).addTo(map)
 
-        leafletMap.current.fitBounds(route.getBounds(), { padding: [10, 10] })
-        leafletMap.current.setZoom(Math.max(0, leafletMap.current.getZoom() - ROUTE_ZOOM_OUT_STEPS))
-        leafletMap.current.invalidateSize()
+        map.fitBounds(route.getBounds(), { padding: [10, 10] })
+        map.setZoom(Math.max(0, map.getZoom() - ROUTE_ZOOM_OUT_STEPS))
+        map.invalidateSize()
 
         if (!cancelled) setStatus('ready')
       } catch (error) {

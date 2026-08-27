@@ -5,6 +5,16 @@ const ICON_EXTERNAL_LINK = '/src/assets/icons/external-link.svg'
 const HREF = 'https://www.linkedin.com/in/raminahmadi/'
 const TOOLTIP = 'Connect with me on LinkedIn 🧑‍💻'
 
+type AnimatedPathStyle = React.CSSProperties & {
+  '--len': string
+  '--draw-dur': string
+  '--draw-delay': string
+}
+
+function pathStyle(length: string, duration: string, delay: string): AnimatedPathStyle {
+  return { '--len': length, '--draw-dur': duration, '--draw-delay': delay }
+}
+
 export default function LinkedinCard({ classes = '' }: { classes?: string }) {
   const [animKey, setAnimKey] = useState(0)
   function replay() { setAnimKey(k => k + 1) }
@@ -39,17 +49,17 @@ export default function LinkedinCard({ classes = '' }: { classes?: string }) {
         <path
           className="li-path"
           d="M11 15.5 L11 26"
-          style={{ ['--len' as any]: '11', ['--draw-dur' as any]: '0.38s', ['--draw-delay' as any]: '0.08s' } as React.CSSProperties}
+          style={pathStyle('11', '0.38s', '0.08s')}
         />
         <path
           className="li-path"
           d="M17 15.5 L17 26"
-          style={{ ['--len' as any]: '11', ['--draw-dur' as any]: '0.38s', ['--draw-delay' as any]: '0.14s' } as React.CSSProperties}
+          style={pathStyle('11', '0.38s', '0.14s')}
         />
         <path
           className="li-path"
           d="M17 19.5 C17 17 19 15.5 21 15.5 C23 15.5 25 17 25 19.5 L25 26"
-          style={{ ['--len' as any]: '22', ['--draw-dur' as any]: '0.42s', ['--draw-delay' as any]: '0.20s' } as React.CSSProperties}
+          style={pathStyle('22', '0.42s', '0.20s')}
         />
       </svg>
     </div>

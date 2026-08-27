@@ -472,11 +472,11 @@
   --tag-tracking:            var(--tracking-wide);
 
   /* logo url */
- --website-logo:  url("./src/assets/logos/Ramin-Ahmadi-logo.png");
+ --website-logo:  url("/src/assets/logos/Ramin-Ahmadi-logo.png");
  /* Quote card image */
- --quote-image: url("./src/assets/images/general/quote-icon-default.svg");
+ --quote-image: url("/src/assets/images/general/quote-icon-default.svg");
   /* Books card image */
- --books-image: url("./src/assets/images/general/goodreads-default.svg");
+ --books-image: url("/src/assets/images/general/goodreads-default.svg");
 }
 
 
@@ -545,9 +545,9 @@
   --gradient-brand:           linear-gradient(135deg, var( --color-brand-bauer) 0%, var(--color-primitive-purple-500) 100%);
 
     /* logo url */
- --website-logo:  url("./src/assets/logos/Ramin-Ahmadi-logo-dark.png");
+ --website-logo:  url("/src/assets/logos/Ramin-Ahmadi-logo-dark.png");
  /* Quote card image */
- --quote-image: url("./src/assets/images/general/quote-icon-dark.svg");
+ --quote-image: url("/src/assets/images/general/quote-icon-dark.svg");
    /* Books card image */
- --books-image: url("./src/assets/images/general/goodreads-dark.svg");
+ --books-image: url("/src/assets/images/general/goodreads-dark.svg");
 }

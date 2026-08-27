@@ -7,6 +7,11 @@ type NavProps = {
     onSelect?: (item: string) => void
 }
 
+type MorphPath = {
+    start: number[]
+    segs: number[][]
+}
+
 export default function Nav({ activePill: controlledActivePill, onSelect }: NavProps) {
     const [internalActivePill, setInternalActivePill] = useState('All')
     const activePill = controlledActivePill ?? internalActivePill
@@ -50,7 +55,7 @@ export default function Nav({ activePill: controlledActivePill, onSelect }: NavP
     function lerp(a: number, b: number, t: number) { return a + (b - a) * t }
     function easeInOut(t: number) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t }
 
-    function buildPath(a: any, b: any, t: number) {
+    function buildPath(a: MorphPath, b: MorphPath, t: number) {
         const sx = lerp(a.start[0], b.start[0], t)
         const sy = lerp(a.start[1], b.start[1], t)
         let d = `M${sx.toFixed(2)},${sy.toFixed(2)}`
@@ -64,9 +69,10 @@ export default function Nav({ activePill: controlledActivePill, onSelect }: NavP
 
     const MORPH_MS = 300
 
-    const morphT = useRef<number>(isInstant ? 1 : 0)
-    const morphFrom = useRef<number>(morphT.current)
-    const morphTo = useRef<number>(morphT.current)
+    const initialMorph = isInstant ? 1 : 0
+    const morphT = useRef<number>(initialMorph)
+    const morphFrom = useRef<number>(initialMorph)
+    const morphTo = useRef<number>(initialMorph)
     const morphStart = useRef<number | null>(null)
     const rafId = useRef<number | null>(null)
 

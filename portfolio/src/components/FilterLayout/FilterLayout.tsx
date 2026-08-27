@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- This module contains layout data, not React components. */
 /**
  *
  * Defines the CSS grid position (and dim state) for every card in each

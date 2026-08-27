@@ -38,6 +38,11 @@ const BEAM_STROKE = 1.2
 const DURATION = 200
 const LERP_POS = 0.25
 
+type CursorPath = {
+  start: [number, number]
+  segs: number[][]
+}
+
 function easeInOut(t: number) {
   return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
 }
@@ -46,7 +51,7 @@ function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t
 }
 
-function buildPath(a: any, b: any, t: number) {
+function buildPath(a: CursorPath, b: CursorPath, t: number) {
   const sx = lerp(a.start[0], b.start[0], t)
   const sy = lerp(a.start[1], b.start[1], t)
   let d = `M${sx.toFixed(2)},${sy.toFixed(2)}`
@@ -148,7 +153,7 @@ export default function CursorShape() {
       document.documentElement.removeEventListener('mouseleave', onMouseLeave)
       if (rafId.current) cancelAnimationFrame(rafId.current)
     }
-  }, [])
+  }, [isTouch])
 
   if (isTouch) return null
 

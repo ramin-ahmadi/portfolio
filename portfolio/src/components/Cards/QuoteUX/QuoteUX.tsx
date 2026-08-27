@@ -10,7 +10,6 @@ const ANIM_MS = 700
 export default function QuoteUX() {
   const cardEl = useRef<HTMLDivElement | null>(null)
   const innerEl = useRef<HTMLDivElement | null>(null)
-  const startRect = useRef<DOMRect | null>(null)
   const closeTimer = useRef<number | null>(null)
   const expandedRef = useRef(false)
   const closingRef = useRef(false)
@@ -18,6 +17,7 @@ export default function QuoteUX() {
   const [expanded, setExpanded] = useState(false)
   const [settled, setSettled] = useState(false)
   const [closing, setClosing] = useState(false)
+  const [startRect, setStartRect] = useState<DOMRect | null>(null)
   const { spawnRipple, renderRipples } = useRipple()
 
   useEffect(() => {
@@ -36,20 +36,8 @@ export default function QuoteUX() {
     }
   }, [])
 
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') close()
-    }
-
-    if (expanded) {
-      window.addEventListener('keydown', handleKeyDown)
-    }
-
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [expanded])
-
   function expandedStyle(): React.CSSProperties {
-    if (!startRect.current) return {}
+    if (!startRect) return {}
 
     const vpW = window.innerWidth
     const vpH = window.innerHeight
@@ -60,10 +48,10 @@ export default function QuoteUX() {
 
     if (!settled || closing) {
       return {
-        left: `${startRect.current.left}px`,
-        top: `${startRect.current.top}px`,
-        width: `${startRect.current.width}px`,
-        height: `${startRect.current.height}px`,
+        left: `${startRect.left}px`,
+        top: `${startRect.top}px`,
+        width: `${startRect.width}px`,
+        height: `${startRect.height}px`,
       }
     }
 
@@ -79,7 +67,7 @@ export default function QuoteUX() {
     if (expandedRef.current) return
     if (!cardEl.current) return
 
-    startRect.current = cardEl.current.getBoundingClientRect()
+    setStartRect(cardEl.current.getBoundingClientRect())
     setExpanded(true)
     setSettled(false)
     setClosing(false)
@@ -104,11 +92,20 @@ export default function QuoteUX() {
       setSettled(false)
       setClosing(false)
       closingRef.current = false
-      startRect.current = null
+      setStartRect(null)
       document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
     }, ANIM_MS + 20)
   }, [])
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') close()
+    }
+
+    if (expanded) window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [close, expanded])
 
   return (
     <div className="ux-quote-card-wrapper">

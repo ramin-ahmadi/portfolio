@@ -31,7 +31,7 @@ function HighlightedCode({ code, language = 'javascript' }: { code: string; lang
   const highlightedCode = Prism.highlight(code, grammar, language)
 
   return (
-    <pre className={`cs-body-code__content language-${language}`}>
+    <pre className={`ads-code__content language-${language}`}>
       <code
         className={`language-${language}`}
         dangerouslySetInnerHTML={{ __html: highlightedCode }}
@@ -47,11 +47,6 @@ const LOGO_FIGMA = './src/assets/logos/figma-logo.svg'
 
 // ── Hero placeholder (solid orange for fly animation) ──
 const HERO_SRC = './src/assets/images/agentic-ds/agentic-ds-hero.svg'
-
-// ── Image assets (add screenshots as you take them) ──
-const IMG_FIGMA_TOKENS = '/src/assets/images/agentic-ds/figma-tokens.png'
-const IMG_CONSOLIDATION = '/src/assets/images/agentic-ds/token-consolidation.png'
-const PRELOAD_ONLY_ASSETS = [IMG_FIGMA_TOKENS, IMG_CONSOLIDATION]
 
 const ICON_EXPAND = '/src/assets/icons/full-screen.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
@@ -91,10 +86,7 @@ const TOKEN_LAYERS = [
   },
 ]
 
-/* ─────────────────────────────────────────────────────────────
-   Agent Workflow Demo
-   Shows before/after of an agent audit with animated reveal
-   ───────────────────────────────────────────────────────────── */
+
 const AGENT_ACTIONS = [
   {
     action: 'Token sync',
@@ -483,9 +475,9 @@ function CaseStudyOverlay({
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 aria-hidden="true"
               >
                 <polyline points="18 15 12 9 6 15"></polyline>
@@ -505,13 +497,6 @@ function CaseStudyOverlay({
    ───────────────────────────────────────────────────────────── */
 export default function Rebrand() {
   const [tldr, setTldr] = useState(false)
-
-  useEffect(() => {
-    PRELOAD_ONLY_ASSETS.forEach((src) => {
-      const image = new Image()
-      image.src = src
-    })
-  }, [])
 
   const full = (...nodes: ReactNode[]) => (
     <div className={['tldr-collapsible', tldr ? 'tldr-collapsible--hidden' : ''].filter(Boolean).join(' ')}>
@@ -572,7 +557,7 @@ The development team is also offshore, so even small changes can take time to sc
         {full(
           <p className="cs-body-text" key="token-1">I used Tailwind CSS as the foundation because it makes code generation faster and more consistent. Rather than relying on Tailwind’s default token structure, I created a custom token architecture that AI agents can understand and reason about.
           </p>,
-                    <p className="cs-body-text" key="token-1">The system is built on three layers. 
+                    <p className="cs-body-text" key="token-architecture">The system is built on three layers.
                     Primitive tokens store the raw values, such as colours, spacing and typography. Semantic tokens give those values meaning, using names like color-text-primary or color-surface-card that describe intent instead of appearance. Component tokens sit on top, defining styles that are specific to individual UI patterns, such as Storybook panels or Figma widgets.
           </p>,
 
@@ -625,19 +610,19 @@ The development team is also offshore, so even small changes can take time to sc
         {full(
           <p className="cs-body-text" key="desc-2">These descriptions are deliberately machine-readable. They give the agent enough context to choose the right component and implement it using the existing design system rather than interpreting the UI or creating something new.</p>,
           <p className="cs-body-text" key="desc-3">For example, I can ask Claude: “Add a primary CTA component to the product tile component. Positioned at the bottom centre.” The agent reads the primary-button description in Figma and knows which component and tokens to use, including how those tokens behave across themes.</p>,
-            <div className="cs-body-code" key="desc-4">
-              <p className="cs-body-code__title">Figma token</p>
-              <pre className="cs-body-code__content"><code>{`button/primary
+            <div className="ads-code" key="desc-4">
+              <p className="ads-code__title">Figma token</p>
+              <pre className="ads-code__content"><code>{`button/primary
 
 Light → primary/500
 Dark  → indigo/500`}</code></pre>
             </div>,
-            <div className="cs-body-code" key="desc-5">
-              <p className="cs-body-code__title">token.css</p>
+            <div className="ads-code" key="desc-5">
+              <p className="ads-code__title">token.css</p>
               <HighlightedCode code={BUTTON_TOKEN_CSS} language="css" />
             </div>,
-            <div className="cs-body-code" key="desc-6">
-              <p className="cs-body-code__title">React</p>
+            <div className="ads-code" key="desc-6">
+              <p className="ads-code__title">React</p>
               <HighlightedCode code={PRIMARY_BUTTON_CODE} language="jsx" />
             </div>,
         )}
@@ -689,7 +674,6 @@ Dark  → indigo/500`}</code></pre>
             <span className="ads-result-number">2</span>
             <span className="ads-result-label">Figma libraries</span>
           </div>
-          <p>&nbsp;</p>
         </div>
 
         <h2 className="cs-section-title">My learnings</h2>

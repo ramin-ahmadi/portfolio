@@ -9,15 +9,27 @@ const ANIM_MS = 700;
 const EASE = "cubic-bezier(0.34, 1.1, 0.64, 1)";
 const FLY_TRANSITION = `left ${ANIM_MS}ms ${EASE}, top ${ANIM_MS}ms ${EASE}, width ${ANIM_MS}ms ${EASE}, height ${ANIM_MS}ms ${EASE}, border-radius 400ms ease`;
 
+function getAvatarTarget() {
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const targetWidth = Math.min(ABOUT_MAX_W, viewportWidth - 48);
+  const targetHeight = Math.min(viewportHeight * 0.85, 820);
+  const targetLeft = Math.max(24, (viewportWidth - targetWidth) / 2);
+  const targetTop = Math.max(24, (viewportHeight - targetHeight) / 2);
+
+  return {
+    left: targetLeft + (targetWidth - 150) / 2,
+    top: targetTop + 40,
+    size: 150,
+  };
+}
+
 export default function AboutCard() {
   const cardEl = useRef<HTMLDivElement | null>(null);
   const avatarEl = useRef<HTMLImageElement | null>(null);
-  const startRect = useRef<DOMRect | null>(null);
   const avatarStart = useRef<DOMRect | null>(null);
   const closeTimer = useRef<number | null>(null);
   const avatarTimer = useRef<number | null>(null);
-  const previewRaf = useRef<number | null>(null);
-  const previewTimer = useRef<number | null>(null);
   const expandedRef = useRef(false);
   const flyActiveRef = useRef(false);
   const closingRef = useRef(false);
@@ -28,6 +40,7 @@ export default function AboutCard() {
   const [wasOpen, setWasOpen] = useState(false);
   const [flyActive, setFlyActive] = useState(false);
   const [flyStyle, setFlyStyle] = useState<React.CSSProperties>({});
+  const [startRect, setStartRect] = useState<DOMRect | null>(null);
   const { spawnRipple, renderRipples } = useRipple();
 
   useEffect(() => {
@@ -46,43 +59,13 @@ export default function AboutCard() {
     return () => {
       if (closeTimer.current) window.clearTimeout(closeTimer.current);
       if (avatarTimer.current) window.clearTimeout(avatarTimer.current);
-      if (previewTimer.current) window.clearTimeout(previewTimer.current);
-      if (previewRaf.current) window.cancelAnimationFrame(previewRaf.current);
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, []);
 
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") close();
-    }
-
-    if (expanded) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [expanded]);
-
-  function avatarTarget() {
-    const vpW = window.innerWidth;
-    const vpH = window.innerHeight;
-    const targetW = Math.min(ABOUT_MAX_W, vpW - 48);
-    const targetH = Math.min(vpH * 0.85, 820);
-    const targetL = Math.max(24, (vpW - targetW) / 2);
-    const targetT = Math.max(24, (vpH - targetH) / 2);
-    return {
-      left: targetL + (targetW - 150) / 2,
-      top: targetT + 40,
-      size: 150,
-    };
-  }
-
   function expandedStyle(): React.CSSProperties {
-    if (!startRect.current) return {};
+    if (!startRect) return {};
     const vpW = window.innerWidth;
     const vpH = window.innerHeight;
     const targetW = Math.min(ABOUT_MAX_W, vpW - 48);
@@ -92,10 +75,10 @@ export default function AboutCard() {
 
     if (!settled || closing) {
       return {
-        left: `${startRect.current.left}px`,
-        top: `${startRect.current.top}px`,
-        width: `${startRect.current.width}px`,
-        height: `${startRect.current.height}px`,
+        left: `${startRect.left}px`,
+        top: `${startRect.top}px`,
+        width: `${startRect.width}px`,
+        height: `${startRect.height}px`,
       };
     }
 
@@ -111,7 +94,7 @@ export default function AboutCard() {
     if (expandedRef.current) return;
     if (!cardEl.current || !avatarEl.current) return;
 
-    startRect.current = cardEl.current.getBoundingClientRect();
+    setStartRect(cardEl.current.getBoundingClientRect());
     avatarStart.current = avatarEl.current.getBoundingClientRect();
 
     setFlyStyle({
@@ -135,7 +118,7 @@ export default function AboutCard() {
     await new Promise(requestAnimationFrame);
 
     setSettled(true);
-    const target = avatarTarget();
+    const target = getAvatarTarget();
     setFlyStyle({
       left: `${target.left}px`,
       top: `${target.top}px`,
@@ -157,7 +140,7 @@ export default function AboutCard() {
     const useFly = !flyActiveRef.current;
 
     if (useFly && avatarStart.current) {
-      const target = avatarTarget();
+      const target = getAvatarTarget();
       setFlyStyle({
         left: `${target.left}px`,
         top: `${target.top}px`,
@@ -184,7 +167,6 @@ export default function AboutCard() {
     }
 
     setClosing(true);
-    setClosing(true);
     closingRef.current = true;
 
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
@@ -195,12 +177,21 @@ export default function AboutCard() {
       closingRef.current = false;
       setFlyActive(false);
       setWasOpen(true);
-      startRect.current = null;
+      setStartRect(null);
       avatarStart.current = null;
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     }, ANIM_MS + 20);
   }, []);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") close();
+    }
+
+    if (expanded) window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [close, expanded]);
 
   return (
     <div className="about-card-wrapper">

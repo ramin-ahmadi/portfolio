@@ -18,23 +18,6 @@ const HIFI_GALLERY_IMAGES = Array.from(
 const ICON_EXPAND = '/src/assets/icons/full-screen.svg'
 const ICON_SHRINK = '/src/assets/icons/shrink.svg'
 
-const TYPE_ICONS: Record<string, string> = {
-  frame: '#',
-  rect: '▬',
-  group: '◇',
-  vector: '✦',
-  ellipse: '○',
-  text: 'T',
-  line: '—',
-}
-
-type PanelLayer = {
-  name: string
-  type: string
-  indent: number
-  hidden: boolean
-}
-
 function LayerLintBackgroundVideo() {
   return (
     <div className="ll-bg-wrap" aria-hidden="true">
@@ -45,86 +28,6 @@ function LayerLintBackgroundVideo() {
         allow="autoplay; fullscreen"
         tabIndex={-1}
       />
-    </div>
-  )
-}
-
-const BEFORE_LAYERS: PanelLayer[] = [
-  { name: 'Frame 114', type: 'frame', indent: 0, hidden: false },
-  { name: 'Rectangle 47', type: 'rect', indent: 1, hidden: false },
-  { name: 'Group 12', type: 'group', indent: 1, hidden: false },
-  { name: 'Vector 2', type: 'vector', indent: 2, hidden: true },
-  { name: 'Ellipse 9', type: 'ellipse', indent: 2, hidden: false },
-  { name: 'Frame 3', type: 'frame', indent: 2, hidden: false },
-  { name: 'Rectangle 8', type: 'rect', indent: 3, hidden: true },
-  { name: 'Text', type: 'text', indent: 3, hidden: false },
-  { name: 'Group 5', type: 'group', indent: 1, hidden: true },
-  { name: 'Line 4', type: 'line', indent: 1, hidden: false },
-  { name: 'Rectangle 19', type: 'rect', indent: 1, hidden: false },
-]
-
-const AFTER_LAYERS: PanelLayer[] = [
-  { name: 'product-card', type: 'frame', indent: 0, hidden: false },
-  { name: 'card-image', type: 'rect', indent: 1, hidden: false },
-  { name: 'card-content', type: 'group', indent: 1, hidden: false },
-  { name: 'product-icon', type: 'ellipse', indent: 2, hidden: false },
-  { name: 'info-row', type: 'frame', indent: 2, hidden: false },
-  { name: 'product-label', type: 'text', indent: 3, hidden: false },
-  { name: 'divider', type: 'line', indent: 1, hidden: false },
-  { name: 'price-tag', type: 'rect', indent: 1, hidden: false },
-]
-
-function BeforeAfterToggle() {
-  const [showAfter, setShowAfter] = useState(false)
-
-  function renderPanel(layers: PanelLayer[], label: string) {
-    return (
-      <div className="ll-panel">
-        <div className="ll-panel-bar">
-          <span className="ll-panel-title">Layers</span>
-          <span className="ll-panel-badge">{label}</span>
-        </div>
-        <div className="ll-panel-list">
-          {layers.map((layer, i) => (
-            <div
-              key={`${layer.name}-${i}`}
-              className={['ll-panel-row', layer.hidden ? 'll-panel-row--hidden' : ''].filter(Boolean).join(' ')}
-              style={{ paddingLeft: `${12 + layer.indent * 16}px` }}
-            >
-              <span className="ll-panel-icon">{TYPE_ICONS[layer.type] || '#'}</span>
-              <span className="ll-panel-name">{layer.name}</span>
-              {layer.hidden ? <span className="ll-panel-hidden-tag">👁</span> : null}
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="ll-before-after">
-      <div className="ll-toggle-bar">
-        <button
-          className={['ll-toggle-btn', !showAfter ? 'll-toggle-btn--active' : ''].filter(Boolean).join(' ')}
-          type="button"
-          onClick={() => setShowAfter(false)}
-        >
-          Before
-        </button>
-        <button
-          className={['ll-toggle-btn', showAfter ? 'll-toggle-btn--active' : ''].filter(Boolean).join(' ')}
-          type="button"
-          onClick={() => setShowAfter(true)}
-        >
-          After
-        </button>
-      </div>
-      <div className="ll-panels-wrap" aria-hidden="true">
-        <div className={['ll-panels-track', showAfter ? 'll-panels-track--after' : ''].filter(Boolean).join(' ')}>
-          {renderPanel(BEFORE_LAYERS, 'Raw Figma')}
-          {renderPanel(AFTER_LAYERS, 'After Layer Lint')}
-        </div>
-      </div>
     </div>
   )
 }
@@ -151,15 +54,6 @@ function TldrToggle({ modelValue, onUpdate }: { modelValue: boolean; onUpdate: (
         TL;DR
       </button>
     </div>
-  )
-}
-
-function InteractiveTag({ hint }: { hint: string }) {
-  return (
-    <p className="cs-hint">
-      <span className="cc-interactive-tag">Interactive</span>
-      {hint}
-    </p>
   )
 }
 
