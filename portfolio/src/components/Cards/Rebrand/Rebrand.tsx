@@ -547,7 +547,7 @@ The development team is also offshore, so even small changes can take time to sc
 
           <p className="cs-body-text" key="challenge-1">Every design system eventually runs into the same problems. Design tokens slowly lose structure,  design documentation becomes outdated, Figma drifts away from code, 
          
-          duplicate components begin to appear.Keeping everything aligned becomes a manual job that nobody really owns.</p>,
+          duplicate components begin to appear. Keeping everything aligned becomes a manual job that nobody really owns.</p>,
 
          
         )}
@@ -609,7 +609,7 @@ The development team is also offshore, so even small changes can take time to sc
  <p className="cs-body-text" key="desc-1">Figma MCP gives the AI agent direct access to the context behind each component, creating a clear connection between design and code. I structured component descriptions to explain their purpose, tokens, properties, variants, states and interaction behaviour.</p>
         {full(
           <p className="cs-body-text" key="desc-2">These descriptions are deliberately machine-readable. They give the agent enough context to choose the right component and implement it using the existing design system rather than interpreting the UI or creating something new.</p>,
-          <p className="cs-body-text" key="desc-3">For example, I can ask Claude: “Add a primary CTA component to the product tile component. Positioned at the bottom centre.” The agent reads the primary-button description in Figma and knows which component and tokens to use, including how those tokens behave across themes.</p>,
+          <p className="cs-body-text" key="desc-3">For example, I can ask Claude: “Add a primary CTA component to the product tile component. Positioned it at the bottom centre.” The agent reads the primary-button description in Figma and knows which component and tokens to use, including how those tokens behave across themes.</p>,
             <div className="ads-code" key="desc-4">
               <p className="ads-code__title">Figma token</p>
               <pre className="ads-code__content"><code>{`button/primary
@@ -632,7 +632,7 @@ Dark  → indigo/500`}</code></pre>
         <h2 className="cs-section-title">Four-stage quality check</h2>
           <p className="cs-body-text" key="workflow-1">Giving an AI agent access to the design system doesn’t mean I trust everything it produces. I built a four-stage quality check around the workflow to make sure the system stays consistent as the agent works across Figma and code.</p>
         {full(
-<p className="cs-body-text" key="workflow-2">Each stage checks a different part of the system from keeping tokens in sync, to making sure the right components are used, validating the output in Storybook, and auditing the final result before it moves forward. </p>,
+<p className="cs-body-text" key="workflow-2">Each stage checks a different part of the system, from keeping tokens in sync, to making sure the right components are used, validating the output in Storybook, and auditing the final result before it moves forward. </p>,
 <p className="cs-body-text" key="workflow-3"> My aim was to let the agent work independently, while keeping Figma as the source of truth and making quality something the system can continuously check rather than relying on me to catch problems later.</p>,
         )}
 

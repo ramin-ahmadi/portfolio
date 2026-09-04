@@ -180,9 +180,9 @@ export default function Quote() {
 
                 <div className="ds-quote-expanded-body">
                  <p>
-                  Earlier in my career, I probably thought about design in a much neater way. There was a user, they had a problem, and my job was to design something that made that problem easier to solve. After working and delivering several products, I don't believe design works like that anymore. </p>
+                  Earlier in my career, I probably thought about design in a much neater way. There was a user, they had a problem, and my job was to design something that made that problem easier to solve. After working on and delivering several products, I don't believe design works like that anymore. </p>
                  <p>Products are messy. A decision that makes something easier for one person can create more work for someone else. A simple workflow might depend on data coming from three different avenues. That’s changed how I think about my role as a designer. </p>
-                 <p>A good design to me is about understanding enough of the system to know where to intervene, what not to change, and what consequences a decision might have elsewhere. I’ve learned that good design tends to emerge organically when our understanding of the system and the people within it gets deeper. That understanding rarely comes from just a designer like me which is why I believe good design is something <strong>we build together</strong>.  </p>
+                 <p>A good design to me is about understanding enough of the system to know where to intervene, what not to change, and what consequences a decision might have elsewhere. I’ve learned that good design tends to emerge organically when our understanding of the system and the people within it gets deeper. That understanding rarely comes from just a designer like me, which is why I believe good design is something <strong>we build together</strong>.  </p>
                 </div>
 
           

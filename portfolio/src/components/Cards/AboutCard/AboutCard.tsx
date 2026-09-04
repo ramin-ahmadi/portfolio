@@ -280,10 +280,10 @@ export default function AboutCard() {
                     My name is Ramin Ahmadi and I'm a product designer who
                     enjoys solving complex problems and building products that
                     balance user needs with business goals.
-                    Currently working as a Lead Product Designer at <strong>GlobeWest</strong>.
+                    I am currently working as a Lead Product Designer at <strong>GlobeWest</strong>.
                   </p>
                   <p>
-                    I am product designer with over 11 years of experience and two Master’s degrees in Artificial Intelligence and User Experience from the University of Melbourne, specialising in user-centred product design, design systems and AI interfaces.
+                    I am a product designer with over 11 years of experience and two master’s degrees in Artificial Intelligence and User Experience from the University of Melbourne, specialising in user-centred product design, design systems, and AI interfaces.
                     </p>
                   <p>
                     Over the years, I've led design teams and worked closely with engineers, product managers, and stakeholders to build scalable products. With a background in front-end development, I naturally bridge the gap between design and engineering, ensuring solutions are not only intuitive but also technically feasible and practical to implement.

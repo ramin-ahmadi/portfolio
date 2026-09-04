@@ -339,11 +339,11 @@ export default function DesignSystem() {
             products, Enable had outgrown its early design processes. For years,
             Enable had been an engineer-led platform, with engineers and product
             managers relying on Miro to stitch together prototypes by cutting
-            and pasting UI elements from various parts of the app. Leading to
+            and pasting UI elements from various parts of the app which Lead to
             inconsistent design across features and the product. The app had
             grown into five major features, each supported by dedicated teams of
             engineers and product managers. But with over 100 engineers working
-            across silos, the cracks were evident. The features, despite sharing
+            in silos, the cracks were evident. The features, despite sharing
             a common brand identity, looked and behaved differently. This
             created a fragmented experience that made the platform harder for
             users to navigate and learn.
@@ -361,7 +361,7 @@ export default function DesignSystem() {
         <h2 className="cs-section-title">Impact</h2>
         <h3 className="cs-subsection-title">1. Increase in Dev adoption </h3>
         <p className="cs-body-text" key="alignment">
-          SThe design system was successfully adopted by engineers, leading to a
+          The design system was successfully adopted by engineers, leading to a
           14% increase in component usage.
         </p>
         <h3 className="cs-subsection-title">2. Reduced redundancies</h3>
@@ -393,7 +393,7 @@ export default function DesignSystem() {
           At Enable, no two features looked the same, even when they shared the
           exact same UI elements. A button in one feature had rounded corners,
           while in another, it was sharp-edged. These inconsistencies weren’t
-          just aesthetic, they made the platform harder to use and even harder
+          just aesthetic; they made the platform harder to use and even harder
           to scale. To tackle this, I conducted a full UI audit, cataloguing
           every variation of components across Enable’s five core features. But
           addressing the inconsistencies wasn’t just about fixing the visuals.
@@ -426,7 +426,7 @@ export default function DesignSystem() {
       
       </div>
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Poject roadmap</h2>
+        <h2 className="cs-section-title">Project roadmap</h2>
         <p className="cs-body-text" key="colour-variables">
 
 
@@ -480,7 +480,7 @@ To build a culture of shared learning, I introduced "UI Party meetings", a weekl
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Unified token system</h2>
           <p className="cs-body-text" key="components">
-            As I explored ways to create a unified way of working within the design team, I stumbled upon <a href="https://medium.com/eightshapes-llc/team-models-for-scaling-a-design-system-2cf9d03be6a0" title="federated committee"> federated committee by design</a>    approach used by Google’s Material Design team. It balanced structure with flexibility, ensuring that design decisions were scalable while still allowing for adaptability across different components done by a team of designers.
+            As I explored ways to create a unified way of working within the design team, I stumbled upon <a href="https://medium.com/eightshapes-llc/team-models-for-scaling-a-design-system-2cf9d03be6a0" title="federated committee"> the federated committee by design</a>    approach used by Google’s Material Design team. It balanced structure with flexibility, ensuring that design decisions were scalable while still allowing for adaptability across different components done by a team of designers.
 
 With this in mind, I led the team in establishing a unified token system. Beyond just global variables, each component was assigned its own subset of variables, ensuring it had the flexibility to define its own parameters while still adhering to shared design foundations like colour and spacing. 
           </p>
@@ -530,7 +530,7 @@ With this in mind, I led the team in establishing a unified token system. Beyond
           <p className="cs-body-text" key="architecture-1">
            Building the Fava Design System was a collaborative effort, and it would not have been possible without the <a href="https://blog.enable.engineering/introducing-the-enable-design-system-69b1acc8eaeb" title="Introducing the Enable Design System">Engineering team</a>. 
            They partnered with UX throughout the project, validating component behaviour, shaping technical implementation, and providing continuous feedback as the system evolved. 
-           Their willingness to collaborate ensured the design system was more than a Figma library it became a shared foundation that improved consistency, accelerated development, and made it easier for teams to deliver high-quality product experiences together.
+           Their willingness to collaborate ensured the design system was more than a Figma library; it became a shared foundation that improved consistency, accelerated development, and made it easier for teams to deliver high-quality product experiences together.
           </p>,
         )}
       </div>
@@ -554,7 +554,7 @@ With this in mind, I led the team in establishing a unified token system. Beyond
 
         <h3>The Importance of regression testing</h3>
         <p className="cs-body-text">
-          Since we used <strong>centralised variables</strong> for consistencies, it was important to perform regression testing 
+          Since we used <strong>centralised variables</strong> for consistency, it was important to perform regression testing 
           with every review request at the branch level before merging to the main design system file. 
         </p>
 
@@ -562,7 +562,7 @@ With this in mind, I led the team in establishing a unified token system. Beyond
         <p className="cs-body-text">
           Involving engineers from the start ensures that designs are feasible, practical, and technically sound. 
           By addressing feasibility limitations early on, we minimised rework and developed components that adhered 
-          to <strong>atomic design standards</strong> and were feasible to be developed whether as native components or environment specific. 
+          to <strong>atomic design standards</strong> and were feasible to be developed whether as native or environment-specific components. 
         </p>
 
       </div>

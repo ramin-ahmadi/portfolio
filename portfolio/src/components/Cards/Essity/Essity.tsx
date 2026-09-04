@@ -420,7 +420,7 @@ export default function Essity() {
         </h1>
         {full(
           <p className="cs-body-text">
-            Understanding people, processes, and designing better exprience.
+            Understanding people, processes, and designing better expriences.
           </p>,
         )}
         <h2 className="cs-section-title">My role</h2>
@@ -433,7 +433,7 @@ export default function Essity() {
           </p>,
         )}
         <h3 className="cs-subsection-title">
-          Customer exprience improvements
+          Customer experience improvements
         </h3>
         {full(
           <p className="cs-body-text">
@@ -452,7 +452,7 @@ export default function Essity() {
             Affinity mapping<br></br>
             Personas<br></br>
             Journey mapping<br></br>
-            Feature prioritasation<br></br>
+            Feature prioritisation<br></br>
             Lo-fi & hi-fi designs<br></br>
             Usability testing<br></br>
             Accessibility testing<br></br>
@@ -466,7 +466,7 @@ export default function Essity() {
         src="/src/assets/images/essity/Essity.png"
         alt="A five-stage journey mapping"
       />
-      <p className="cs-hint">Essity project set out to create a B2B and B2C platform that simplified bulk purchasing while bringing sales, inventory, invoicing, pricing and contract management into one system.</p>
+      <p className="cs-hint">The Essity project set out to create a B2B and B2C platform that simplified bulk purchasing while bringing sales, inventory, invoicing, pricing and contract management into one system.</p>
 
       <Section title="Problem">
         <p className="cs-body-text">
@@ -543,8 +543,7 @@ export default function Essity() {
           </p>,
           <h3 className="cs-subsection-title">Rebate management</h3>,
           <p className="cs-body-text">
-            Rebate management
-            Give distributors a simple way to track and manage their rebates, helping ensure accurate payments and better visibility over their cash flow.
+            Rebate management give distributors a simple way to track and manage their rebates, helping ensure accurate payments and better visibility over their cash flow.
           </p>,
         )}
       </Section>
@@ -565,7 +564,7 @@ export default function Essity() {
       />
       <p className="cs-hint">Screenshot of a Miro workshop where I worked through ideas with the business stakeholders and the engineering team.</p>
 
-      <Section title="Low fidelity wireframes and usability testing">
+      <Section title="Low-fidelity wireframes and usability testing">
         {full(
           <p className="cs-body-text">
             I turned our workshop ideas into early concepts in Figma, using feedback and notes captured in Miro to guide the designs. Then I worked closely with the solution architect and business analysts to make sure what we designed could realistically be built within SAP.
@@ -588,7 +587,7 @@ export default function Essity() {
       <p className="cs-hint">Example of incorporating user feedback into low fidelity designs.</p>
 
 
-      <Section title="High fidelity designs">
+      <Section title="High-fidelity designs">
         {full(
         )}
       </Section>
@@ -598,17 +597,17 @@ export default function Essity() {
       <Section title="Accessibility">
         {full(
           <p className="cs-body-text">
-            Designing accessible digital experiences is critical to ensuring inclusivity for all users, including those with disabilities. For Essity Australia, adhering to WCAG 2.0 accessibility standards was not just a compliance requirement, it was a commitment to delivering a customer centric platform for a wide range of users.
+            Designing accessible digital experiences is critical to ensuring inclusivity for all users, including those with disabilities. For Essity Australia, adhering to WCAG 2.0 accessibility standards was not just a compliance requirement, it was a commitment to delivering a customer-centric platform for a wide range of users.
           </p>,
            <h3 className="cs-subsection-title">Colour palette compatibility</h3>,
           <p className="cs-body-text">
             The primary branding colour, pink, did not meet accessibility standards for colour contrast, requiring extensive effort to balance corporate identity with compliant design.
           </p>,
-                     <h3 className="cs-subsection-title">Complex navigatio</h3>,
+                     <h3 className="cs-subsection-title">Complex navigation</h3>,
           <p className="cs-body-text">
             Designing accessible menus and multi-level navigation that can cater for e-commerce and account functionalities required significant effort to ensure clarity. 
           </p>,
-                               <h3 className="cs-subsection-title">Data heavy interfaces</h3>,
+                               <h3 className="cs-subsection-title">Data-heavy interfaces</h3>,
           <p className="cs-body-text">
             Visualising complex tables in an accessible manner limited creative freedom while demanding meticulous attention to detail.
           </p>,
@@ -627,13 +626,13 @@ export default function Essity() {
           <p className="cs-body-text">
             Creating a clear strategic plan to launch an MVP ensures focus on delivering a quality product within time constraints. This approach also helps manage out-of-scope requests effectively, preventing them from derailing the project.
           </p>,
-                     <h3 className="cs-subsection-title">The Importance of user testing</h3>,
+                     <h3 className="cs-subsection-title">The importance of user testing</h3>,
           <p className="cs-body-text">
            User testing is vital throughout the entire design process. Applying insights learned during my Master's in UX, I consistently sought feedback to refine the user experience and ensure the final product truly met users’ needs.
           </p>,
                                <h3 className="cs-subsection-title">Early collaboration with engineers</h3>,
           <p className="cs-body-text">
-            Involving engineers from the start ensures that designs are feasible, practical, and technically sound. By addressing feasibility limitations early on, we minimised rework and developed solutions that effectively addressed user needs while staying within architectural  constraints within SAP systems.
+            Involving engineers from the start ensures that designs are feasible, practical, and technically sound. By addressing feasibility limitations early on, we minimised rework and developed solutions that effectively addressed user needs while staying within SAP’s architectural constraints.
           </p>,
 
 

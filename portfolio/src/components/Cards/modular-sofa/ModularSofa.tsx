@@ -311,7 +311,7 @@ export default function ModularSofa() {
             A modular sofa is made from separate pieces that can be combined into different shapes and sizes. This gives customers more flexibility, but it can also make choosing the right sofa feel like solving a puzzle.
           </p>,
           <p className="cs-body-text" >
-            Previous modular sofa purchase exprience made it difficult for customers to understand their options and make a confident purchase decision. The information was fragmented and the experience offered little guidance through the purchase.
+            Th previous modular sofa purchase exprience made it difficult for customers to understand their options and make a confident purchase decision. The information was fragmented and the experience offered little guidance through the purchase.
           </p>,
           <p className="cs-body-text" >
             I led the redesign of GlobeWest’s modular sofa experience, changing how the products were organised and presented online. The new modular sofa purchase journey introduced complete options that the customers could easily understand, compare and buy.
@@ -319,7 +319,7 @@ export default function ModularSofa() {
         )}
 
         <h2 className="cs-section-title">My role</h2>
-        <p className="cs-body-text">As Lead product designer, I guided the project from discovery through launch and post-launch activities.
+        <p className="cs-body-text">As lead product designer, I guided the project from discovery through launch and post-launch activities.
 
           My work included customer research, journey mapping, workshop facilitation, experience strategy, interaction design, prototype testing, analytics planning and user acceptance testing.
 
@@ -332,7 +332,7 @@ export default function ModularSofa() {
         <h3 className="cs-subsection-title">Increase in modular sofa sales</h3>
         {full(
           <p className="cs-body-text" key="faster">
-            Post-launch results showed growth in both modular sofa sales and order volume that indicates stronger customer engagement with the new experience.
+            Post-launch results showed growth in both modular sofa sales and order volume that indicate stronger customer engagement with the new experience.
           </p>,
         )}
 
@@ -375,7 +375,7 @@ export default function ModularSofa() {
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Understanding the pain points</h2>
         <p className="cs-body-text">
-          I used semi-structured interviews to understand the experience from both sides. I spoke with eight internal stakeholders across sales, customer service, showrooms and product to learn about business rules and technical constraints. I then interviewed eight customers and asked them to walk through the existing modulae sofa purchase journey togetehr. This helped me compare what internal teams believed was happening with what customers experienced.
+          I used semi-structured interviews to understand the experience from both sides. I spoke with eight internal stakeholders across sales, customer service, showrooms and product to learn about business rules and technical constraints. I then interviewed eight customers and asked them to walk through the existing modular sofa purchase journey together. This helped me compare what internal teams believed was happening with what customers experienced.
         </p>
 
         {full(
@@ -510,7 +510,7 @@ export default function ModularSofa() {
         {full(
           <p className="cs-body-text" key="faster">
             The strongest insight came from seeing how customers and sales teams made modular sofas easier to understand. In showrooms, sales teams used small wooden models to demonstrate different layouts. Online, Microsoft Clarity showed customers opening multiple product pages to find dimensions and understand how the pieces connected.
-            This inspired me to provide a solution that not only makes the modular product purchase easier but also compliments existing sales tools.
+            This inspired me to provide a solution that not only makes the modular product purchase easier but also complements existing sales tools.
           </p>,
           <div className="modular-sales-gallery" key="sales-gallery">
             <img
@@ -533,7 +533,7 @@ export default function ModularSofa() {
         {full(
           <p className="cs-body-text" key="faster">
             Presenting a complete sofa looked simple on the website, but it required accurate relationships between hundreds of individual products. It involved cleansing the raw NetSuite data, using GPT and Notion to create a workflow.
-            <br /> A repeatable workflow is essential for success since GlobeWest introduces new product ranges each year. The modular process proved its value when the collection 2027 launched with 6 new modular sofa families successfully using the same approach.
+            <br /> A repeatable workflow is essential for success since GlobeWest introduces new product ranges each year. The modular process proved its value when the 2027 collection launched with six new modular sofa families successfully using the same approach.
           </p>,
         )}
 

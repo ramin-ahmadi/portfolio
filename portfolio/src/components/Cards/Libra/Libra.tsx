@@ -225,14 +225,14 @@ export default function Libra() {
       <TldrToggle modelValue={tldr} onUpdate={setTldr} />
 
       <div className="cs-body">
-        <h1 className="cs-title">Behind the scenes of Libra's user-centric make-over</h1>
+        <h1 className="cs-title">Behind the scenes of Libra's user-centric makeover</h1>
 
         {full(
           <p className="cs-body-text" key="intro-1">
-            Libra, a female care brand in Australia, was the leading brand in 2021 but faced a challenge: only small precentage of their sales came from their online store. To address this, we embarked on a comprehensive UX design and discovery project focused on engaging a younger female audience.
+            Libra, a female care brand in Australia, was the leading brand in 2021 but faced a challenge: only a small percentage of their sales came from their online store. To address this, we embarked on a comprehensive UX design and discovery project focused on engaging a younger female audience.
           </p>,
           <p className="cs-body-text" key="intro-2">
-            As the lead UI/UX designer (2021), I led the project based on a design thinking approach, which involved conducting comprehensive user research and analysis, creating wireframes and prototypes, performing user testing and usability evaluations, and continuously incorporating feedback to update design resources ensuring high levels of usability and optimal user engagement.
+            As the lead UI/UX designer (2021), I led the project based on a design thinking approach, which involved conducting comprehensive user research and analysis, creating wireframes and prototypes, performing user testing and usability evaluations, and continuously incorporating feedback to update design resources, ensuring high levels of usability and optimal user engagement.
           </p>,
           <p className="cs-body-text" key="intro-3">
             It’s live on  {' '}
@@ -344,7 +344,7 @@ export default function Libra() {
             It didn’t just identify where the website needed improvements, but it also initiated meaningful discussions, helping bridge knowledge gaps and igniting idea generation among the team and stakeholders.
           </p>,
           <p className="cs-body-text" key="rename-3">
-            Mapping the journey also allowed me to identify key touch points, delving into user intent and tasks while considering the emotions and expectations users had along the way.
+            Mapping the journey also allowed me to identify key touchpoints, delving into user intent and tasks while considering the emotions and expectations users had along the way.
           </p>,
         )}
       </div>
@@ -358,10 +358,10 @@ export default function Libra() {
       <p className="cs-hint">A five-stage journey map following the persona from recognising a need to receiving her order, highlighting actions, emotions, pain points, touchpoints and opportunities.</p>
 
       <div className="cs-body cs-body--continued">
-        <h2 className="cs-section-title">Ideation:Balancing user needs with business priorities</h2>
+        <h2 className="cs-section-title">Ideation: Balancing user needs with business priorities</h2>
         {full(
           <p className="cs-body-text" key="model-1">
-            Facilitating UX ideation workshops for the Libra website was a pivotal step in introducing the client to design thinking. I brought together stakeholders from marketing, commercial, and product management for the workshops which aimed to align diverse perspectives around user needs and business objectives.
+            Facilitating UX ideation workshops for the Libra website was a pivotal step in introducing the client to design thinking. I brought together stakeholders from marketing, commercial, and product management for the workshops, which aimed to align diverse perspectives around user needs and business objectives.
           </p>,
           <p className="cs-body-text" key="model-2">
             Balancing user needs with business priorities was a recurring theme. I presented direct quotes from interviews and user feedback that underscored the value of some features such as subscription products. These insights shifted the conversation and helped me to add those features into the product roadmap.
@@ -370,7 +370,7 @@ export default function Libra() {
       </div>
 
       <img className="cs-cover-img" data-scroll-reveal src="/src/assets/images/libra/ideation.png" alt="Layer Lint settings panel showing model selector and API key management" />
-      <p className="cs-hint">using customer insights to introduce design thinking, align user and business needs, and secure features such as subscriptions on the product roadmap.</p>
+      <p className="cs-hint">Using customer insights to introduce design thinking, align user and business needs, and secure features such as subscriptions on the product roadmap.</p>
 
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Ideas to sketches</h2>
@@ -393,7 +393,7 @@ export default function Libra() {
         <h2 className="cs-section-title">User testing</h2>
 
         <p className="cs-body-text">
-          I conducted moderated user testing to assess the usability and effectiveness of the design. I selected a group of 5 participants that reflected the target audience (young women) and facilitated the testing sessions, where users were guided through key tasks such as making a purchase, subscribing to a kit, and navigating the website’s promotions and content.
+          I conducted moderated user testing to assess the usability and effectiveness of the design. I selected a group of five participants that reflected the target audience (young women) and facilitated the testing sessions, where users were guided through key tasks such as making a purchase, subscribing to a kit, and navigating the website’s promotions and content.
         </p>
 
         {full(
@@ -412,7 +412,7 @@ export default function Libra() {
       </div>
       <div className="cs-body cs-body--continued">
 
-        <h2 className="cs-section-title">High fidelity designs</h2>
+        <h2 className="cs-section-title">High-fidelity designs</h2>
 
         <p className="cs-body-text">
           Following the review of low-fidelity designs, I was tasked with creating high-fidelity designs in Figma that aligned with Libra's established brand guidelines. One of the biggest challenges was incorporating Libra Girl, a new section of the website with a completely different brand identity. To maintain consistency between the two brand identities, I used design tokens and shared styles. 
