@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperti
 import './styles/App.css'
 import './styles/tokens.css'
 import Nav from './components/Nav/Nav'
-import CursorTooltip from './components/Tooltip/Tooltip'
+import CursorTooltip from './components/tooltip/Tooltip'
 import { LAYOUTS, MOBILE_BREAKPOINT, MOBILE_LAYOUTS } from './components/FilterLayout/FilterLayout'
 import AboutCard from './components/Cards/AboutCard/AboutCard'
 import GmailCard from './components/Cards/GmailCard/GmailCard'
