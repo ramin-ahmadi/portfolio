@@ -3763,6 +3763,7 @@ width: 36px; height: 36px;
     flex: 1;
     text-align: center;
     padding: 10px 8px;
+    font-size: 15px;
   }
 
   .nav-logo-wrapper {

@@ -106,13 +106,14 @@ Follow me on Duolingo"
       <div className="duolingo-app-flag">
         <img src={APP_FLAG} alt="French Flag" />
       </div>
+      
 
       {shouldUseVideo ? (
         <video className="duolingo-avatar" autoPlay loop muted playsInline>
           <source src={AVATAR_WEBM} type="video/webm" />
         </video>
       ) : (
-        <img className="duolingo-avatar" src={AVATAR_FALLBACK} alt="Duolingo avatar" />
+        <img className="duolingo-avatar" src="src/assets/logos/duolingo-logo.svg" alt="Duolingo avatar" />
       )}
 
       <div className="duolingo-app-icon">
