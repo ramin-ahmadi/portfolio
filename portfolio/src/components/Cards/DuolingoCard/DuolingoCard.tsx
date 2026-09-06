@@ -4,7 +4,6 @@ const FIRE = '/src/assets/images/duolingo/duolingo-fire.svg'
 const APP_ICON = '/src/assets/logos/duolingo.svg'
 const APP_FLAG = '/src/assets/images/duolingo/duolingo-flag.svg'
 const AVATAR_WEBM = '/src/assets/videos/duolingo-avatar.webm'
-const AVATAR_FALLBACK = APP_ICON
 const PROFILE = 'https://www.duolingo.com/profile/Ram992212'
 const STREAK_API = 'https://duolingo-streak.ramin-ahmadi-portfolio.workers.dev/streak'
 
