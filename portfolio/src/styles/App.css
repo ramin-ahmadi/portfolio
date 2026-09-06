@@ -3762,7 +3762,7 @@ width: 36px; height: 36px;
   .nav-pill {
     flex: 1;
     text-align: center;
-    padding: 10px 8px;
+    padding: 10px 6px;
     font-size: 15px;
   }
 
