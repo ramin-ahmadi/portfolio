@@ -55,7 +55,7 @@ export default function DuolingoCard({ classes = '', streak: initialStreak = 0 }
         const response = await fetch(STREAK_API)
         const data = await response.json()  
         if (data != null) {current = data;
-            console.log(data)
+           
         }
       } catch {
        console.log('Error fetching streak data. Using initial streak value.')

@@ -287,7 +287,7 @@ export default function Libra() {
         src="./src/assets/images/libra/stats.png"
         alt="Page speed test recorded using https://tools.pingdom.com/."
       />
-      <span className="cs-hint">
+      <span className="cs-body cs-hint">
         Page speed test recorded using https://tools.pingdom.com/.
       </span>
 
@@ -355,7 +355,7 @@ export default function Libra() {
         src="/src/assets/images/libra/journey-map.png"
         alt="A five-stage journey mapping"
       />
-      <p className="cs-hint">A five-stage journey map following the persona from recognising a need to receiving her order, highlighting actions, emotions, pain points, touchpoints and opportunities.</p>
+      <p className="cs-body cs-hint">A five-stage journey map following the persona from recognising a need to receiving her order, highlighting actions, emotions, pain points, touchpoints and opportunities.</p>
 
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Ideation: Balancing user needs with business priorities</h2>
@@ -370,7 +370,7 @@ export default function Libra() {
       </div>
 
       <img className="cs-cover-img" data-scroll-reveal src="/src/assets/images/libra/ideation.png" alt="Layer Lint settings panel showing model selector and API key management" />
-      <p className="cs-hint">Using customer insights to introduce design thinking, align user and business needs, and secure features such as subscriptions on the product roadmap.</p>
+      <p className="cs-body cs-hint">Using customer insights to introduce design thinking, align user and business needs, and secure features such as subscriptions on the product roadmap.</p>
 
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Ideas to sketches</h2>
@@ -408,7 +408,7 @@ export default function Libra() {
           src="/src/assets/images/libra/user-testing.png"
           alt="User testing session"
         />
-        <p className="cs-hint">I tested the design with five participants, watching how they shopped and subscribed, and used what I learnt to refine the cart and checkout experience.</p>
+        <p className="cs-body cs-hint">I tested the design with five participants, watching how they shopped and subscribed, and used what I learnt to refine the cart and checkout experience.</p>
       </div>
       <div className="cs-body cs-body--continued">
 

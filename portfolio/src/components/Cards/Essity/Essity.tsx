@@ -466,7 +466,7 @@ export default function Essity() {
         src="/src/assets/images/essity/Essity.png"
         alt="A five-stage journey mapping"
       />
-      <p className="cs-hint">The Essity project set out to create a B2B and B2C platform that simplified bulk purchasing while bringing sales, inventory, invoicing, pricing and contract management into one system.</p>
+      <p className="cs-body cs-hint">The Essity project set out to create a B2B and B2C platform that simplified bulk purchasing while bringing sales, inventory, invoicing, pricing and contract management into one system.</p>
 
       <Section title="Problem">
         <p className="cs-body-text">
@@ -562,7 +562,7 @@ export default function Essity() {
         src="/src/assets/images/essity/ideation.png"
         alt="A five-stage journey mapping"
       />
-      <p className="cs-hint">Screenshot of a Miro workshop where I worked through ideas with the business stakeholders and the engineering team.</p>
+      <p className="cs-body cs-hint">Screenshot of a Miro workshop where I worked through ideas with the business stakeholders and the engineering team.</p>
 
       <Section title="Low-fidelity wireframes and usability testing">
         {full(
@@ -584,7 +584,7 @@ export default function Essity() {
         src="/src/assets/images/essity/usability-testing.png"
         alt="A five-stage journey mapping"
       />
-      <p className="cs-hint">Example of incorporating user feedback into low fidelity designs.</p>
+      <p className="cs-body cs-hint">Example of incorporating user feedback into low fidelity designs.</p>
 
 
       <Section title="High-fidelity designs">

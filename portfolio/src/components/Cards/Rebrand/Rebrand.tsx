@@ -582,7 +582,7 @@ The development team is also offshore, so even small changes can take time to sc
         src="/src/assets/images/agentic-ds/color-tokens.png"
         alt="A five-stage journey mapping"
       />
-      <p className="cs-hint">Figma component tokens mapped directly to CSS colour variables, showing how the same semantic naming and light/dark relationships carry consistently from design into code.</p>
+      <p className="cs-body cs-hint">Figma component tokens mapped directly to CSS colour variables, showing how the same semantic naming and light/dark relationships carry consistently from design into code.</p>
 
 
       <div className="cs-body cs-body--continued">
@@ -601,7 +601,7 @@ The development team is also offshore, so even small changes can take time to sc
         src="/src/assets/images/agentic-ds/light-dark.png"
         alt="A five-stage journey mapping"
       />
-      <p className="cs-hint">The same button component responding to light and dark themes in Storybook, validating that semantic tokens handle theme changes without component-level overrides.</p>
+      <p className="cs-body cs-hint">The same button component responding to light and dark themes in Storybook, validating that semantic tokens handle theme changes without component-level overrides.</p>
 
 
       <div className="cs-body cs-body--continued">

@@ -382,7 +382,7 @@ export default function DesignSystem() {
         src="./src/assets/images/design-system/problem.png"
         alt="Design system issues discovered through UI audit"
       />
-      <span className="cs-hint">
+      <span className="cs-body cs-hint">
         Example of inconsistent form controls: dropdowns use different visual
         styles, checkbox sizes vary, toggles are replaced with checkboxes, and
         the autocomplete field is not clearly identifiable.
@@ -419,8 +419,7 @@ export default function DesignSystem() {
         src="./src/assets/images/design-system/ui-audit.png"
         alt="UI audit image"
       />
-            <span className="cs-hint">
-       A comprehensive audit of the existing interface revealed inconsistent patterns, duplicated components, and varying interaction behaviours across the product. 
+            <span className="cs-body cs-hint">A comprehensive audit of the existing interface revealed inconsistent patterns, duplicated components, and varying interaction behaviours across the product. 
        These findings became the foundation for the new design system and helped with scoping the project.
       </span>
       
@@ -446,7 +445,7 @@ Data visualisation: Defining best practices for charts, data flows, and dashboar
         src="./src/assets/images/design-system/project-roadmap.png"
         alt="project roadmap image"
       />
-            <span className="cs-hint">
+            <span className="cs-body cs-hint">
       Breaking the design system into clear, achievable milestones. 
       </span>
 
@@ -473,7 +472,7 @@ To build a culture of shared learning, I introduced "UI Party meetings", a weekl
         src="./src/assets/images/design-system/Design-team-alignment.png"
         alt="Design team alignment"
       />
-            <span className="cs-hint">
+            <span className="cs-body cs-hint">
       One of our first conversations focused on defining our workflow and ways of working as a team.
       </span>
 
@@ -489,7 +488,7 @@ With this in mind, I led the team in establishing a unified token system. Beyond
       <ColourVariables />
 
 
-      <p className="cs-hint">  <span className="cc-interactive-tag">Interactive</span> Example of tokens used for the button component. Button colour variables are selectable.</p>
+      <p className="cs-body cs-hint">  <span className="cc-interactive-tag">Interactive</span> Example of tokens used for the button component. Button colour variables are selectable.</p>
         <div
           className="cs-body cs-body--continued"
           key="background-component-copy"
@@ -500,7 +499,7 @@ With this in mind, I led the team in establishing a unified token system. Beyond
         </div>
 
       <VimeoAutoPlayer />
-      <p className="cs-hint">This video demonstrates how the Autocomplete component uses design tokens for size and colour.</p>
+      <p className="cs-body cs-hint">This video demonstrates how the Autocomplete component uses design tokens for size and colour.</p>
 
 
   
@@ -522,7 +521,7 @@ With this in mind, I led the team in establishing a unified token system. Beyond
         src="/src/assets/images/design-system/documentation.png"
         alt="Component documentation"
       />
-      <p className="cs-hint">Example of the documentation structure used across every component in the design system.</p>
+      <p className="cs-body cs-hint">Example of the documentation structure used across every component in the design system.</p>
 
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Partnership with Engineering</h2>
@@ -540,7 +539,7 @@ With this in mind, I led the team in establishing a unified token system. Beyond
         src="/src/assets/images/design-system/component-structure.png"
         alt="Design system ecosystem"
       />
-      <p className="cs-hint">Design system ecosystem</p>
+      <p className="cs-body cs-hint">Design system ecosystem</p>
 
       <div className="cs-body cs-body--continued">
         <h2 className="cs-section-title">Key takeaways</h2>
